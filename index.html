@@ -3,87 +3,94 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>美以伊戰爭即時戰況儀表板｜2026.03.06</title>
+<title>美以伊戰爭即時戰況儀表板｜2026.03.07</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Rajdhani', sans-serif; background: #080c14; color: #c0d0e8; min-height: 100vh; padding: 28px 16px 48px; }
-  .container { max-width: 860px; margin: 0 auto; }
-  .header { text-align: center; margin-bottom: 28px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 20px; }
   .header-classified { font-family:'Share Tech Mono',monospace; font-size:10px; letter-spacing:6px; color:#ff4040; margin-bottom:8px; }
   .header-title { font-size: clamp(20px, 5vw, 32px); font-weight:700; letter-spacing:2px; background: linear-gradient(100deg,#fff 0%,#4da6ff 50%,#4dffaa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .header-sub { font-family:'Share Tech Mono',monospace; font-size:11px; color:#3d5470; margin-top:8px; letter-spacing:2px; }
-  .banner { background: linear-gradient(135deg,#05120a,#081a0e); border: 1px solid #4dffaa30; border-left: 3px solid #4dffaa; border-radius: 10px; padding: 14px 20px; margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; }
-  .banner-label { font-family:'Share Tech Mono',monospace; font-size:9px; letter-spacing:4px; margin-bottom:4px; }
-  .banner-value { font-size:17px; font-weight:700; }
-  .goal-box { background:#0d1525; border:1px solid #1e2a3a; border-radius:10px; padding:14px 20px; margin-bottom:20px; }
-  .goal-title { font-family:'Share Tech Mono',monospace; font-size:9px; color:#3d5470; letter-spacing:4px; margin-bottom:12px; }
-  .goal-grid { display:flex; flex-wrap:wrap; gap:8px; }
-  .goal-item { flex:1 1 180px; min-width:160px; background:#0a1020; border-radius:8px; padding:10px 14px; border-left:3px solid; }
-  .goal-tag { font-family:'Share Tech Mono',monospace; font-size:9px; letter-spacing:2px; margin-bottom:4px; }
-  .goal-text { font-size:13px; color:#c0d0e8; line-height:1.4; }
-  .goal-status { font-family:'Share Tech Mono',monospace; font-size:10px; margin-top:6px; font-weight:700; }
-  .tabs { display:flex; gap:6px; margin-bottom:22px; flex-wrap:wrap; }
-  .tab-btn { padding: 7px 18px; border-radius:6px; cursor:pointer; font-family:'Rajdhani',sans-serif; font-size:14px; font-weight:600; letter-spacing:1px; transition: all .2s; border: 1px solid #1e2a3a; background: transparent; color: #3d5470; }
-  .tab-btn.active { border-color:#4da6ff; background:#4da6ff18; color:#4da6ff; }
-  .section-label { font-family:'Share Tech Mono',monospace; font-size:9px; color:#3d5470; letter-spacing:4px; margin-bottom:14px; }
-  .cas-grid { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:24px; }
-  .cas-card { background:#0e1420; border-radius:10px; padding:16px 12px; text-align:center; flex:1 1 100px; min-width:90px; }
-  .cas-flag { font-size:20px; line-height:1; margin-bottom:8px; }
-  .cas-num { font-family:'Share Tech Mono',monospace; font-size:clamp(16px,3vw,24px); font-weight:700; line-height:1.3; }
-  .cas-name { font-size:11px; color:#566880; margin-top:6px; letter-spacing:1px; }
-  .stats-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; }
-  .stat-card { background:#0e1420; border:1px solid #1e2a3a; border-radius:10px; padding:14px 16px; display:flex; align-items:center; gap:14px; }
-  .stat-icon { font-size:26px; line-height:1; flex-shrink:0; }
-  .stat-val { font-family:'Share Tech Mono',monospace; font-size:20px; font-weight:700; color:#fff; line-height:1; }
-  .stat-lbl { font-size:12px; color:#566880; margin-top:4px; }
-  .mil-wrap { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:20px; }
-  .mil-panel { border-radius:12px; padding:20px 18px; flex:1 1 260px; min-width:0; }
-  .mil-panel.left { background:#091510; border:1px solid #4dffaa35; }
-  .mil-panel.right { background:#150909; border:1px solid #ff404035; }
-  .mil-title { font-size:14px; font-weight:700; letter-spacing:3px; margin-bottom:20px; }
-  .bar-row { margin-bottom:14px; }
-  .bar-meta { display:flex; justify-content:space-between; margin-bottom:6px; align-items:baseline; }
-  .bar-label { font-size:12px; color:#8a9bb0; }
-  .bar-pct { font-family:'Share Tech Mono',monospace; font-size:13px; font-weight:700; }
-  .bar-track { height:8px; border-radius:4px; background:#1c2235; overflow:hidden; }
-  .bar-fill { height:100%; border-radius:4px; width:0; transition: width 1s cubic-bezier(.4,0,.2,1); }
-  .vs-card { background:#0e1420; border:1px solid #1e2a3a; border-radius:10px; padding:18px 20px; }
-  .vs-row { display:flex; align-items:center; gap:12px; }
-  .vs-lbl { font-size:12px; font-weight:700; white-space:nowrap; }
-  .vs-track { flex:1; height:20px; background:#1c2235; border-radius:10px; overflow:hidden; display:flex; }
-  .vs-us { height:100%; background:linear-gradient(90deg,#4dffaa,#4da6ff); border-radius:10px 0 0 10px; }
-  .vs-ir { height:100%; background:linear-gradient(90deg,#ff4040,#ff7040); }
-  .vs-note { font-family:'Share Tech Mono',monospace; font-size:9px; color:#2a3a50; margin-top:10px; text-align:center; letter-spacing:2px; }
-  .hor-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px; margin-bottom:20px; }
-  .hor-card { background:#0e1420; border-radius:10px; padding:18px 16px; }
-  .hor-label { font-size:12px; color:#566880; margin-bottom:8px; }
-  .hor-num { font-family:'Share Tech Mono',monospace; font-size:32px; font-weight:700; line-height:1; margin-bottom:10px; }
-  .hor-note { font-size:11px; color:#3d5470; margin-top:8px; }
-  .energy-strip { background:linear-gradient(135deg,#120f00,#160d00); border:1px solid #ffb34030; border-radius:10px; padding:18px 20px; }
-  .energy-grid { display:flex; flex-wrap:wrap; gap:16px; justify-content:space-around; margin-top:16px; }
-  .energy-item { text-align:center; min-width:80px; }
-  .energy-val { font-family:'Share Tech Mono',monospace; font-size:22px; font-weight:700; line-height:1; }
-  .energy-lbl { font-size:11px; color:#566880; margin-top:6px; }
-  .timeline { position:relative; padding-left:4px; }
-  .tl-line { position:absolute; left:72px; top:8px; bottom:8px; width:2px; background:linear-gradient(to bottom,#4da6ff55,#ff404055); border-radius:2px; }
-  .tl-row { display:flex; align-items:flex-start; gap:16px; margin-bottom:16px; position:relative; }
-  .tl-day { width:64px; flex-shrink:0; text-align:right; padding-top:2px; }
-  .tl-d { font-family:'Share Tech Mono',monospace; font-size:12px; color:#4da6ff; font-weight:700; }
-  .tl-date { font-family:'Share Tech Mono',monospace; font-size:10px; color:#2a3a50; }
-  .tl-dot { width:14px; height:14px; border-radius:50%; flex-shrink:0; margin-top:3px; z-index:1; border:2px solid #080c14; }
-  .tl-card { flex:1; min-width:0; background:#0e1420; border-radius:8px; padding:10px 14px; }
-  .tl-side { font-family:'Share Tech Mono',monospace; font-size:9px; letter-spacing:3px; margin-bottom:5px; }
-  .tl-text { font-size:14px; color:#c0d0e8; line-height:1.5; }
-  .diplo-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:10px; }
-  .diplo-card { background:#0e1420; border:1px solid #1e2a3a; border-radius:10px; padding:14px 16px; }
-  .diplo-tag { font-family:'Share Tech Mono',monospace; font-size:9px; letter-spacing:3px; margin-bottom:6px; }
-  .diplo-text { font-size:13px; color:#c0d0e8; line-height:1.5; }
-  .alert-banner { background:linear-gradient(135deg,#1a0a00,#180800); border:1px solid #ff604040; border-left:3px solid #ff6040; border-radius:10px; padding:12px 18px; margin-bottom:14px; }
+  .header-sub { font-family:'Share Tech Mono',monospace; font-size:10px; color:#3d5470; margin-top:6px; letter-spacing:2px; }
+  .timestamp-bar { background:#060a10; border:1px solid #1e2a3a; border-radius:8px; padding:8px 16px; margin-bottom:14px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:8px; }
+  .ts-item { font-family:'Share Tech Mono',monospace; font-size:10px; }
+  .ts-label { color:#2a3a50; margin-right:4px; }
+  .ts-val { color:#4da6ff; }
+  .ts-live { color:#4dffaa; animation: blink 1.5s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .alert-banner { background:linear-gradient(135deg,#1a0a00,#180800); border:1px solid #ff604040; border-left:3px solid #ff6040; border-radius:10px; padding:12px 18px; margin-bottom:12px; }
   .alert-tag { font-family:'Share Tech Mono',monospace; font-size:9px; color:#ff6040; letter-spacing:4px; margin-bottom:6px; }
   .alert-text { font-size:13px; color:#ffd0b0; line-height:1.7; }
-  .footer { margin-top:32px; padding-top:16px; border-top:1px solid #1a2030; font-family:'Share Tech Mono',monospace; font-size:9px; color:#2a3a50; text-align:center; letter-spacing:2px; line-height:1.8; }
+  .banner { background: linear-gradient(135deg,#05120a,#081a0e); border: 1px solid #4dffaa30; border-left: 3px solid #4dffaa; border-radius: 10px; padding: 12px 20px; margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center; }
+  .banner-label { font-family:'Share Tech Mono',monospace; font-size:9px; letter-spacing:4px; margin-bottom:3px; }
+  .banner-value { font-size:16px; font-weight:700; }
+  .goal-box { background:#0d1525; border:1px solid #1e2a3a; border-radius:10px; padding:14px 18px; margin-bottom:18px; }
+  .goal-title { font-family:'Share Tech Mono',monospace; font-size:9px; color:#3d5470; letter-spacing:4px; margin-bottom:12px; }
+  .goal-grid { display:flex; flex-wrap:wrap; gap:8px; }
+  .goal-item { flex:1 1 170px; min-width:150px; background:#0a1020; border-radius:8px; padding:9px 12px; border-left:3px solid; }
+  .goal-tag { font-family:'Share Tech Mono',monospace; font-size:9px; letter-spacing:2px; margin-bottom:4px; }
+  .goal-text { font-size:12px; color:#c0d0e8; line-height:1.4; }
+  .goal-status { font-family:'Share Tech Mono',monospace; font-size:9px; margin-top:5px; font-weight:700; }
+  .tabs { display:flex; gap:6px; margin-bottom:20px; flex-wrap:wrap; }
+  .tab-btn { padding:7px 16px; border-radius:6px; cursor:pointer; font-family:'Rajdhani',sans-serif; font-size:14px; font-weight:600; letter-spacing:1px; transition:all .2s; border:1px solid #1e2a3a; background:transparent; color:#3d5470; }
+  .tab-btn.active { border-color:#4da6ff; background:#4da6ff18; color:#4da6ff; }
+  .section-label { font-family:'Share Tech Mono',monospace; font-size:9px; color:#3d5470; letter-spacing:4px; margin-bottom:12px; }
+  .cas-grid { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+  .cas-card { background:#0e1420; border-radius:10px; padding:14px 10px; text-align:center; flex:1 1 90px; min-width:80px; }
+  .cas-flag { font-size:18px; line-height:1; margin-bottom:6px; }
+  .cas-num { font-family:'Share Tech Mono',monospace; font-size:clamp(14px,2.5vw,22px); font-weight:700; line-height:1.3; }
+  .cas-name { font-size:10px; color:#566880; margin-top:5px; letter-spacing:1px; }
+  .cas-src { font-family:'Share Tech Mono',monospace; font-size:8px; color:#2a3a50; margin-top:3px; }
+  .stats-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; }
+  .stat-card { background:#0e1420; border:1px solid #1e2a3a; border-radius:10px; padding:12px 14px; display:flex; align-items:flex-start; gap:12px; }
+  .stat-icon { font-size:22px; line-height:1; flex-shrink:0; margin-top:2px; }
+  .stat-val { font-family:'Share Tech Mono',monospace; font-size:17px; font-weight:700; color:#fff; line-height:1.1; }
+  .stat-lbl { font-size:11px; color:#566880; margin-top:3px; line-height:1.3; }
+  .mil-wrap { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:18px; }
+  .mil-panel { border-radius:12px; padding:18px 16px; flex:1 1 240px; min-width:0; }
+  .mil-panel.left { background:#091510; border:1px solid #4dffaa35; }
+  .mil-panel.right { background:#150909; border:1px solid #ff404035; }
+  .mil-title { font-size:13px; font-weight:700; letter-spacing:2px; margin-bottom:16px; }
+  .bar-row { margin-bottom:12px; }
+  .bar-meta { display:flex; justify-content:space-between; margin-bottom:5px; align-items:baseline; }
+  .bar-label { font-size:11px; color:#8a9bb0; }
+  .bar-pct { font-family:'Share Tech Mono',monospace; font-size:12px; font-weight:700; }
+  .bar-track { height:7px; border-radius:4px; background:#1c2235; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:4px; width:0; transition:width 1s cubic-bezier(.4,0,.2,1); }
+  .vs-card { background:#0e1420; border:1px solid #1e2a3a; border-radius:10px; padding:16px 18px; }
+  .vs-row { display:flex; align-items:center; gap:12px; }
+  .vs-lbl { font-size:12px; font-weight:700; white-space:nowrap; }
+  .vs-track { flex:1; height:18px; background:#1c2235; border-radius:9px; overflow:hidden; display:flex; }
+  .vs-us { height:100%; background:linear-gradient(90deg,#4dffaa,#4da6ff); border-radius:9px 0 0 9px; }
+  .vs-ir { height:100%; background:linear-gradient(90deg,#ff4040,#ff7040); }
+  .vs-note { font-family:'Share Tech Mono',monospace; font-size:9px; color:#2a3a50; margin-top:8px; text-align:center; letter-spacing:2px; }
+  .hor-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:10px; margin-bottom:16px; }
+  .hor-card { background:#0e1420; border-radius:10px; padding:16px 14px; }
+  .hor-label { font-size:11px; color:#566880; margin-bottom:6px; }
+  .hor-num { font-family:'Share Tech Mono',monospace; font-size:28px; font-weight:700; line-height:1; margin-bottom:8px; }
+  .hor-note { font-size:10px; color:#3d5470; line-height:1.4; }
+  .energy-strip { background:linear-gradient(135deg,#120f00,#160d00); border:1px solid #ffb34030; border-radius:10px; padding:16px 18px; }
+  .energy-grid { display:flex; flex-wrap:wrap; gap:14px; justify-content:space-around; margin-top:14px; }
+  .energy-item { text-align:center; min-width:70px; }
+  .energy-val { font-family:'Share Tech Mono',monospace; font-size:20px; font-weight:700; line-height:1; }
+  .energy-lbl { font-size:10px; color:#566880; margin-top:5px; line-height:1.3; }
+  .timeline { position:relative; padding-left:4px; }
+  .tl-line { position:absolute; left:72px; top:8px; bottom:8px; width:2px; background:linear-gradient(to bottom,#4da6ff55,#ff404055); border-radius:2px; }
+  .tl-row { display:flex; align-items:flex-start; gap:14px; margin-bottom:14px; position:relative; }
+  .tl-day { width:64px; flex-shrink:0; text-align:right; padding-top:2px; }
+  .tl-d { font-family:'Share Tech Mono',monospace; font-size:11px; color:#4da6ff; font-weight:700; }
+  .tl-date { font-family:'Share Tech Mono',monospace; font-size:9px; color:#2a3a50; }
+  .tl-dot { width:13px; height:13px; border-radius:50%; flex-shrink:0; margin-top:3px; z-index:1; border:2px solid #080c14; }
+  .tl-card { flex:1; min-width:0; background:#0e1420; border-radius:8px; padding:9px 13px; }
+  .tl-side { font-family:'Share Tech Mono',monospace; font-size:9px; letter-spacing:3px; margin-bottom:4px; }
+  .tl-text { font-size:13px; color:#c0d0e8; line-height:1.5; }
+  .diplo-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:10px; }
+  .diplo-card { background:#0e1420; border:1px solid #1e2a3a; border-radius:10px; padding:12px 15px; }
+  .diplo-tag { font-family:'Share Tech Mono',monospace; font-size:9px; letter-spacing:3px; margin-bottom:6px; }
+  .diplo-text { font-size:12px; color:#c0d0e8; line-height:1.5; }
+  .footer { margin-top:28px; padding-top:14px; border-top:1px solid #1a2030; font-family:'Share Tech Mono',monospace; font-size:9px; color:#2a3a50; text-align:center; letter-spacing:2px; line-height:1.8; }
   .panel { display:none; }
   .panel.active { display:block; }
 </style>
@@ -94,16 +101,23 @@
   <div class="header">
     <div class="header-classified">⚠ SITUATION REPORT — MULTI-SOURCE VERIFIED</div>
     <div class="header-title">美以伊戰爭即時戰況儀表板</div>
-    <div class="header-sub">DAY 7 ｜ 2026.03.06 ｜ Reuters · AP · CNN · NPR · CBS · Al Jazeera · Wikipedia · CENTCOM · CSIS · Washington Institute · Jane's · The War Zone</div>
+    <div class="header-sub">Operation Epic Fury (US) / Operation Roaring Lion (IL) ｜ Reuters · AP · CNN · Al Jazeera · Wikipedia · CENTCOM · CSIS · IAEA · UNICEF</div>
+  </div>
+
+  <div class="timestamp-bar">
+    <div class="ts-item"><span class="ts-label">資料截至</span><span class="ts-val">2026.03.07 00:30 UTC+8（台灣時間）</span></div>
+    <div class="ts-item"><span class="ts-label">衝突第</span><span class="ts-val">D+7 天</span></div>
+    <div class="ts-item"><span class="ts-label">開戰日期</span><span class="ts-val">2026.02.28 01:15 ET</span></div>
+    <div class="ts-item"><span class="ts-label">狀態</span><span class="ts-live">● 持續進行中</span></div>
   </div>
 
   <div class="alert-banner">
-    <div class="alert-tag">🔴 BREAKING — D+7 （多方查證）</div>
+    <div class="alert-tag">🔴 BREAKING — D+7（CNN · Al Jazeera · Wikipedia 多方查證）</div>
     <div class="alert-text">
-      👑 穆吉塔巴·哈梅內伊（55歲）據Iran International消息人士：已由專家委員會選出，待其父下葬後正式宣布；8名委員因IRGC施壓宣布抵制第二輪投票，正式程序有爭議（Wikipedia · Iran Intl）<br/>
-      🇺🇸 川普：「已太遲（Too late）」拒絕談判；同時評估向伊朗境內武裝反對派提供支援（WSJ）<br/>
-      🇶🇦 卡達戰機射下2架伊朗Su-24轟炸機，成為衝突中首個擊落伊朗飛機的國家（Wikipedia）<br/>
-      🇱🇧 真主黨3/2正式攻擊以色列；以色列反擊造成黎巴嫩至少31人死亡、149人受傷（黎巴嫩衛生部 via NPR/CBS）
+      ✈️ IDF宣布進入「新階段」：已完成2,500次打擊、投放6,000+枚武器，聲稱摧毀80%伊朗防空系統；德黑蘭遭「比以往更猛烈」轟炸，Al Jazeera記者現場確認<br/>
+      🇺🇸 川普否定穆吉塔巴：「他是不可接受的人選」，宣稱將直接介入選定新最高領袖；稱伊朗「已被夷平，走在進度前面」<br/>
+      🛢️ 布倫特原油本週飆漲24%、美油+31%；Maersk成為第二家停止中東運營的航運巨頭；油槽滿載，分析師警告產油商恐被迫停產<br/>
+      🇱🇧 IDF對貝魯特達希耶全區發出撤離令，進行26輪空襲；黎巴嫩死亡升至123人、683人受傷（黎衛生部）
     </div>
   </div>
 
@@ -114,36 +128,41 @@
     </div>
     <div style="text-align:right">
       <div class="banner-label" style="color:#ff4040">伊朗政權狀況</div>
-      <div class="banner-value" style="color:#ff4040">❌ 政權延續 — 繼承人即將就位</div>
+      <div class="banner-value" style="color:#ff4040">❌ 政權延續 — 接班程序陷入爭議</div>
     </div>
   </div>
 
   <div class="goal-box">
-    <div class="goal-title">▶ 美國官方戰略目標（CENTCOM聲明 + Trump Truth Social + 國務院，截至 D+7）</div>
+    <div class="goal-title">▶ 美國官方戰略目標（CENTCOM聲明 · Trump Truth Social · 國務院，截至 D+7 00:30 UTC+8）</div>
     <div class="goal-grid">
       <div class="goal-item" style="border-color:#4dffaa">
         <div class="goal-tag" style="color:#4dffaa">消滅伊朗海軍</div>
-        <div class="goal-text">CENTCOM：伊朗波斯灣海軍戰力已被中和；Trump：「伊朗再無海軍」</div>
+        <div class="goal-text">CENTCOM：波斯灣戰力已被中和；Trump：「伊朗再無海軍」</div>
         <div class="goal-status" style="color:#4dffaa">✅ 幾近達成</div>
+      </div>
+      <div class="goal-item" style="border-color:#4dffaa">
+        <div class="goal-tag" style="color:#4dffaa">制空 / 防空</div>
+        <div class="goal-text">IDF：已摧毀80%伊朗防空系統；Trump：「伊朗再無空軍、防空及雷達」</div>
+        <div class="goal-status" style="color:#4dffaa">✅ IDF聲稱幾近達成（待核實）</div>
       </div>
       <div class="goal-item" style="border-color:#ffb340">
         <div class="goal-tag" style="color:#ffb340">飛彈與核武計畫</div>
-        <div class="goal-text">IDF宣稱摧毀300+發射架；IAEA：伊斯法罕附近2棟建築受損，核材料設施無受損，無放射性洩漏</div>
-        <div class="goal-status" style="color:#ffb340">⚡ 重大推進，IAEA尚未確認核武能力被摧毀</div>
+        <div class="goal-text">IDF：摧毀300+發射架；美B-2投放穿地炸彈；IAEA：核材料設施無受損</div>
+        <div class="goal-status" style="color:#ffb340">⚡ 重大推進，核能力未確認被摧毀</div>
       </div>
       <div class="goal-item" style="border-color:#ff4040">
         <div class="goal-tag" style="color:#ff4040">代理人網絡</div>
-        <div class="goal-text">目標切斷真主黨、哈馬斯、胡塞支援；真主黨已在3/2正式參戰，效果逆轉</div>
-        <div class="goal-status" style="color:#ff4040">❌ 真主黨已參戰，胡塞仍觀望</div>
+        <div class="goal-text">目標切斷哈馬斯、真主黨、胡塞支援；真主黨已於3/2正式參戰，效果逆轉</div>
+        <div class="goal-status" style="color:#ff4040">❌ 真主黨已參戰</div>
       </div>
       <div class="goal-item" style="border-color:#ff4040">
         <div class="goal-tag" style="color:#ff4040">政權更替（矛盾目標）</div>
-        <div class="goal-text">Trump：目標為政權更替；赫格塞斯：否認；WSJ：仍評估支援武裝反對派；官方說法前後不一</div>
-        <div class="goal-status" style="color:#ff4040">❌ 穆吉塔巴即將接班，政權延續</div>
+        <div class="goal-text">Trump否定穆吉塔巴，宣稱介入新領袖選定；赫格塞斯D+2否認此目標；WSJ：評估支援反對派</div>
+        <div class="goal-status" style="color:#ff4040">❌ 接班爭議中，政權延續</div>
       </div>
       <div class="goal-item" style="border-color:#566880">
         <div class="goal-tag" style="color:#566880">終戰條件</div>
-        <div class="goal-text">Trump稱「四至五週」；曾提委內瑞拉模式；從未清楚定義終戰標準或判勝條件</div>
+        <div class="goal-text">Trump稱「四至五週」；從未清楚定義終戰標準或勝利條件</div>
         <div class="goal-status" style="color:#566880">❓ 未定義（CSIS：難見終局）</div>
       </div>
     </div>
@@ -157,44 +176,42 @@
     <button class="tab-btn" onclick="switchTab(4)">外交動態</button>
   </div>
 
-  <!-- TAB 0 -->
   <div class="panel active" id="tab0">
-    <div class="section-label">▶ CASUALTIES（Al Jazeera追蹤器 + 各國官方聲明，截至D+7）</div>
+    <div class="section-label">▶ CASUALTIES（Al Jazeera · 各國衛生部 · UNICEF · CENTCOM，截至 2026.03.07 00:30 UTC+8）</div>
     <div class="cas-grid">
-      <div class="cas-card" style="border:1px solid #ff404035"><div class="cas-flag">🇮🇷</div><div class="cas-num" style="color:#ff4040" data-target="1230">0</div><div class="cas-name">伊朗<br>死亡</div></div>
-      <div class="cas-card" style="border:1px solid #ff404035"><div class="cas-flag">🇮🇷</div><div class="cas-num" style="color:#ff4040" data-target="6000">0</div><div class="cas-name">伊朗<br>傷者</div></div>
-      <div class="cas-card" style="border:1px solid #4da6ff35"><div class="cas-flag">🇮🇱</div><div class="cas-num" style="color:#4da6ff" data-target="11">0</div><div class="cas-name">以色列<br>死亡</div></div>
-      <div class="cas-card" style="border:1px solid #4da6ff35"><div class="cas-flag">🇺🇸</div><div class="cas-num" style="color:#4da6ff" data-target="6">0</div><div class="cas-name">美軍<br>死亡</div></div>
-      <div class="cas-card" style="border:1px solid #ffb34035"><div class="cas-flag">🇱🇧</div><div class="cas-num" style="color:#ffb340" data-target="31">0</div><div class="cas-name">黎巴嫩<br>死亡</div></div>
-      <div class="cas-card" style="border:1px solid #ffb34035"><div class="cas-flag">🌍</div><div class="cas-num" style="color:#ffb340" data-target="12">0</div><div class="cas-name">海灣諸國<br>死亡</div></div>
+      <div class="cas-card" style="border:1px solid #ff404035"><div class="cas-flag">🇮🇷</div><div class="cas-num" style="color:#ff4040" data-target="1332">0</div><div class="cas-name">伊朗<br>死亡</div><div class="cas-src">伊朗紅新月</div></div>
+      <div class="cas-card" style="border:1px solid #ff404035"><div class="cas-flag">👧</div><div class="cas-num" style="color:#ff4040" data-target="181">0</div><div class="cas-name">其中<br>兒童</div><div class="cas-src">UNICEF</div></div>
+      <div class="cas-card" style="border:1px solid #4da6ff35"><div class="cas-flag">🇮🇱</div><div class="cas-num" style="color:#4da6ff" data-target="11">0</div><div class="cas-name">以色列<br>死亡</div><div class="cas-src">IDF</div></div>
+      <div class="cas-card" style="border:1px solid #4da6ff35"><div class="cas-flag">🇺🇸</div><div class="cas-num" style="color:#4da6ff" data-target="6">0</div><div class="cas-name">美軍<br>死亡</div><div class="cas-src">CENTCOM</div></div>
+      <div class="cas-card" style="border:1px solid #ffb34035"><div class="cas-flag">🇱🇧</div><div class="cas-num" style="color:#ffb340" data-target="123">0</div><div class="cas-name">黎巴嫩<br>死亡</div><div class="cas-src">黎衛生部</div></div>
+      <div class="cas-card" style="border:1px solid #ffb34035"><div class="cas-flag">🌍</div><div class="cas-num" style="color:#ffb340" data-target="15">0</div><div class="cas-name">海灣諸國<br>死亡</div><div class="cas-src">Al Jazeera</div></div>
     </div>
-    <div class="section-label">▶ KEY METRICS（CENTCOM + IDF + IAEA 聲明）</div>
+    <div class="section-label">▶ KEY METRICS</div>
     <div class="stats-grid">
-      <div class="stat-card"><span class="stat-icon">💥</span><div><div class="stat-val">2,000+</div><div class="stat-lbl">美以打擊目標（CENTCOM，D+3）</div></div></div>
-      <div class="stat-card"><span class="stat-icon">⚓</span><div><div class="stat-val">9→20+</div><div class="stat-lbl">伊朗軍艦擊沉（D+0時9艘，持續增加）</div></div></div>
-      <div class="stat-card"><span class="stat-icon">🚀</span><div><div class="stat-val">300+</div><div class="stat-lbl">伊朗飛彈發射架摧毀（IDF聲稱）</div></div></div>
-      <div class="stat-card"><span class="stat-icon">☢️</span><div><div class="stat-val">⚠</div><div class="stat-lbl">IAEA：伊斯法罕建築受損，核材料未受損</div></div></div>
-      <div class="stat-card"><span class="stat-icon">✈️</span><div><div class="stat-val">3架</div><div class="stat-lbl">美軍F-15E遭科威特防空誤擊（6名飛行員全部安全彈射）</div></div></div>
+      <div class="stat-card"><span class="stat-icon">💥</span><div><div class="stat-val">2,500次</div><div class="stat-lbl">IDF總打擊波次（6,000+枚武器，IDF）</div></div></div>
+      <div class="stat-card"><span class="stat-icon">🛡️</span><div><div class="stat-val">80%</div><div class="stat-lbl">伊朗防空系統遭摧毀（IDF聲稱，待核實）</div></div></div>
+      <div class="stat-card"><span class="stat-icon">📉</span><div><div class="stat-val">−90%</div><div class="stat-lbl">伊朗彈道飛彈攻擊量下降（美方估計）</div></div></div>
+      <div class="stat-card"><span class="stat-icon">💰</span><div><div class="stat-val">$3.7B</div><div class="stat-lbl">前100小時戰費（CSIS，$891M/天，$3.5B未編列預算）</div></div></div>
+      <div class="stat-card"><span class="stat-icon">✈️</span><div><div class="stat-val">F-15E×3</div><div class="stat-lbl">遭科威特防空誤擊，6名飛行員全數安全彈射</div></div></div>
       <div class="stat-card"><span class="stat-icon">🗺️</span><div><div class="stat-val">26/31</div><div class="stat-lbl">伊朗省份遭打擊（ACLED）</div></div></div>
     </div>
   </div>
 
-  <!-- TAB 1 -->
   <div class="panel" id="tab1">
     <div class="mil-wrap">
       <div class="mil-panel left">
         <div class="mil-title" style="color:#4dffaa">🇺🇸 🇮🇱 美以聯軍</div>
-        <div class="bar-row"><div class="bar-meta"><span class="bar-label">制空優勢</span><span class="bar-pct" style="color:#4dffaa">97%</span></div><div class="bar-track"><div class="bar-fill" style="background:#4dffaa" data-val="97"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span class="bar-label">制空優勢（IDF：「近乎完全」）</span><span class="bar-pct" style="color:#4dffaa">97%</span></div><div class="bar-track"><div class="bar-fill" style="background:#4dffaa" data-val="97"></div></div></div>
         <div class="bar-row"><div class="bar-meta"><span class="bar-label">海上控制</span><span class="bar-pct" style="color:#4dffaa">92%</span></div><div class="bar-track"><div class="bar-fill" style="background:#4dffaa" data-val="92"></div></div></div>
         <div class="bar-row"><div class="bar-meta"><span class="bar-label">飛彈攔截率</span><span class="bar-pct" style="color:#4dffaa">85%</span></div><div class="bar-track"><div class="bar-fill" style="background:#4dffaa" data-val="85"></div></div></div>
-        <div class="bar-row"><div class="bar-meta"><span class="bar-label">核武目標達成</span><span class="bar-pct" style="color:#ffb340">40%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ffb340" data-val="40"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span class="bar-label">核武目標達成（IAEA：材料未受損）</span><span class="bar-pct" style="color:#ffb340">40%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ffb340" data-val="40"></div></div></div>
       </div>
       <div class="mil-panel right">
-        <div class="mil-title" style="color:#ff4040">🇮🇷 伊朗（+🇱🇧 真主黨已加入）</div>
-        <div class="bar-row"><div class="bar-meta"><span class="bar-label">防空系統殘存</span><span class="bar-pct" style="color:#ff4040">15%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ff4040" data-val="15"></div></div></div>
+        <div class="mil-title" style="color:#ff4040">🇮🇷 伊朗（+🇱🇧 真主黨）</div>
+        <div class="bar-row"><div class="bar-meta"><span class="bar-label">防空系統殘存（IDF：已毀80%）</span><span class="bar-pct" style="color:#ff4040">15%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ff4040" data-val="15"></div></div></div>
         <div class="bar-row"><div class="bar-meta"><span class="bar-label">海軍殘存戰力</span><span class="bar-pct" style="color:#ff4040">8%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ff4040" data-val="8"></div></div></div>
-        <div class="bar-row"><div class="bar-meta"><span class="bar-label">飛彈發射能力</span><span class="bar-pct" style="color:#ff4040">10%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ff4040" data-val="10"></div></div></div>
-        <div class="bar-row"><div class="bar-meta"><span class="bar-label">無人機威脅</span><span class="bar-pct" style="color:#ffb340">45%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ffb340" data-val="45"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span class="bar-label">飛彈發射能力（↓90%，仍在攻擊）</span><span class="bar-pct" style="color:#ff4040">10%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ff4040" data-val="10"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span class="bar-label">無人機威脅（↓83%，仍活躍）</span><span class="bar-pct" style="color:#ffb340">45%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ffb340" data-val="45"></div></div></div>
       </div>
     </div>
     <div class="vs-card">
@@ -204,77 +221,76 @@
         <div class="vs-track"><div class="vs-us" style="width:83%"></div><div class="vs-ir" style="width:17%"></div></div>
         <span class="vs-lbl" style="color:#ff4040">17% 伊朗</span>
       </div>
-      <div class="vs-note">⚠ ESTIMATED — NOT OFFICIAL · CSIS：軍事優勢不代表政治目標達成 · IRGC指揮鏈部分中斷但仍運作</div>
+      <div class="vs-note">⚠ ESTIMATED — NOT OFFICIAL · CSIS：軍事優勢不等於政治目標達成 · IRGC指揮鏈部分中斷但仍運作</div>
     </div>
   </div>
 
-  <!-- TAB 2 -->
   <div class="panel" id="tab2">
     <div class="hor-grid">
-      <div class="hor-card" style="border:1px solid #ff404030"><div class="hor-label">船舶通行量</div><div class="hor-num" style="color:#ff4040">6%</div><div class="bar-track"><div class="bar-fill" style="background:#ff4040" data-val="6"></div></div><div class="hor-note">較戰前↓94%（IRGC宣稱封鎖）</div></div>
-      <div class="hor-card" style="border:1px solid #ff404030"><div class="hor-label">戰爭保險覆蓋</div><div class="hor-num" style="color:#ff4040">0%</div><div class="bar-track"><div class="bar-fill" style="background:#ff4040" data-val="0"></div></div><div class="hor-note">主要保險商全數撤出</div></div>
-      <div class="hor-card" style="border:1px solid #4dffaa30"><div class="hor-label">美軍海域控制</div><div class="hor-num" style="color:#4dffaa">85%</div><div class="bar-track"><div class="bar-fill" style="background:#4dffaa" data-val="85"></div></div><div class="hor-note">CENTCOM：伊朗海軍已被中和</div></div>
-      <div class="hor-card" style="border:1px solid #ffb34030"><div class="hor-label">無人機威脅範圍</div><div class="hor-num" style="color:#ffb340">45%</div><div class="bar-track"><div class="bar-fill" style="background:#ffb340" data-val="45"></div></div><div class="hor-note">已蔓延至亞塞拜然、賽普勒斯</div></div>
+      <div class="hor-card" style="border:1px solid #ff404030"><div class="hor-label">船舶通行量</div><div class="hor-num" style="color:#ff4040">6%</div><div class="bar-track" style="margin-bottom:8px"><div class="bar-fill" style="background:#ff4040" data-val="6"></div></div><div class="hor-note">較戰前↓94%；油槽滿載，分析師警告產油商恐被迫停產（CNN）</div></div>
+      <div class="hor-card" style="border:1px solid #ff404030"><div class="hor-label">戰爭保險覆蓋</div><div class="hor-num" style="color:#ff4040">0%</div><div class="bar-track" style="margin-bottom:8px"><div class="bar-fill" style="background:#ff4040" data-val="0"></div></div><div class="hor-note">主要保險商全數撤出</div></div>
+      <div class="hor-card" style="border:1px solid #4dffaa30"><div class="hor-label">美軍海域控制</div><div class="hor-num" style="color:#4dffaa">85%</div><div class="bar-track" style="margin-bottom:8px"><div class="bar-fill" style="background:#4dffaa" data-val="85"></div></div><div class="hor-note">CENTCOM：伊朗海軍波斯灣戰力已被中和</div></div>
+      <div class="hor-card" style="border:1px solid #ffb34030"><div class="hor-label">無人機威脅範圍</div><div class="hor-num" style="color:#ffb340">45%</div><div class="bar-track" style="margin-bottom:8px"><div class="bar-fill" style="background:#ffb340" data-val="45"></div></div><div class="hor-note">亞塞拜然、賽普勒斯、阿曼Duqm港均遭攻擊</div></div>
     </div>
     <div class="energy-strip">
-      <div class="section-label">▶ ENERGY & TRADE IMPACT</div>
+      <div class="section-label">▶ ENERGY & TRADE IMPACT（截至 D+7，CNN · Al Jazeera）</div>
       <div class="energy-grid">
-        <div class="energy-item"><div class="energy-val" style="color:#ffb340">~$80</div><div class="energy-lbl">布倫特原油（美元/桶）</div></div>
-        <div class="energy-item"><div class="energy-val" style="color:#ff7040">+13%</div><div class="energy-lbl">原油開戰以來漲幅</div></div>
-        <div class="energy-item"><div class="energy-val" style="color:#ffb340">20%</div><div class="energy-lbl">全球石油供應受阻比例</div></div>
-        <div class="energy-item"><div class="energy-val" style="color:#ff4040">改道</div><div class="energy-lbl">LNG船由海峽改航，歐洲能源緊張</div></div>
+        <div class="energy-item"><div class="energy-val" style="color:#ff4040">+24%</div><div class="energy-lbl">布倫特原油<br>本週漲幅</div></div>
+        <div class="energy-item"><div class="energy-val" style="color:#ff7040">+31%</div><div class="energy-lbl">美國原油<br>本週漲幅</div></div>
+        <div class="energy-item"><div class="energy-val" style="color:#ffb340">停航</div><div class="energy-lbl">Maersk / MSC<br>暫停中東航線</div></div>
+        <div class="energy-item"><div class="energy-val" style="color:#ff4040">滿載</div><div class="energy-lbl">區域油槽<br>出口幾乎停止</div></div>
+        <div class="energy-item"><div class="energy-val" style="color:#ffb340">$3.7B</div><div class="energy-lbl">前100小時<br>戰費（CSIS）</div></div>
       </div>
     </div>
   </div>
 
-  <!-- TAB 3 -->
   <div class="panel" id="tab3">
     <div class="timeline">
       <div class="tl-line"></div>
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+0</div><div class="tl-date">2/28</div></div><div class="tl-dot" style="background:#4dffaa;box-shadow:0 0 12px #4dffaa"></div><div class="tl-card" style="border:1px solid #4dffaa25"><div class="tl-side" style="color:#4dffaa">▲ 美以聯合行動</div><div class="tl-text">「史詩狂怒」+「咆哮之獅」展開（凌晨1:15 ET）；哈梅內伊、沙姆哈尼、巴克普爾等高層身亡；Minab女校遭打擊，伊朗衛生部稱180名學童罹難；Trump Truth Social宣稱目標為政權更替（CENTCOM · Aviation Week · CSIS · NPR）</div></div></div>
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+1</div><div class="tl-date">3/1</div></div><div class="tl-dot" style="background:#ff4040;box-shadow:0 0 12px #ff4040"></div><div class="tl-card" style="border:1px solid #ff404025"><div class="tl-side" style="color:#ff4040">▼ 伊朗反擊「真實承諾四」</div><div class="tl-text">伊朗攻擊27個美軍基地及以色列；Beit Shemesh飛彈攻擊造成以色列9人死亡；科威特Shuaiba港口伊朗無人機直擊美軍臨時作戰中心，5名陸軍後備役死亡（PBS · CNN · NBC）；Iran引發100,000人逃離德黑蘭（聯合國）</div></div></div>
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+2</div><div class="tl-date">3/2</div></div><div class="tl-dot" style="background:#ff4040;box-shadow:0 0 12px #ff4040"></div><div class="tl-card" style="border:1px solid #ff404025"><div class="tl-side" style="color:#ff4040">▼ 多方事件</div><div class="tl-text">真主黨正式對以色列發射飛彈；第6名美軍死亡（另一伊朗攻擊）；科威特F/A-18誤擊3架美軍F-15E，6名飛行員全部安全彈射（CENTCOM · The War Zone · Jane's）；哈梅內伊之妻傷重不治；赫格塞斯記者會否認政權更替目標</div></div></div>
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+3</div><div class="tl-date">3/3</div></div><div class="tl-dot" style="background:#4dffaa;box-shadow:0 0 12px #4dffaa"></div><div class="tl-card" style="border:1px solid #4dffaa25"><div class="tl-side" style="color:#4dffaa">▲ 美以行動</div><div class="tl-text">IRIS Dena護衛艦被擊沉（87名水兵罹難）；IDF炸毀伊朗國家電視台（IRIB）及Assembly of Experts辦公室；衛星影像確認Natanz附近爆炸；IAEA表示「伊斯法罕附近2棟建築受損，核材料設施無受損」；Iran Intl：IRGC向專家委員會施壓選出穆吉塔巴（Iran Intl · CSIS · IAEA）</div></div></div>
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+4</div><div class="tl-date">3/4</div></div><div class="tl-dot" style="background:#ffb340;box-shadow:0 0 12px #ffb340"></div><div class="tl-card" style="border:1px solid #ffb34025"><div class="tl-side" style="color:#ffb340">◆ 多方事件</div><div class="tl-text">卡達F-15戰機射下2架伊朗Su-24轟炸機，成為首個擊落伊朗飛機的國家；美參院戰爭授權決議47:53告敗；魯比奧警告美公民撤離中東；穆吉塔巴接班報道湧現，8名專家委員宣布抵制第二輪投票（Wikipedia · CBS News）</div></div></div>
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+5</div><div class="tl-date">3/5</div></div><div class="tl-dot" style="background:#ffb340;box-shadow:0 0 12px #ffb340"></div><div class="tl-card" style="border:1px solid #ffb34025"><div class="tl-side" style="color:#ffb340">◆ 多方事件</div><div class="tl-text">保險商全面取消波斯灣保障；伊朗無人機首次攻擊亞塞拜然（納希契萬）、賽普勒斯英軍基地；黎巴嫩下令逮捕革命衛隊；布什爾核電廠附近爆炸，Rosatom撤離非必要人員；以色列回應真主黨造成黎巴嫩31人死亡、149人受傷（黎巴嫩衛生部）</div></div></div>
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+6</div><div class="tl-date">3/6</div></div><div class="tl-dot" style="background:#ff6040;box-shadow:0 0 12px #ff6040"></div><div class="tl-card" style="border:1px solid #ff604025"><div class="tl-side" style="color:#ff6040">🔴 今日最新</div><div class="tl-text">穆吉塔巴·哈梅內伊據報獲選，待父親下葬後正式宣布；川普拒談判「已太遲」；WSJ：評估支援武裝反對派；聯合國呼籲停火；印度莫迪促各方克制；伊朗網路斷線破100小時；土耳其NATO防空系統攔截伊朗飛彈</div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+0</div><div class="tl-date">2/28</div></div><div class="tl-dot" style="background:#4dffaa;box-shadow:0 0 10px #4dffaa"></div><div class="tl-card" style="border:1px solid #4dffaa25"><div class="tl-side" style="color:#4dffaa">▲ 美以聯合行動（01:15 ET）</div><div class="tl-text">「史詩狂怒」+「咆哮之獅」展開；哈梅內伊、沙姆哈尼等高層身亡；哈梅內伊女兒、女婿、孫子同日罹難；Minab女校：168名學童+14名教職員死亡（紐時確認距IRGC海軍基地60m）；伊朗宣布40天哀悼（CENTCOM · 紐時 · CNN）</div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+1</div><div class="tl-date">3/1</div></div><div class="tl-dot" style="background:#ff4040;box-shadow:0 0 10px #ff4040"></div><div class="tl-card" style="border:1px solid #ff404025"><div class="tl-side" style="color:#ff4040">▼ 伊朗「真實承諾四」</div><div class="tl-text">伊朗攻擊27個美軍基地及以色列；Beit Shemesh飛彈攻擊9人死亡；科威特Shuaiba港美軍臨時作戰中心遭無人機直擊，5名陸軍後備役死亡；卡達Al Udeid基地遭2枚彈道飛彈直擊；德黑蘭10萬人逃離（聯合國）；約旦攔截49枚飛彈及無人機（Al Jazeera · PBS · CNN · Wikipedia）</div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+2</div><div class="tl-date">3/2</div></div><div class="tl-dot" style="background:#ff4040;box-shadow:0 0 10px #ff4040"></div><div class="tl-card" style="border:1px solid #ff404025"><div class="tl-side" style="color:#ff4040">▼ 真主黨參戰 / 友軍誤擊</div><div class="tl-text">真主黨正式向以色列發射飛彈（含向海法基地）；第6名美軍死亡；科威特F/A-18誤擊3架美軍F-15E，6名飛行員全數安全彈射；哈梅內伊之妻傷重不治；赫格塞斯記者會否認政權更替目標（CENTCOM · The War Zone · Wikipedia）</div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+3</div><div class="tl-date">3/3</div></div><div class="tl-dot" style="background:#4dffaa;box-shadow:0 0 10px #4dffaa"></div><div class="tl-card" style="border:1px solid #4dffaa25"><div class="tl-side" style="color:#4dffaa">▲ 美以行動</div><div class="tl-text">IRIS Dena護衛艦被美潛艦擊沉（87名水兵罹難；32名生還由斯里蘭卡海軍救起）；IDF炸毀IRIB國家電視台及議會建築；美B-2轟炸機首次投放穿地炸彈打擊深埋彈道飛彈發射架；IAEA：伊斯法罕2棟建築受損，核材料設施無受損（Wikipedia · IAEA · CENTCOM）</div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+4</div><div class="tl-date">3/4</div></div><div class="tl-dot" style="background:#ffb340;box-shadow:0 0 10px #ffb340"></div><div class="tl-card" style="border:1px solid #ffb34025"><div class="tl-side" style="color:#ffb340">◆ 多方事件</div><div class="tl-text">卡達F-15射下2架伊朗Su-24轟炸機（衝突中首個擊落伊朗飛機的國家）；美參院戰爭授權47:53告敗；CSIS：前100小時戰費$3.7B，$3.5B未編列預算；IRGC施壓推動穆吉塔巴接班，8名委員宣布抵制；IDF進入黎巴嫩南部建立「安全緩衝區」（Wikipedia · CBS · CSIS）</div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+5</div><div class="tl-date">3/5</div></div><div class="tl-dot" style="background:#ffb340;box-shadow:0 0 10px #ffb340"></div><div class="tl-card" style="border:1px solid #ffb34025"><div class="tl-side" style="color:#ffb340">◆ 多方事件</div><div class="tl-text">保險商全面取消波斯灣保障；伊朗無人機攻擊亞塞拜然（納希契萬）、賽普勒斯英軍基地、阿曼Duqm港；黎巴嫩下令逮捕革命衛隊；布什爾核電廠附近爆炸，Rosatom撤離；沙烏地攔截3枚彈道飛彈（目標為利雅德南部基地）；Maersk停止中東運營（Al Jazeera · Wikipedia · Reuters）</div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+6</div><div class="tl-date">3/6</div></div><div class="tl-dot" style="background:#ff4040;box-shadow:0 0 10px #ff4040"></div><div class="tl-card" style="border:1px solid #ff404025"><div class="tl-side" style="color:#ff4040">▼ 衝突升級</div><div class="tl-text">伊朗對特拉維夫及以色列中部發動混合無人機+飛彈攻擊；IDF宣布「新階段」轟炸德黑蘭University附近及住宅區、停車場、加油站；伊朗外長：德黑蘭Niloufar廣場小學遭擊中；美眾院亦否決戰爭授權案（219:212）；土耳其NATO防空攔截疑似伊朗飛彈（CNN · Al Jazeera）</div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+7</div><div class="tl-date">3/7</div></div><div class="tl-dot" style="background:#ff6040;box-shadow:0 0 10px #ff6040;animation:blink 1.5s infinite"></div><div class="tl-card" style="border:1px solid #ff604035"><div class="tl-side" style="color:#ff6040">🔴 今日最新（00:30 UTC+8）</div><div class="tl-text">德黑蘭持續「比以往更猛烈」的轟炸（Al Jazeera記者現場確認）；伊朗死亡升至1,332人含181名兒童（UNICEF）；Trump否定穆吉塔巴接班，宣稱介入選定新領袖；布倫特+24%、美油+31%；IDF對達希耶全區發撤離令；黎巴嫩死亡升至123人、683人受傷（CNN · Al Jazeera · UNICEF）</div></div></div>
     </div>
   </div>
 
-  <!-- TAB 4 -->
   <div class="panel" id="tab4">
-    <div class="section-label">▶ DIPLOMATIC & POLITICAL DEVELOPMENTS</div>
+    <div class="section-label">▶ DIPLOMATIC & POLITICAL（截至 2026.03.07 00:30 UTC+8）</div>
     <div class="diplo-grid">
       <div class="diplo-card" style="border-left:3px solid #ff4040">
         <div class="diplo-tag" style="color:#ff4040">🇮🇷 伊朗立場</div>
-        <div class="diplo-text">外長阿拉格齊：「停火不在議程——談判兩次都遭攻擊」；最高國安委秘書拉里賈尼：「不與美國談判」；穆吉塔巴尚未公開表態；IRGC指揮鏈部分中斷，但仍主導決策（CSIS · Iran Intl · CNN）</div>
+        <div class="diplo-text">外長阿拉格齊：「停火不在議程——我們談判時兩度遭攻擊」；總統沛澤什基安：「調停應針對美以，而非我們」；伊朗混合攻擊持續未放緩；伊朗情報部計畫切斷網路（Al Jazeera · CNN）</div>
       </div>
       <div class="diplo-card" style="border-left:3px solid #4da6ff">
         <div class="diplo-tag" style="color:#4da6ff">🇺🇸 美國立場（持續矛盾）</div>
-        <div class="diplo-text">Trump：「已太遲」；赫格塞斯：「非政權更替」；魯比奧：不排除地面部隊；白宮：曾提解除制裁換停止濃縮，伊朗拒絕；WSJ：評估支援武裝反對派；參院戰爭授權47:53告敗（CBS · NPR · WSJ · Rubio press conference）</div>
+        <div class="diplo-text">Trump：「已太遲」拒談，否定穆吉塔巴、宣稱介入選定；赫格塞斯D+2：「非政權更替」；魯比奧：不排除升級；白宮：曾提解除制裁換停濃縮遭拒；眾院219:212否決戰爭授權；WSJ：評估支援武裝反對派（CNN · NPR · WSJ）</div>
       </div>
       <div class="diplo-card" style="border-left:3px solid #4dffaa">
         <div class="diplo-tag" style="color:#4dffaa">🌍 國際反應</div>
-        <div class="diplo-text">聯合國安理會呼籲停火；印度莫迪促克制；法國已授權美軍使用法國基地；英國允許防禦性用途但拒攻擊性；西班牙拒絕開放基地（川普威脅報復）；台灣、索馬利蘭均譴責伊朗對海灣的攻擊（Wikipedia · Wikipedia）</div>
+        <div class="diplo-text">聯合國安理會呼籲停火；印度莫迪促各方克制；法國已授權美軍使用法國基地；英國允許防禦性用途，拒攻擊性；西班牙拒絕開放基地（Trump威脅報復）；台灣、索馬利蘭譴責伊朗攻擊海灣（Wikipedia · Reuters）</div>
       </div>
       <div class="diplo-card" style="border-left:3px solid #ffb340">
         <div class="diplo-tag" style="color:#ffb340">🛡️ 區域局勢</div>
-        <div class="diplo-text">真主黨3/2參戰；卡達射下2架伊朗Su-24；土耳其NATO防空攔截伊朗飛彈（哈泰省）；巴林攔截74枚飛彈及92架無人機；Burj Al Arab遭碎片波及；胡塞武裝仍保持克制；科威特大使館遭伊朗飛彈擊中，已關閉（Wikipedia · Reuters）</div>
+        <div class="diplo-text">真主黨3/2參戰；IDF對達希耶全區發撤離令，26輪空襲；沙烏地：Riyadh及東省（重要石油基地）均遭伊朗攻擊，無傷亡；土耳其NATO攔截疑似伊朗飛彈；巴林攔截74枚飛彈+92架無人機；胡塞仍保持克制（Reuters · CNN · Al Jazeera）</div>
       </div>
       <div class="diplo-card" style="border-left:3px solid #ff6040">
         <div class="diplo-tag" style="color:#ff6040">👑 伊朗政權傳承</div>
-        <div class="diplo-text">臨時領導委員會：總統沛澤什基安、司法首長莫赫塞尼-埃杰伊、教士阿拉菲；穆吉塔巴（55歲，不具阿亞圖拉頭銜）在IRGC壓力下獲選，合法性有疑問；8名委員宣布抵制；正式公告待哈梅內伊下葬後發布（Iran Intl · Wikipedia · CNN）</div>
+        <div class="diplo-text">臨時領導委員會：總統沛澤什基安、司法首長、教士阿拉菲；IRGC推動穆吉塔巴（55歲，不具阿亞圖拉頭銜）接班，合法性有疑問；8名委員抵制；Trump公開否定，宣稱介入；正式公告待哈梅內伊下葬後（Iran Intl · CNN · Wikipedia）</div>
       </div>
       <div class="diplo-card" style="border-left:3px solid #566880">
-        <div class="diplo-tag" style="color:#566880">📡 資訊與人道</div>
-        <div class="diplo-text">伊朗網路斷線逾100小時；WHO記錄13個伊朗醫療設施遭攻擊；哈梅內伊葬禮推遲（防美以攻擊人群），地點待定；黎巴嫩83,847名流離失所者；日本2名公民在伊遭拘押；伊朗軍令卸載外國社群媒體（Al Jazeera · WHO · Wikipedia）</div>
+        <div class="diplo-tag" style="color:#566880">📡 人道與資訊</div>
+        <div class="diplo-text">UNICEF：伊朗181名兒童死亡（含Minab 168人）；WHO：13個伊朗+1個黎巴嫩醫療設施遭攻擊；伊朗網路斷線逾100小時；黎巴嫩683人受傷、83,847名流離失所者；UAE 3人死亡78人受傷；日本2名公民在伊遭拘押（UNICEF · WHO · Al Jazeera）</div>
       </div>
     </div>
   </div>
 
   <div class="footer">
-    VERIFIED SOURCES: CENTCOM PRESS RELEASES · REUTERS · AP · CNN · NPR · CBS NEWS · PBS · AL JAZEERA · WIKIPEDIA · IRAN INTL · CSIS · WASHINGTON INSTITUTE · JANE'S · THE WAR ZONE · AIR & SPACE FORCES · IAEA · ACLED（截至 2026.03.06）<br/>
-    ⚠ 軍方聲索為單方數據 · IAEA確認伊斯法罕核材料未受損 · 傷亡數字持續更新 · 建議至 Reuters / AP / BBC 交叉確認
+    VERIFIED SOURCES: CENTCOM · AP · CNN · NPR · CBS · PBS · AL JAZEERA · WIKIPEDIA · IRAN INTL · CSIS · IAEA · JANE'S · THE WAR ZONE · UNICEF · WHO · ACLED · NYT · REUTERS<br/>
+    資料更新時間：2026.03.07 00:30 UTC+8 ｜ ⚠ 軍方數據為單方聲索 · IAEA確認核材料設施未受損 · 建議至 Reuters / AP / BBC 交叉確認
   </div>
 </div>
 <script>
