@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>美以伊戰爭即時戰況儀表板｜2026.03.12 D+12</title>
+<title>美以伊戰爭即時戰況儀表板｜2026.03.14 D+14</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
@@ -25,7 +25,7 @@
   .alert-item { font-size:14px; color:#ffd0b0; margin-bottom:10px; display:flex; gap:10px; align-items:flex-start; }
   .alert-item:last-child { margin-bottom:0; }
   .alert-icon { flex-shrink:0; }
-  .alert-body { line-height:1.6; }
+  .alert-body { line-height:1.65; }
   .banner { background:linear-gradient(135deg,#05120a,#081a0e); border:1px solid #4dffaa30; border-left:4px solid #4dffaa; border-radius:10px; padding:14px 22px; margin-bottom:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; align-items:center; }
   .banner-label { font-family:'Share Tech Mono',monospace; font-size:10px; letter-spacing:4px; margin-bottom:4px; }
   .banner-value { font-size:17px; font-weight:700; }
@@ -37,32 +37,32 @@
   .goal-text { font-size:13px; color:#c0d0e8; line-height:1.5; }
   .goal-status { font-family:'Share Tech Mono',monospace; font-size:10px; margin-top:8px; font-weight:700; }
   .tabs { display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; }
-  .tab-btn { padding:9px 22px; border-radius:6px; cursor:pointer; font-family:'Rajdhani',sans-serif; font-size:15px; font-weight:600; letter-spacing:1px; transition:all .2s; border:1px solid #1e2a3a; background:transparent; color:#3d5470; }
+  .tab-btn { padding:9px 20px; border-radius:6px; cursor:pointer; font-family:'Rajdhani',sans-serif; font-size:15px; font-weight:600; letter-spacing:1px; transition:all .2s; border:1px solid #1e2a3a; background:transparent; color:#3d5470; }
   .tab-btn.active { border-color:#4da6ff; background:#4da6ff18; color:#4da6ff; }
   .section-label { font-family:'Share Tech Mono',monospace; font-size:10px; color:#3d5470; letter-spacing:4px; margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid #0f1a28; }
   .cas-grid { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:30px; }
-  .cas-card { background:#0e1420; border-radius:12px; padding:20px 14px; text-align:center; flex:1 1 110px; min-width:100px; }
-  .cas-flag { font-size:24px; line-height:1; margin-bottom:10px; }
-  .cas-num { font-family:'Share Tech Mono',monospace; font-size:clamp(18px,2.5vw,26px); font-weight:700; line-height:1.3; }
-  .cas-name { font-size:12px; color:#566880; margin-top:8px; letter-spacing:1px; line-height:1.5; }
+  .cas-card { background:#0e1420; border-radius:12px; padding:18px 12px; text-align:center; flex:1 1 100px; min-width:95px; }
+  .cas-flag { font-size:22px; line-height:1; margin-bottom:8px; }
+  .cas-num { font-family:'Share Tech Mono',monospace; font-size:clamp(16px,2.3vw,24px); font-weight:700; line-height:1.3; }
+  .cas-name { font-size:12px; color:#566880; margin-top:6px; letter-spacing:1px; line-height:1.5; }
   .cas-src { font-family:'Share Tech Mono',monospace; font-size:9px; color:#2a3a50; margin-top:5px; }
   .stats-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; }
-  .stat-card { background:#0e1420; border:1px solid #1e2a3a; border-radius:12px; padding:18px 20px; display:flex; align-items:flex-start; gap:14px; }
-  .stat-icon { font-size:28px; line-height:1; flex-shrink:0; margin-top:2px; }
-  .stat-val { font-family:'Share Tech Mono',monospace; font-size:20px; font-weight:700; color:#fff; line-height:1.2; }
-  .stat-lbl { font-size:13px; color:#566880; margin-top:5px; line-height:1.4; }
+  .stat-card { background:#0e1420; border:1px solid #1e2a3a; border-radius:12px; padding:16px 18px; display:flex; align-items:flex-start; gap:12px; }
+  .stat-icon { font-size:26px; line-height:1; flex-shrink:0; margin-top:2px; }
+  .stat-val { font-family:'Share Tech Mono',monospace; font-size:19px; font-weight:700; color:#fff; line-height:1.2; }
+  .stat-lbl { font-size:13px; color:#566880; margin-top:4px; line-height:1.4; }
   .mil-wrap { display:flex; gap:18px; flex-wrap:wrap; margin-bottom:22px; }
-  .mil-panel { border-radius:12px; padding:22px 20px; flex:1 1 270px; min-width:0; }
+  .mil-panel { border-radius:12px; padding:20px 18px; flex:1 1 260px; min-width:0; }
   .mil-panel.left { background:#091510; border:1px solid #4dffaa35; }
   .mil-panel.right { background:#150909; border:1px solid #ff404035; }
-  .mil-title { font-size:15px; font-weight:700; letter-spacing:2px; margin-bottom:20px; }
-  .bar-row { margin-bottom:16px; }
-  .bar-meta { display:flex; justify-content:space-between; margin-bottom:7px; align-items:baseline; }
+  .mil-title { font-size:15px; font-weight:700; letter-spacing:2px; margin-bottom:18px; }
+  .bar-row { margin-bottom:14px; }
+  .bar-meta { display:flex; justify-content:space-between; margin-bottom:6px; align-items:baseline; }
   .bar-label { font-size:13px; color:#8a9bb0; }
   .bar-pct { font-family:'Share Tech Mono',monospace; font-size:14px; font-weight:700; }
   .bar-track { height:9px; border-radius:5px; background:#1c2235; overflow:hidden; }
   .bar-fill { height:100%; border-radius:5px; width:0; transition:width 1s cubic-bezier(.4,0,.2,1); }
-  .vs-card { background:#0e1420; border:1px solid #1e2a3a; border-radius:12px; padding:20px 22px; }
+  .vs-card { background:#0e1420; border:1px solid #1e2a3a; border-radius:12px; padding:18px 20px; }
   .vs-row { display:flex; align-items:center; gap:14px; }
   .vs-lbl { font-size:14px; font-weight:700; white-space:nowrap; }
   .vs-track { flex:1; height:22px; background:#1c2235; border-radius:11px; overflow:hidden; display:flex; }
@@ -70,36 +70,56 @@
   .vs-ir { height:100%; background:linear-gradient(90deg,#ff4040,#ff7040); }
   .vs-note { font-family:'Share Tech Mono',monospace; font-size:10px; color:#2a3a50; margin-top:10px; text-align:center; letter-spacing:2px; }
   .hor-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; margin-bottom:20px; }
-  .hor-card { background:#0e1420; border-radius:12px; padding:20px 18px; }
+  .hor-card { background:#0e1420; border-radius:12px; padding:18px 16px; }
   .hor-label { font-size:13px; color:#566880; margin-bottom:8px; }
-  .hor-num { font-family:'Share Tech Mono',monospace; font-size:32px; font-weight:700; line-height:1; margin-bottom:12px; }
+  .hor-num { font-family:'Share Tech Mono',monospace; font-size:30px; font-weight:700; line-height:1; margin-bottom:10px; }
   .hor-note { font-size:12px; color:#3d5470; line-height:1.5; }
-  .energy-strip { background:linear-gradient(135deg,#120f00,#160d00); border:1px solid #ffb34030; border-radius:12px; padding:20px 22px; }
-  .energy-grid { display:flex; flex-wrap:wrap; gap:16px; justify-content:space-around; margin-top:16px; }
-  .energy-item { text-align:center; min-width:85px; }
-  .energy-val { font-family:'Share Tech Mono',monospace; font-size:22px; font-weight:700; line-height:1; }
-  .energy-lbl { font-size:12px; color:#566880; margin-top:7px; line-height:1.4; }
+  .energy-strip { background:linear-gradient(135deg,#120f00,#160d00); border:1px solid #ffb34030; border-radius:12px; padding:18px 20px; }
+  .energy-grid { display:flex; flex-wrap:wrap; gap:16px; justify-content:space-around; margin-top:14px; }
+  .energy-item { text-align:center; min-width:80px; }
+  .energy-val { font-family:'Share Tech Mono',monospace; font-size:20px; font-weight:700; line-height:1; }
+  .energy-lbl { font-size:12px; color:#566880; margin-top:6px; line-height:1.4; }
   .timeline { position:relative; padding-left:4px; }
   .tl-line { position:absolute; left:76px; top:8px; bottom:8px; width:2px; background:linear-gradient(to bottom,#4da6ff55,#ff404055); border-radius:2px; }
-  .tl-row { display:flex; align-items:flex-start; gap:16px; margin-bottom:20px; position:relative; }
+  .tl-row { display:flex; align-items:flex-start; gap:16px; margin-bottom:18px; position:relative; }
   .tl-day { width:68px; flex-shrink:0; text-align:right; padding-top:2px; }
   .tl-d { font-family:'Share Tech Mono',monospace; font-size:12px; color:#4da6ff; font-weight:700; }
   .tl-date { font-family:'Share Tech Mono',monospace; font-size:10px; color:#2a3a50; }
   .tl-dot { width:15px; height:15px; border-radius:50%; flex-shrink:0; margin-top:3px; z-index:1; border:2px solid #080c14; }
-  .tl-card { flex:1; min-width:0; background:#0e1420; border-radius:10px; padding:14px 18px; }
-  .tl-side { font-family:'Share Tech Mono',monospace; font-size:10px; letter-spacing:3px; margin-bottom:8px; }
-  .tl-text { font-size:14px; color:#c0d0e8; line-height:1.7; }
-  .diplo-list { display:flex; flex-direction:column; gap:14px; }
-  .diplo-card { background:#0e1420; border:1px solid #1e2a3a; border-radius:10px; padding:18px 20px; display:grid; grid-template-columns:150px 1fr; gap:18px; align-items:start; }
-  .diplo-tag { font-family:'Share Tech Mono',monospace; font-size:10px; letter-spacing:2px; margin-bottom:6px; }
-  .diplo-country { font-size:20px; line-height:1.3; margin-top:4px; font-weight:700; }
-  .diplo-text { font-size:14px; color:#c0d0e8; line-height:1.7; border-left:1px solid #1e2a3a; padding-left:18px; }
+  .tl-card { flex:1; min-width:0; background:#0e1420; border-radius:10px; padding:12px 16px; }
+  .tl-side { font-family:'Share Tech Mono',monospace; font-size:10px; letter-spacing:3px; margin-bottom:6px; }
+  .tl-text { font-size:13.5px; color:#c0d0e8; line-height:1.65; }
+  .tl-src { margin-top:8px; }
+  .tl-src a { font-family:'Share Tech Mono',monospace; font-size:10px; color:#2a3a50; text-decoration:none; margin-right:10px; border-bottom:1px solid #1e2a3a; }
+  .tl-src a:hover { color:#4da6ff; }
+  .diplo-list { display:flex; flex-direction:column; gap:12px; }
+  .diplo-card { background:#0e1420; border:1px solid #1e2a3a; border-radius:10px; padding:16px 18px; display:grid; grid-template-columns:140px 1fr; gap:16px; align-items:start; }
+  .diplo-tag { font-family:'Share Tech Mono',monospace; font-size:10px; letter-spacing:2px; margin-bottom:5px; }
+  .diplo-country { font-size:18px; line-height:1.3; margin-top:4px; font-weight:700; }
+  .diplo-text { font-size:13.5px; color:#c0d0e8; line-height:1.65; border-left:1px solid #1e2a3a; padding-left:16px; }
   @media (max-width:600px) {
     .diplo-card { grid-template-columns:1fr; }
-    .diplo-text { border-left:none; border-top:1px solid #1e2a3a; padding-left:0; padding-top:12px; margin-top:4px; }
+    .diplo-text { border-left:none; border-top:1px solid #1e2a3a; padding-left:0; padding-top:10px; }
   }
+  /* Sources tab */
+  .src-section { margin-bottom:24px; }
+  .src-section-title { font-family:'Share Tech Mono',monospace; font-size:11px; color:#4da6ff; letter-spacing:4px; margin-bottom:10px; padding-bottom:6px; border-bottom:1px solid #1e2a3a; }
+  .src-list { display:flex; flex-direction:column; gap:8px; }
+  .src-item { background:#0e1420; border:1px solid #1e2a3a; border-radius:8px; padding:11px 14px; display:flex; flex-wrap:wrap; gap:10px; align-items:flex-start; }
+  .src-outlet { font-family:'Share Tech Mono',monospace; font-size:10px; color:#3d5470; width:76px; flex-shrink:0; padding-top:2px; }
+  .src-body { flex:1; min-width:0; }
+  .src-desc { font-size:13px; color:#8a9bb0; margin-bottom:6px; line-height:1.5; }
+  .src-link { display:inline-block; font-family:'Share Tech Mono',monospace; font-size:10px; color:#4da6ff; text-decoration:none; border:1px solid #4da6ff30; border-radius:4px; padding:3px 8px; margin-right:6px; margin-bottom:4px; transition:all .2s; }
+  .src-link:hover { background:#4da6ff18; border-color:#4da6ff; }
+  .src-link.green { color:#4dffaa; border-color:#4dffaa30; }
+  .src-link.green:hover { background:#4dffaa18; border-color:#4dffaa; }
+  .src-link.orange { color:#ffb340; border-color:#ffb34030; }
+  .src-link.orange:hover { background:#ffb34018; border-color:#ffb340; }
+  .src-link.red { color:#ff6040; border-color:#ff604030; }
+  .src-link.red:hover { background:#ff604018; border-color:#ff6040; }
+  .src-note { font-family:'Share Tech Mono',monospace; font-size:9px; color:#2a3a50; margin-top:4px; line-height:1.5; }
   .new-badge { display:inline-block; font-family:'Share Tech Mono',monospace; font-size:9px; color:#ff6040; border:1px solid #ff604060; border-radius:3px; padding:1px 5px; margin-left:6px; vertical-align:middle; }
-  .footer { margin-top:36px; padding-top:16px; border-top:1px solid #1a2030; font-family:'Share Tech Mono',monospace; font-size:10px; color:#2a3a50; text-align:center; letter-spacing:2px; line-height:2; }
+  .footer { margin-top:32px; padding-top:14px; border-top:1px solid #1a2030; font-family:'Share Tech Mono',monospace; font-size:10px; color:#2a3a50; text-align:center; letter-spacing:2px; line-height:2; }
   .panel { display:none; }
   .panel.active { display:block; }
 </style>
@@ -110,23 +130,23 @@
   <div class="header">
     <div class="header-classified">⚠ SITUATION REPORT — MULTI-SOURCE VERIFIED</div>
     <div class="header-title">美以伊戰爭即時戰況儀表板</div>
-    <div class="header-sub">Operation Epic Fury (US) · Operation Roaring Lion (IL) ｜ Al Jazeera · Wikipedia · ACLED · NBC · HoC Library · AP · CENTCOM · IAEA · WHO</div>
+    <div class="header-sub">Operation Epic Fury (US) · Operation Roaring Lion (IL) ｜ Al Jazeera · CNN · ACLED · Britannica · Wikipedia · PBS · NPR · AP · CENTCOM · IAEA</div>
   </div>
 
   <div class="timestamp-bar">
-    <div class="ts-item"><span class="ts-label">資料截至</span><span class="ts-val">2026.03.12 06:30 UTC+8（台灣時間）</span></div>
-    <div class="ts-item"><span class="ts-label">衝突天數</span><span class="ts-val">D+12（2026.03.12）</span></div>
+    <div class="ts-item"><span class="ts-label">資料截至</span><span class="ts-val">2026.03.14 13:05 UTC+8（台灣時間）</span></div>
+    <div class="ts-item"><span class="ts-label">衝突天數</span><span class="ts-val">D+14（2026.03.14）</span></div>
     <div class="ts-item"><span class="ts-label">開戰</span><span class="ts-val">2026.02.28 06:27 GMT</span></div>
     <div class="ts-item"><span class="ts-label">狀態</span><span class="ts-live">● 持續升級中</span></div>
   </div>
 
   <div class="alert-banner">
-    <div class="alert-tag">🔴 D+11–D+12 重大發展（Al Jazeera D+12 · Wikipedia · WHO · NBC · AP 多方查證）</div>
-    <div class="alert-item"><span class="alert-icon">🌧️</span><span class="alert-body"><strong>WHO 警告「黑雨（Black Rain）」毒性降雨</strong>——伊朗石油設施遭打擊後濃煙混入雨雲，德黑蘭已降含毒汙染物的黑色降雨，居民被警告不要外出；WHO 緊急發布健康警報（Al Jazeera D+12）</span></div>
-    <div class="alert-item"><span class="alert-icon">🚀</span><span class="alert-body">IRGC 發動<strong>第 37 波攻擊</strong>，使用「超重型科拉姆沙赫（Khoramshahr）飛彈」對以色列（特拉維夫、海法、西耶路撒冷）及美軍埃爾比勒、巴林 Manama 基地進行超過 3 小時的多層次齊射——伊朗稱本波為「最猛烈報復」（Al Jazeera D+12）</span></div>
-    <div class="alert-item"><span class="alert-icon">🏭</span><span class="alert-body"><strong>全球最大煉油廠之一 UAE Ruwais 設施停止運作</strong>（「預防性停機」，因無人機攻擊）；UAE 週二攔截 26 架無人機，但仍有 9 架落入境內；卡達升級威脅等級告知居民「留在室內」；科威特：伊朗 IRGC 宣稱 2 枚飛彈打擊美軍基地；英國 UKMTO：1 艘散裝貨船 + 1 艘貨船在杜拜附近及霍爾木茲遭不明飛射物擊中（Al Jazeera D+12 · AP）</span></div>
-    <div class="alert-item"><span class="alert-icon">🏫</span><span class="alert-body">白宮新聞秘書 Leavitt 確認：軍方正對<strong>伊朗女校致死約 175 名學生</strong>的打擊事件展開調查，「出現顯示美國飛彈責任的照片證據」；Trump：「任何時候我想結束，就會結束（any time I want it to end, it will end）」；Trump 還稱「<strong>已無目標可打（nothing left to target）</strong>」——但戰鬥仍在持續（Al Jazeera D+12）</span></div>
-    <div class="alert-item"><span class="alert-icon">🇺🇸</span><span class="alert-body">美軍累計 8 名死亡（第 7 名：Sgt. Pennington 3/8 不治；第 8 名：Maj. Davius 3/6 非戰鬥事件，均已於 D+8 公告）；美國會議員要求就戰爭目標召開公開聽證會，質疑行政當局策略；伊朗警察首長：將抗議者視為「敵人」（Al Jazeera D+12 · Military Times）</span></div>
+    <div class="alert-tag">🔴 D+13–D+14 重大發展（<a href="https://www.aljazeera.com/news/2026/3/13/iran-war-what-is-happening-on-day-14-of-us-israel-attacks" target="_blank" style="color:#ff6040;">Al Jazeera D+14 ↗</a> · <a href="https://www.cnn.com/2026/03/13/middleeast/us-israel-iran-middle-east-war-what-we-know-intl-hnk" target="_blank" style="color:#ff6040;">CNN D+14 ↗</a> · <a href="https://acleddata.com/update/middle-east-special-issue-march-2026" target="_blank" style="color:#ff6040;">ACLED ↗</a>）</div>
+    <div class="alert-item"><span class="alert-icon">✈️</span><span class="alert-body"><strong>美軍加油機在伊拉克西部墜毀（D+13，3/13）：4 名機組員罹難</strong>（CENTCOM / Al Jazeera 追蹤器確認），CNN 報導稱 6 名全員罹難（數字存在來源差異，待 CENTCOM 最終確認）；此事件後美軍死亡人數累計達 11 人（Al Jazeera 追蹤器 D+14）</span></div>
+    <div class="alert-item"><span class="alert-icon">👑</span><span class="alert-body">穆吉塔巴發表<strong>就任後首份聲明</strong>：「除非美國關閉區域所有基地，否則攻擊持續」；IDF 同日對德黑蘭 Basij 檢查站、德黑蘭防空設施、設拉子地下彈道飛彈廠及阿瓦士 IRGC 總部展開打擊（<a href="https://www.aljazeera.com/news/liveblog/2026/3/13/iran-war-live-trump-says-war-going-well-as-gulf-under-wave-of-attacks" target="_blank" style="color:#ffd0b0;">Live Blog ↗</a>）</span></div>
+    <div class="alert-item"><span class="alert-icon">💰</span><span class="alert-body">美國國務院宣布：<strong>對穆吉塔巴及伊朗政府主要人物懸紅 1,000 萬美元</strong>，並承諾提供舉報人移居美國資格；Trump 政府開戰首 6 天花費至少 <strong>$11.3B</strong>（參院密室簡報 / Reuters）；擬再申請 $50B；250+ 美國組織致函國會要求停止撥款（<a href="https://www.aljazeera.com/news/2026/3/12/trump-admin-estimates-us-war-on-iran-cost-11-3bn-in-first-6-days-report" target="_blank" style="color:#ffd0b0;">Al Jazeera ↗</a>）</span></div>
+    <div class="alert-item"><span class="alert-icon">🛢️</span><span class="alert-body">伊朗高層官員向 CNN 透露：<strong>伊朗考慮讓有限油輪通過霍爾木茲，條件是以人民幣結算石油貿易</strong>；同時美國批准 30 天俄羅斯石油制裁豁免以壓低油價（WSJ / Alma）；Macron 反對；布倫特仍維持 $100+（<a href="https://www.cnn.com/2026/03/13/middleeast/us-israel-iran-middle-east-war-what-we-know-intl-hnk" target="_blank" style="color:#ffd0b0;">CNN ↗</a>）</span></div>
+    <div class="alert-item"><span class="alert-icon">🚁</span><span class="alert-body">美軍部署 <strong>10,000 架 Merops 攔截無人機</strong>至中東（每架約 $14,000–15,000，作為廉價反無人機方案）；Netanyahu 宣示：「以色列能創造政權更替條件，但需伊朗人民上街」；黎巴嫩總統 Aoun 提出一個月停火框架（Alma D+13）（<a href="https://www.aljazeera.com/news/2026/3/13/iran-war-what-is-happening-on-day-14-of-us-israel-attacks" target="_blank" style="color:#ffd0b0;">Al Jazeera D+14 ↗</a>）</span></div>
   </div>
 
   <div class="banner">
@@ -136,42 +156,42 @@
     </div>
     <div style="text-align:right">
       <div class="banner-label" style="color:#ff4040">伊朗態勢</div>
-      <div class="banner-value" style="color:#ff4040">⚠️ 第 37 波反擊 — Khoramshahr 齊射</div>
+      <div class="banner-value" style="color:#ff4040">🔴 霍爾木茲關閉 · 人民幣石油條件</div>
     </div>
   </div>
 
   <div class="goal-box">
-    <div class="goal-title">▶ 美國戰略目標追蹤（CENTCOM · Pentagon · 白宮，截至 D+12）</div>
+    <div class="goal-title">▶ 美國戰略目標追蹤（CENTCOM · Pentagon · 白宮，截至 D+14）</div>
     <div class="goal-grid">
       <div class="goal-item" style="border-color:#4dffaa">
         <div class="goal-tag" style="color:#4dffaa">消滅伊朗海軍</div>
-        <div class="goal-text">CENTCOM：擊沉 43+ 艘軍艦 + 消滅 16 艘布雷船；赫格塞斯：「讓海峽恢復通行」為目標之一（CENTCOM · Al Jazeera）</div>
-        <div class="goal-status" style="color:#4dffaa">✅ 幾近達成；霍爾木茲仍實質封閉</div>
+        <div class="goal-text">CENTCOM：90+ 艘伊朗船艦受損或擊沉；沙烏地 Ras Tanura 煉油廠仍是無人機目標；Aramco 向烏克蘭採購攔截無人機（WSJ）</div>
+        <div class="goal-status" style="color:#4dffaa">✅ 海軍幾近瓦解；無人機威脅持續</div>
       </div>
       <div class="goal-item" style="border-color:#4dffaa">
         <div class="goal-tag" style="color:#4dffaa">制空 / 防空</div>
-        <div class="goal-text">IDF：聲稱摧毀 80% 防空；Trump：「已無目標可打」；伊朗仍以 Khoramshahr 飛彈持續攻擊（IDF · White House）</div>
-        <div class="goal-status" style="color:#4dffaa">✅ IDF 聲稱達成（待核實）</div>
+        <div class="goal-text">IDF 聲稱摧毀 80% 伊朗防空；D+14 繼續打擊德黑蘭防空設施及設拉子彈道飛彈地下廠；IDF 仍每日對德黑蘭發動打擊（Alma D+14）</div>
+        <div class="goal-status" style="color:#4dffaa">✅ IDF 聲稱達成（未獨立核實）</div>
       </div>
       <div class="goal-item" style="border-color:#ffb340">
-        <div class="goal-tag" style="color:#ffb340">飛彈與核武計畫 <span class="new-badge">調查中</span></div>
-        <div class="goal-text">CENTCOM：5,000+ 目標；飛彈發射率↓92%；但伊朗仍發射 Khoramshahr 超重型飛彈進行 3 小時齊射；IAEA：核材料設施無受損；伊朗威脅退出 NPT（Al Jazeera · IAEA）</div>
-        <div class="goal-status" style="color:#ffb340">⚡ 重大推進；伊朗仍有重型飛彈能力</div>
+        <div class="goal-tag" style="color:#ffb340">飛彈與核武計畫</div>
+        <div class="goal-text">CENTCOM：5,000+ 目標（D+10 數據）；設拉子地下彈道飛彈廠遭打擊（D+14）；IAEA：核材料設施無受損；伊朗威脅退出 NPT；分析：伊朗或透過<a href="https://www.aljazeera.com/features/2026/3/11/could-iran-be-using-chinas-highly-accurate-beidou-navigation-system" target="_blank" style="color:#ffb340;">中國北斗系統提升精準度 ↗</a></div>
+        <div class="goal-status" style="color:#ffb340">⚡ 重大推進；地下設施仍存疑</div>
       </div>
       <div class="goal-item" style="border-color:#ff4040">
         <div class="goal-tag" style="color:#ff4040">代理人網絡</div>
-        <div class="goal-text">黎巴嫩：真主黨持續對以色列攻擊，黎死亡 570 人（赫格塞斯：「黎巴嫩攻擊以色列次數已超越伊朗」）；伊拉克民兵仍活躍；胡塞：克制但備戰（ACLED）</div>
-        <div class="goal-status" style="color:#ff4040">❌ 真主黨強化；多條戰線持續</div>
+        <div class="goal-text">黎巴嫩：687 死 1,600+ 傷，含 98 名兒童；以色列 Arki 村空襲 5 名兒童罹難；Lebanese 大學學者遭空襲身亡（CNN D+14）；胡塞：ACLED 確認自 2025/10 起未攻擊商船（<a href="https://acleddata.com/update/middle-east-special-issue-march-2026" target="_blank" style="color:#ff4040;">ACLED ↗</a>）</div>
+        <div class="goal-status" style="color:#ff4040">❌ 黎巴嫩傷亡急升；胡塞克制</div>
       </div>
       <div class="goal-item" style="border-color:#ff4040">
-        <div class="goal-tag" style="color:#ff4040">政權更替 <span class="new-badge">更新</span></div>
-        <div class="goal-text">穆吉塔巴就任（D+9）；IDF：任何繼任者都是目標；赫格塞斯：「無法評論穆吉塔巴是否受傷」；Hamas 正式恭賀新領袖；伊朗警察首長警告抗議者將被視為「敵人」（Al Jazeera D+12）</div>
-        <div class="goal-status" style="color:#ff4040">❌ 強硬派接班；政權更替目標未達成</div>
+        <div class="goal-tag" style="color:#ff4040">政權更替</div>
+        <div class="goal-text">穆吉塔巴發表首份聲明仍強硬；Netanyahu：「以色列能創造政權更替條件，但需伊朗人民上街」；美國務院懸紅 $10M；以外長 Sa'ar 不排除暗殺</div>
+        <div class="goal-status" style="color:#ff4040">❌ 穆吉塔巴掌權；懸紅升級</div>
       </div>
       <div class="goal-item" style="border-color:#566880">
         <div class="goal-tag" style="color:#566880">終戰條件</div>
-        <div class="goal-text">Trump：「已無目標可打，任何時候我想結束就會結束」；但戰鬥仍持續；伊朗 FM：「需要繼續戰鬥，直到永久停戰」；議會議員要求公開聽證（Al Jazeera D+12 · NBC）</div>
-        <div class="goal-status" style="color:#566880">❓ Trump 模糊信號；伊朗拒談</div>
+        <div class="goal-text">Trump：「戰爭推進非常快速，軍隊無與倫比」；Graham：「不認為今天會結束」；伊朗：考慮人民幣條件開放霍爾木茲；黎巴嫩 Aoun 提一月停火框架；雙方均未啟動談判</div>
+        <div class="goal-status" style="color:#566880">❓ 伊朗首提霍爾木茲開放條件</div>
       </div>
     </div>
   </div>
@@ -185,75 +205,77 @@
     <button class="tab-btn" onclick="switchTab(5)">資料來源</button>
   </div>
 
-  <!-- TAB 0 -->
+  <!-- TAB 0 總覽 -->
   <div class="panel active" id="tab0">
-    <div class="section-label">▶ CASUALTIES — Al Jazeera 追蹤器 · 各國衛生部 · CENTCOM，截至 2026.03.12 06:30 UTC+8（週三 05:30 GMT 最新數字）</div>
+    <div class="section-label">▶ CASUALTIES — <a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank" style="color:#3d5470;">Al Jazeera 追蹤器 ↗</a> · Iran Health Ministry · CENTCOM，截至 2026.03.14 13:05 UTC+8</div>
     <div class="cas-grid">
       <div class="cas-card" style="border:1px solid #ff404040">
         <div class="cas-flag">🇮🇷</div>
-        <div class="cas-num" style="color:#ff4040" data-target="1300">0</div>
-        <div class="cas-name">伊朗平民死亡<br><span style="font-size:10px;color:#3d5470">近 10,000 處平民設施遭打擊</span></div>
-        <div class="cas-src"><a href="https://www.aljazeera.com/news/2026/3/11/iran-war-what-is-happening-on-day-12-of-us-israel-attacks" target="_blank" style="color:#2a3a50;text-decoration:none;">Al Jazeera D+12 ↗</a> / 伊朗衛生部 / UN 大使</div>
+        <div class="cas-num" style="color:#ff4040" data-target="1444">0</div>
+        <div class="cas-name">伊朗死亡<br><span style="font-size:10px;color:#3d5470">另 18,551 人受傷</span></div>
+        <div class="cas-src"><a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank" style="color:#2a3a50;text-decoration:none;">伊朗衛生部 / AJ D+14 ↗</a></div>
       </div>
       <div class="cas-card" style="border:1px solid #ff404040">
         <div class="cas-flag">👧</div>
         <div class="cas-num" style="color:#ff4040" data-target="181">0</div>
-        <div class="cas-name">其中兒童<br><span style="font-size:10px;color:#3d5470">女校事件調查中</span></div>
-        <div class="cas-src">UNICEF（含 Minab 168 人）</div>
+        <div class="cas-name">其中兒童<br><span style="font-size:10px;color:#3d5470">Minab 女校 168 人</span></div>
+        <div class="cas-src"><a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank" style="color:#2a3a50;text-decoration:none;">UNICEF ↗</a></div>
       </div>
       <div class="cas-card" style="border:1px solid #4da6ff40">
         <div class="cas-flag">🇮🇱</div>
-        <div class="cas-num" style="color:#4da6ff" data-target="13">0</div>
-        <div class="cas-name">以色列死亡<br><span style="font-size:10px;color:#3d5470">另 1,929 人受傷</span></div>
-        <div class="cas-src"><a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank" style="color:#2a3a50;text-decoration:none;">Al Jazeera 追蹤器 D+12 ↗</a></div>
+        <div class="cas-num" style="color:#4da6ff" data-target="15">0</div>
+        <div class="cas-name">以色列死亡<br><span style="font-size:10px;color:#3d5470">另 2,000+ 人受傷</span></div>
+        <div class="cas-src"><a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank" style="color:#2a3a50;text-decoration:none;">Al Jazeera 追蹤器 ↗</a></div>
       </div>
       <div class="cas-card" style="border:1px solid #4da6ff40">
         <div class="cas-flag">🇺🇸</div>
-        <div class="cas-num" style="color:#4da6ff" data-target="8">0</div>
-        <div class="cas-name">美軍死亡<br><span style="font-size:10px;color:#3d5470">另約 140 人受傷</span></div>
-        <div class="cas-src"><a href="https://www.cnn.com/2026/03/08/politics/us-service-member-killed-iran-war" target="_blank" style="color:#2a3a50;text-decoration:none;">CENTCOM / CNN D+8 ↗</a>（含 1 非戰鬥事件）</div>
+        <div class="cas-num" style="color:#4da6ff" data-target="11">0</div>
+        <div class="cas-name">美軍死亡<br><span style="font-size:10px;color:#3d5470">含伊拉克墜機 4 人（CNN：6 人）</span></div>
+        <div class="cas-src"><a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank" style="color:#2a3a50;text-decoration:none;">CENTCOM / AJ 追蹤器 ↗</a></div>
       </div>
       <div class="cas-card" style="border:1px solid #ffb34040">
         <div class="cas-flag">🇱🇧</div>
-        <div class="cas-num" style="color:#ffb340" data-target="570">0</div>
-        <div class="cas-name">黎巴嫩死亡<br><span style="font-size:10px;color:#3d5470">另 1,444 人受傷</span></div>
-        <div class="cas-src"><a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank" style="color:#2a3a50;text-decoration:none;">黎巴嫩災害管理辦公室 / Al Jazeera ↗</a></div>
+        <div class="cas-num" style="color:#ffb340" data-target="687">0</div>
+        <div class="cas-name">黎巴嫩死亡<br><span style="font-size:10px;color:#3d5470">含 98 名兒童</span></div>
+        <div class="cas-src"><a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank" style="color:#2a3a50;text-decoration:none;">黎巴嫩資訊部長 Morcos ↗</a></div>
       </div>
       <div class="cas-card" style="border:1px solid #ffb34040">
         <div class="cas-flag">🌍</div>
-        <div class="cas-num" style="color:#ffb340" data-target="750000">0</div>
-        <div class="cas-name">黎巴嫩<br>流離失所</div>
-        <div class="cas-src"><a href="https://www.aljazeera.com/news/2026/3/11/iran-war-what-is-happening-on-day-12-of-us-israel-attacks" target="_blank" style="color:#2a3a50;text-decoration:none;">Al Jazeera D+12 ↗</a></div>
+        <div class="cas-num" style="color:#ffb340" data-target="667000">0</div>
+        <div class="cas-name">黎巴嫩流離<br><span style="font-size:10px;color:#3d5470">非正式估計逾百萬</span></div>
+        <div class="cas-src"><a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank" style="color:#2a3a50;text-decoration:none;">UNHCR 登記 / AJ ↗</a></div>
       </div>
     </div>
 
-    <div class="section-label">▶ KEY METRICS — CENTCOM · Pentagon · CSIS · IAEA · WHO（D+12）</div>
+    <div class="section-label">▶ KEY METRICS — CENTCOM · Al Jazeera · CNN · Reuters（D+14）</div>
     <div class="stats-grid">
-      <div class="stat-card"><span class="stat-icon">🎯</span><div><div class="stat-val">5,000+</div><div class="stat-lbl">美軍累計打擊目標（Gen. Caine D+10；White House Leavitt D+12 確認）</div></div></div>
-      <div class="stat-card"><span class="stat-icon">🚀</span><div><div class="stat-val">第 37 波</div><div class="stat-lbl">伊朗 IRGC 累計發動波次（含 Khoramshahr 超重型飛彈 3 小時齊射）</div></div></div>
+      <div class="stat-card"><span class="stat-icon">💰</span><div><div class="stat-val">$11.3B</div><div class="stat-lbl">開戰首 6 天花費（Trump 政府參院密室簡報；擬再申請 $50B）<br><a href="https://www.aljazeera.com/news/2026/3/12/trump-admin-estimates-us-war-on-iran-cost-11-3bn-in-first-6-days-report" target="_blank" style="color:#3d5470;font-size:10px;">Al Jazeera D+12 ↗</a></div></div></div>
+      <div class="stat-card"><span class="stat-icon">🚁</span><div><div class="stat-val">10,000</div><div class="stat-lbl">美軍 Merops 攔截無人機部署（每架 $14-15K；廉價反無人機方案）<br><a href="https://www.aljazeera.com/news/2026/3/13/iran-war-what-is-happening-on-day-14-of-us-israel-attacks" target="_blank" style="color:#3d5470;font-size:10px;">Al Jazeera D+14 ↗</a></div></div></div>
       <div class="stat-card"><span class="stat-icon">📉</span><div><div class="stat-val">↓92%</div><div class="stat-lbl">伊朗飛彈發射率（480→40/日）；無人機同降 92%（PBS D+10）</div></div></div>
-      <div class="stat-card"><span class="stat-icon">☠️</span><div><div class="stat-val">黑雨</div><div class="stat-lbl">WHO 警告：德黑蘭石油設施濃煙造成毒性降雨，健康風險「嚴重」</div></div></div>
-      <div class="stat-card"><span class="stat-icon">🏭</span><div><div class="stat-val">停機</div><div class="stat-lbl">UAE Ruwais 煉油廠（全球最大之一）預防性停機，因無人機攻擊</div></div></div>
-      <div class="stat-card"><span class="stat-icon">🔍</span><div><div class="stat-val">調查中</div><div class="stat-lbl">伊朗女校打擊致 ~175 名學生死亡；軍方調查中，White House 確認有照片指向美軍飛彈</div></div></div>
+      <div class="stat-card"><span class="stat-icon">💵</span><div><div class="stat-val">人民幣</div><div class="stat-lbl">伊朗提出：油輪過霍爾木茲須以人民幣結算石油交易（CNN，伊朗高層官員透露）<br><a href="https://www.cnn.com/2026/03/13/middleeast/us-israel-iran-middle-east-war-what-we-know-intl-hnk" target="_blank" style="color:#3d5470;font-size:10px;">CNN D+14 ↗</a></div></div></div>
+      <div class="stat-card"><span class="stat-icon">🎯</span><div><div class="stat-val">$10M</div><div class="stat-lbl">美國務院懸紅：提供穆吉塔巴及伊朗政府高層情報，含提供舉報人移居美國資格（CNN D+14）</div></div></div>
+      <div class="stat-card"><span class="stat-icon">🛡️</span><div><div class="stat-val">304</div><div class="stat-lbl">巴林累計攔截：114 飛彈 + 190 無人機（Al Jazeera D+14）</div></div></div>
     </div>
   </div>
 
-  <!-- TAB 1 -->
+  <!-- TAB 1 軍事能力 -->
   <div class="panel" id="tab1">
     <div class="mil-wrap">
       <div class="mil-panel left">
         <div class="mil-title" style="color:#4dffaa">🇺🇸 🇮🇱 美以聯軍</div>
         <div class="bar-row"><div class="bar-meta"><span class="bar-label">制空優勢（IDF 聲稱；伊朗防空↓80%）</span><span class="bar-pct" style="color:#4dffaa">97%</span></div><div class="bar-track"><div class="bar-fill" style="background:#4dffaa" data-val="97"></div></div></div>
-        <div class="bar-row"><div class="bar-meta"><span class="bar-label">海上控制（布雷船消滅；但霍爾木茲仍封）</span><span class="bar-pct" style="color:#4dffaa">90%</span></div><div class="bar-track"><div class="bar-fill" style="background:#4dffaa" data-val="90"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span class="bar-label">海上控制（海軍幾近瓦解；但霍爾木茲關閉）</span><span class="bar-pct" style="color:#4dffaa">88%</span></div><div class="bar-track"><div class="bar-fill" style="background:#4dffaa" data-val="88"></div></div></div>
         <div class="bar-row"><div class="bar-meta"><span class="bar-label">飛彈攔截率（整體估計）</span><span class="bar-pct" style="color:#4dffaa">85%</span></div><div class="bar-track"><div class="bar-fill" style="background:#4dffaa" data-val="85"></div></div></div>
-        <div class="bar-row"><div class="bar-meta"><span class="bar-label">打擊目標完成度（5,000+；核設施仍存疑）</span><span class="bar-pct" style="color:#ffb340">60%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ffb340" data-val="60"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span class="bar-label">打擊目標完成度（核設施地下化存疑）</span><span class="bar-pct" style="color:#ffb340">65%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ffb340" data-val="65"></div></div></div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#2a3a50;margin-top:12px;">⚠ 百分比為綜合估算，非官方數據</div>
       </div>
       <div class="mil-panel right">
-        <div class="mil-title" style="color:#ff4040">🇮🇷 伊朗（+ 🇱🇧 真主黨 + 🇮🇶 民兵）</div>
-        <div class="bar-row"><div class="bar-meta"><span class="bar-label">防空系統殘存（IDF：已毀 80%，未獨立核實）</span><span class="bar-pct" style="color:#ff4040">15%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ff4040" data-val="15"></div></div></div>
-        <div class="bar-row"><div class="bar-meta"><span class="bar-label">海軍殘存戰力（43+ 艘已沉、布雷船被消滅）</span><span class="bar-pct" style="color:#ff4040">3%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ff4040" data-val="3"></div></div></div>
-        <div class="bar-row"><div class="bar-meta"><span class="bar-label">飛彈能力（↓92%；仍有 Khoramshahr 重型彈）</span><span class="bar-pct" style="color:#ffb340">12%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ffb340" data-val="12"></div></div></div>
-        <div class="bar-row"><div class="bar-meta"><span class="bar-label">無人機威脅（↓92%；仍攻擊海灣，9 架落入 UAE）</span><span class="bar-pct" style="color:#ffb340">12%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ffb340" data-val="12"></div></div></div>
+        <div class="mil-title" style="color:#ff4040">🇮🇷 伊朗（+ 🇱🇧 真主黨）</div>
+        <div class="bar-row"><div class="bar-meta"><span class="bar-label">防空殘存（IDF：已毀 80%；未獨立核實）</span><span class="bar-pct" style="color:#ff4040">15%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ff4040" data-val="15"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span class="bar-label">海軍殘存（90+ 艘受損或擊沉）</span><span class="bar-pct" style="color:#ff4040">3%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ff4040" data-val="3"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span class="bar-label">飛彈能力（↓92%；D+14 仍發射新一波）</span><span class="bar-pct" style="color:#ffb340">12%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ffb340" data-val="12"></div></div></div>
+        <div class="bar-row"><div class="bar-meta"><span class="bar-label">無人機威脅（↓92%；仍攻擊海灣及商船）</span><span class="bar-pct" style="color:#ffb340">12%</span></div><div class="bar-track"><div class="bar-fill" style="background:#ffb340" data-val="12"></div></div></div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#2a3a50;margin-top:12px;">⚠ 百分比為綜合估算，非官方數據</div>
       </div>
     </div>
     <div class="vs-card">
@@ -263,159 +285,117 @@
         <div class="vs-track"><div class="vs-us" style="width:90%"></div><div class="vs-ir" style="width:10%"></div></div>
         <span class="vs-lbl" style="color:#ff4040">10% 伊朗</span>
       </div>
-      <div class="vs-note">⚠ ESTIMATED — NOT OFFICIAL · 伊朗仍有 Khoramshahr 超重型飛彈 · 胡塞克制但備戰（ACLED）· 核材料：IAEA 確認未受損 · 黑雨 WHO 緊急警報</div>
+      <div class="vs-note">⚠ ESTIMATED · 伊朗 D+14 仍對以色列發射新一波飛彈 · 北斗導航疑使精準度提升 · 核材料：IAEA 確認無受損 · 胡塞：自 2025/10 起未攻商船（<a href="https://acleddata.com/update/middle-east-special-issue-march-2026" target="_blank" style="color:#2a3a50;">ACLED ↗</a>）</div>
     </div>
   </div>
 
-  <!-- TAB 2 -->
+  <!-- TAB 2 霍爾木茲 -->
   <div class="panel" id="tab2">
     <div class="hor-grid">
       <div class="hor-card" style="border:1px solid #ff404035">
-        <div class="hor-label">霍爾木茲通行量</div>
-        <div class="hor-num" style="color:#ff4040">幾乎零</div>
+        <div class="hor-label">霍爾木茲通行</div>
+        <div class="hor-num" style="color:#ff4040">關閉中</div>
         <div class="bar-track" style="margin-bottom:10px"><div class="bar-fill" style="background:#ff4040" data-val="5"></div></div>
-        <div class="hor-note">UKMTO：1 散裝貨船 + 1 貨船遭不明飛射物擊中（杜拜附近及霍爾木茲）；伊朗宣稱威脅「經濟中心及銀行」（Al Jazeera D+12）</div>
+        <div class="hor-note">伊朗宣告對美以關聯船隻全面禁止；其他船隻須取得伊朗許可；伊朗考慮以<strong style="color:#ffb340;">人民幣結算</strong>為開放條件（CNN，伊朗高層官員）</div>
       </div>
       <div class="hor-card" style="border:1px solid #ff404035">
-        <div class="hor-label">UAE Ruwais 煉油廠</div>
-        <div class="hor-num" style="color:#ff4040">停機</div>
-        <div class="bar-track" style="margin-bottom:10px"><div class="bar-fill" style="background:#ff4040" data-val="0"></div></div>
-        <div class="hor-note">全球最大煉油廠之一預防性停機（無人機攻擊後）；9 架無人機落入 UAE 境內（Al Jazeera D+12）</div>
+        <div class="hor-label">油市衝擊</div>
+        <div class="hor-num" style="color:#ff4040">$100+</div>
+        <div class="bar-track" style="margin-bottom:10px"><div class="bar-fill" style="background:#ff4040" data-val="95"></div></div>
+        <div class="hor-note">布倫特仍維持 $100+；IEA 宣布釋放緊急儲備；美批准 30 天俄油制裁豁免（WSJ/Alma）；Macron 反對；油價仍居高不下（<a href="https://www.aljazeera.com/economy/2026/3/13/oil-stays-above-100-a-barrel-amid-irans-stranglehold-on-strait-of-hormuz" target="_blank" style="color:#3d5470;">Al Jazeera ↗</a>）</div>
       </div>
       <div class="hor-card" style="border:1px solid #ffb34035">
-        <div class="hor-label">布倫特原油</div>
-        <div class="hor-num" style="color:#ffb340">$100+</div>
-        <div class="bar-track" style="margin-bottom:10px"><div class="bar-fill" style="background:#ffb340" data-val="95"></div></div>
-        <div class="hor-note">本週突破百元大關（2022 俄烏以來首見）；Ruwais 停機及黑雨加劇市場恐慌；G7 / 美討論 SPR 4 億桶釋放</div>
+        <div class="hor-label">卡達空域</div>
+        <div class="hor-num" style="color:#ffb340">關閉</div>
+        <div class="bar-track" style="margin-bottom:10px"><div class="bar-fill" style="background:#ffb340" data-val="0"></div></div>
+        <div class="hor-note">卡達空域正式關閉；Qatar Airways 安排 140+ 架次撤僑包機；Qatar 否認曾暫停 LNG 生產——實為伊朗無人機攻擊所致（Al Jazeera D+14）</div>
       </div>
       <div class="hor-card" style="border:1px solid #4dffaa35">
-        <div class="hor-label">胡塞武裝威脅</div>
-        <div class="hor-num" style="color:#4dffaa">克制中</div>
-        <div class="bar-track" style="margin-bottom:10px"><div class="bar-fill" style="background:#4dffaa" data-val="30"></div></div>
-        <div class="hor-note">ACLED：自 2025/10 起未攻擊商船；領袖警告會動但仍保克制；赫格塞斯：「已無效」——ACLED：此說過於樂觀</div>
+        <div class="hor-label">胡塞威脅</div>
+        <div class="hor-num" style="color:#4dffaa">克制</div>
+        <div class="bar-track" style="margin-bottom:10px"><div class="bar-fill" style="background:#4dffaa" data-val="20"></div></div>
+        <div class="hor-note">ACLED 確認：自 2025/10 起胡塞未攻擊商船；領袖去隱避；惟 ACLED 分析指對以色列的潛在威脅仍存在（<a href="https://acleddata.com/update/middle-east-special-issue-march-2026" target="_blank" style="color:#3d5470;">ACLED 特別報告 ↗</a>）</div>
       </div>
     </div>
     <div class="energy-strip">
-      <div class="section-label">▶ ENERGY & MARKET IMPACT（Al Jazeera · AP · WHO · Newsweek，截至 D+12）</div>
+      <div class="section-label">▶ ENERGY & MARKET IMPACT（Al Jazeera · CNN · WSJ · Alma，截至 D+14）</div>
       <div class="energy-grid">
-        <div class="energy-item"><div class="energy-val" style="color:#ff4040">$100+</div><div class="energy-lbl">布倫特原油<br>（2022以來首見）</div></div>
-        <div class="energy-item"><div class="energy-val" style="color:#ff7040">停機</div><div class="energy-lbl">UAE Ruwais<br>全球最大煉油廠</div></div>
-        <div class="energy-item"><div class="energy-val" style="color:#ff4040">黑雨</div><div class="energy-lbl">WHO 緊急警報<br>德黑蘭毒性降雨</div></div>
-        <div class="energy-item"><div class="energy-val" style="color:#ffb340">討論中</div><div class="energy-lbl">G7 SPR<br>4 億桶釋放</div></div>
-        <div class="energy-item"><div class="energy-val" style="color:#ffb340">停航</div><div class="energy-lbl">Maersk<br>繞道好望角</div></div>
+        <div class="energy-item"><div class="energy-val" style="color:#ff4040">$100+</div><div class="energy-lbl">布倫特原油<br>（仍居高不下）</div></div>
+        <div class="energy-item"><div class="energy-val" style="color:#ff7040">人民幣</div><div class="energy-lbl">伊朗開放條件<br>（CNN 伊朗官員）</div></div>
+        <div class="energy-item"><div class="energy-val" style="color:#ffb340">豁免</div><div class="energy-lbl">美 30 天俄油<br>制裁豁免</div></div>
+        <div class="energy-item"><div class="energy-val" style="color:#ffb340">釋放</div><div class="energy-lbl">IEA 緊急<br>石油儲備</div></div>
+        <div class="energy-item"><div class="energy-val" style="color:#ff4040">停航</div><div class="energy-lbl">Maersk 仍<br>繞道好望角</div></div>
       </div>
     </div>
   </div>
 
-  <!-- TAB 3 -->
+  <!-- TAB 3 時間軸 -->
   <div class="panel" id="tab3">
     <div class="timeline">
       <div class="tl-line"></div>
 
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+0</div><div class="tl-date">2/28</div></div><div class="tl-dot" style="background:#4dffaa;box-shadow:0 0 10px #4dffaa"></div><div class="tl-card" style="border:1px solid #4dffaa25"><div class="tl-side" style="color:#4dffaa">▲ 美以聯合行動（06:27 GMT）</div><div class="tl-text">「史詩狂怒」+「咆哮之獅」展開；哈梅內伊化合物遭摧毀，本人身亡；其女兒、女婿、孫子同日罹難；沙姆哈尼等高層身亡；打擊涵蓋德黑蘭、伊斯法罕、庫姆、卡拉吉、克爾曼沙赫；Minab 女校 168 名學童 + 14 名教職員死亡（距 IRGC 基地 60m）；Grand Bazaar 及 Golestan Palace 受損；伊朗宣布 40 天國喪（Wikipedia · CENTCOM）</div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+0</div><div class="tl-date">2/28</div></div><div class="tl-dot" style="background:#4dffaa;box-shadow:0 0 10px #4dffaa"></div><div class="tl-card" style="border:1px solid #4dffaa25"><div class="tl-side" style="color:#4dffaa">▲ 美以聯合行動（06:27 GMT）</div><div class="tl-text">「史詩狂怒」+「咆哮之獅」展開；哈梅內伊化合物遭摧毀，本人身亡；其女兒、女婿、孫子同日罹難；沙姆哈尼等高層身亡；打擊涵蓋德黑蘭、伊斯法罕、庫姆、卡拉吉、克爾曼沙赫；Minab 女校 168 名學童 + 14 名教職員死亡；Grand Bazaar 及 Golestan Palace 受損；伊朗宣布 40 天國喪</div><div class="tl-src"><a href="https://en.wikipedia.org/wiki/2026_Iran_conflict" target="_blank">Wikipedia ↗</a><a href="https://www.britannica.com/event/2026-Iran-Conflict" target="_blank">Britannica ↗</a></div></div></div>
 
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+1</div><div class="tl-date">3/1</div></div><div class="tl-dot" style="background:#ff4040;box-shadow:0 0 10px #ff4040"></div><div class="tl-card" style="border:1px solid #ff404025"><div class="tl-side" style="color:#ff4040">▼ 伊朗「真實承諾四」全面反擊</div><div class="tl-text">攻擊 27 個美軍基地及以色列；Beit Shemesh 飛彈 9 死 28–40 人受傷（MDA）；科威特 Shuaiba 港美軍作戰中心遭無人機直擊，6 名後備役陣亡（103rd Sustainment Command（第 103 後勤支援司令部））；卡達 Al Udeid 遭 2 枚彈道飛彈；約旦攔截 119 枚飛彈及無人機（14 傷）；Amazon AWS UAE 碎片引發火災；霍爾木茲實質關閉（Wikipedia · Al Jazeera）</div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+1</div><div class="tl-date">3/1</div></div><div class="tl-dot" style="background:#ff4040;box-shadow:0 0 10px #ff4040"></div><div class="tl-card" style="border:1px solid #ff404025"><div class="tl-side" style="color:#ff4040">▼ 伊朗「真實承諾四」全面反擊</div><div class="tl-text">攻擊 27 個美軍基地及以色列；以色列 Beit Shemesh 飛彈 9 死 28–40 傷（MDA）；科威特 Shuaiba 港美軍作戰中心遭無人機直擊，6 名後備役陣亡（103rd Sustainment Command）；卡達 Al Udeid 遭 2 枚彈道飛彈；約旦攔截 119 枚飛彈及無人機（14 傷）；Amazon AWS UAE 碎片引發火災；霍爾木茲實質關閉</div><div class="tl-src"><a href="https://en.wikipedia.org/wiki/2026_Iran_conflict" target="_blank">Wikipedia ↗</a><a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank">Al Jazeera 追蹤器 ↗</a></div></div></div>
 
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+2</div><div class="tl-date">3/2</div></div><div class="tl-dot" style="background:#ff4040;box-shadow:0 0 10px #ff4040"></div><div class="tl-card" style="border:1px solid #ff404025"><div class="tl-side" style="color:#ff4040">▼ 真主黨參戰 · 友軍誤擊 · 使館關閉</div><div class="tl-text">真主黨向以色列發射飛彈；科威特 F/A-18 誤擊 3 架美軍 F-15E，6 名飛行員安全彈射；哈梅內伊之妻傷重不治；美使館科威特遭打擊後關閉；IRGC Malek-Ashtar 大樓完全摧毀（衛星影像）（Wikipedia · NPR）</div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+2</div><div class="tl-date">3/2</div></div><div class="tl-dot" style="background:#ff4040;box-shadow:0 0 10px #ff4040"></div><div class="tl-card" style="border:1px solid #ff404025"><div class="tl-side" style="color:#ff4040">▼ 真主黨參戰 · 友軍誤擊 · 使館關閉</div><div class="tl-text">真主黨向以色列發射飛彈（D+2 起）；科威特 F/A-18 誤擊 3 架美軍 F-15E，6 名飛行員安全彈射；哈梅內伊之妻傷重不治；美使館科威特關閉；IDF 授權黎巴嫩地面行動；IRGC Malek-Ashtar 大樓完全摧毀（衛星影像）</div><div class="tl-src"><a href="https://en.wikipedia.org/wiki/2026_Iran_conflict" target="_blank">Wikipedia ↗</a></div></div></div>
 
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+3</div><div class="tl-date">3/3</div></div><div class="tl-dot" style="background:#4dffaa;box-shadow:0 0 10px #4dffaa"></div><div class="tl-card" style="border:1px solid #4dffaa25"><div class="tl-side" style="color:#4dffaa">▲ 美以持續打擊 · B-2 穿地彈首用 · IDF 炸 IRIB</div><div class="tl-text">美 B-2 首次投放穿地炸彈打擊深埋設施；IDF 炸毀 IRIB 國家電視台及 Assembly of Experts 辦公室（選新領袖期間）；IAEA：伊斯法罕 2 棟建築受損，核材料設施無受損；IDF 91st Division 進入黎巴嫩南部建立「安全緩衝區」（Wikipedia · IAEA）</div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+3</div><div class="tl-date">3/3</div></div><div class="tl-dot" style="background:#4dffaa;box-shadow:0 0 10px #4dffaa"></div><div class="tl-card" style="border:1px solid #4dffaa25"><div class="tl-side" style="color:#4dffaa">▲ 美以持續打擊 · B-2 穿地彈首用</div><div class="tl-text">美 B-2 首次投放穿地炸彈打擊深埋設施；IDF 炸毀 IRIB 國家電視台及 Assembly of Experts 辦公室；IAEA：伊斯法罕 2 棟建築受損，核材料設施無受損；IDF 91st Division 進入黎巴嫩南部（「安全緩衝區」）</div><div class="tl-src"><a href="https://www.britannica.com/event/2026-Iran-Conflict" target="_blank">Britannica ↗</a></div></div></div>
 
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+4</div><div class="tl-date">3/4</div></div><div class="tl-dot" style="background:#4dffaa;box-shadow:0 0 10px #4dffaa"></div><div class="tl-card" style="border:1px solid #4dffaa25"><div class="tl-side" style="color:#4dffaa">▲ IRIS Dena 擊沉 · 多方事件</div><div class="tl-text">USS Charlotte（洛杉磯級潛艦）以 Mark 48 魚雷擊沉 IRIS Dena（約 180 人在船，87 具遺體被尋獲，32 人由斯里蘭卡海軍救起；10+ 人失蹤）——二戰以來美軍潛艦首次擊沉敵方水面艦艇；IRIS Bushehr 隨後在斯里蘭卡 Trincomalee 接受監管（208 名船員移交）；卡達 F-15 射下 2 架伊朗 Su-24（衝突首國）；美參院戰爭授權 47:53 告敗；CSIS：前 100 小時戰費 $3.7B（Wikipedia · NPR · CSIS · Al Jazeera）</div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+4</div><div class="tl-date">3/4</div></div><div class="tl-dot" style="background:#4dffaa;box-shadow:0 0 10px #4dffaa"></div><div class="tl-card" style="border:1px solid #4dffaa25"><div class="tl-side" style="color:#4dffaa">▲ IRIS Dena 擊沉 · 參院否決授權</div><div class="tl-text">USS Charlotte 魚雷擊沉 IRIS Dena（約 180 人在船，87 死，32 由斯里蘭卡海軍救起）——二戰以來美潛艦首次擊沉敵水面艦艇；IRIS Bushehr 在斯里蘭卡 Trincomalee 接受監管；卡達 F-15 射下 2 架伊朗 Su-24；美參院戰爭授權 47:53 告敗；CSIS：前 100 小時戰費 $3.7B</div><div class="tl-src"><a href="https://en.wikipedia.org/wiki/2026_Iran_conflict" target="_blank">Wikipedia ↗</a></div></div></div>
 
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+5</div><div class="tl-date">3/5</div></div><div class="tl-dot" style="background:#ffb340;box-shadow:0 0 10px #ffb340"></div><div class="tl-card" style="border:1px solid #ffb34025"><div class="tl-side" style="color:#ffb340">◆ EU 防禦 · 胡塞發聲 · 能源衝擊</div><div class="tl-text">保險商全面撤出；伊朗無人機攻擊亞塞拜然、賽普勒斯 Akrotiri 英軍基地、阿曼 Duqm 港；EU 第 42.7 條首度討論，六國向賽普勒斯部署武力；胡塞首領：「手指扣扳機」；Maersk 繞道好望角；B-52 及 B-1B 抵英 Fairford 及德 Ramstein（Wikipedia · HoC Library · ACLED）</div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+5–6</div><div class="tl-date">3/5–6</div></div><div class="tl-dot" style="background:#ffb340;box-shadow:0 0 10px #ffb340"></div><div class="tl-card" style="border:1px solid #ffb34025"><div class="tl-side" style="color:#ffb340">◆ EU 防禦 · 俄情報確認 · 眾院否決</div><div class="tl-text">D+5：保險商全面撤出；伊朗無人機攻擊賽普勒斯 Akrotiri 英軍基地、阿曼 Duqm；EU 第 42.7 條首度討論，六國向賽普勒斯部署；B-52、B-1B 抵英 Fairford 及德 Ramstein；Maersk 繞道好望角｜D+6：IDF 對德黑蘭發動「廣泛波次」打擊；眾院 219:212 否決戰爭授權；WashPost / NPR 確認俄羅斯向伊朗提供美軍情報</div><div class="tl-src"><a href="https://www.npr.org/2026/03/09/nx-s1-5742327/us-israel-iran-war-new-supreme-leader" target="_blank">NPR ↗</a><a href="https://en.wikipedia.org/wiki/2026_Iran_conflict" target="_blank">Wikipedia ↗</a></div></div></div>
 
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+6</div><div class="tl-date">3/6</div></div><div class="tl-dot" style="background:#ff4040;box-shadow:0 0 10px #ff4040"></div><div class="tl-card" style="border:1px solid #ff404025"><div class="tl-side" style="color:#ff4040">▼ IDF「新階段」· 俄情報確認</div><div class="tl-text">IDF 對德黑蘭發動「廣泛波次」打擊；眾院否決戰爭授權（219:212）；WashPost / NPR 確認：俄羅斯向伊朗提供美軍情報；IDF 對達希耶 26 輪空襲；赫格塞斯：「war has only just begun」（NPR · Wikipedia）</div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+7–8</div><div class="tl-date">3/7–8</div></div><div class="tl-dot" style="background:#ffb340;box-shadow:0 0 10px #ffb340"></div><div class="tl-card" style="border:1px solid #ffb34025"><div class="tl-side" style="color:#ffb340">◆ 無條件投降令 · 第 7–8 名美軍身亡</div><div class="tl-text">Trump 要求「無條件投降（MIGA）」；布倫特升至 $93；UN 古特雷斯：「可能失控」；Trump D+8 記者會：「achieving major strides」；Sgt. Benjamin Pennington（第 7 名，26 歲，肯塔基，1st Space Brigade）3/8 因 3/1 Prince Sultan Air Base 攻擊傷重不治；Maj. Sorffly Davius（第 8 名，46 歲，紐約，陸軍國民警衛隊）3/6 科威特 Camp Buehring 非戰鬥健康事件身亡，3/8 CENTCOM 公告</div><div class="tl-src"><a href="https://www.pbs.org/newshour/nation/kentucky-soldier-stationed-in-saudi-arabia-is-7th-u-s-military-death-in-iran-war" target="_blank">PBS Pennington ↗</a><a href="https://www.pbs.org/newshour/nation/dignified-transfer-for-kentucky-soldier-who-was-7th-u-s-service-member-to-die-in-iran-war" target="_blank">PBS Dover 移靈 ↗</a></div></div></div>
 
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+7–8</div><div class="tl-date">3/7–8</div></div><div class="tl-dot" style="background:#ffb340;box-shadow:0 0 10px #ffb340"></div><div class="tl-card" style="border:1px solid #ffb34025"><div class="tl-side" style="color:#ffb340">◆ 無條件投降令 · Trump 記者會 · 第 7–8 名美軍身亡</div><div class="tl-text">Trump 要求「無條件投降（MIGA）」；布倫特升至 $93；UN 古特雷斯：「可能失控」；Trump 記者會（D+8）：「achieving major strides」；巴林 Bapco force majeure；Sgt. Pennington（第 7 名，26歲，肯塔基，1st Space Brigade）於 3/8（D+8）因 3/1 Prince Sultan Air Base 攻擊傷重不治，3/9 Pentagon 公告；Maj. Sorffly Davius（第 8 名，46歲，紐約，陸軍國民警衛隊）於 3/6（D+6）在科威特 Camp Buehring 因非戰鬥健康事件身亡，3/8 CENTCOM 公告 ／ <a href="https://www.cnn.com/2026/03/08/politics/us-service-member-killed-iran-war" target="_blank" style="color:#4da6ff;">CNN ↗</a> · <a href="https://www.pbs.org/newshour/nation/dignified-transfer-for-kentucky-soldier-who-was-7th-u-s-service-member-to-die-in-iran-war" target="_blank" style="color:#4da6ff;">PBS Dover 移靈 ↗</a></div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+9</div><div class="tl-date">3/9</div></div><div class="tl-dot" style="background:#ff6040;box-shadow:0 0 10px #ff6040"></div><div class="tl-card" style="border:1px solid #ff604035"><div class="tl-side" style="color:#ff6040">🟠 穆吉塔巴就任 · 油價衝 $120</div><div class="tl-text">Assembly of Experts 凌晨宣布穆吉塔巴（56 歲）為第三任最高領袖；IDF 立即宣告其為打擊目標；Trump：「非常不高興」；布倫特盤中飆至 $120；Lebanon 394 死 1,130 傷；Iran FM Araghchi 拒停火</div><div class="tl-src"><a href="https://www.npr.org/2026/03/09/nx-s1-5742327/us-israel-iran-war-new-supreme-leader" target="_blank">NPR ↗</a><a href="https://www.aljazeera.com/features/2026/3/8/who-is-mojtaba-khamenei-a-contender-for-irans-leadership-amid-war" target="_blank">Al Jazeera 穆吉塔巴 ↗</a></div></div></div>
 
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+9</div><div class="tl-date">3/9</div></div><div class="tl-dot" style="background:#ff6040;box-shadow:0 0 10px #ff6040"></div><div class="tl-card" style="border:1px solid #ff604035"><div class="tl-side" style="color:#ff6040">🟠 穆吉塔巴就任 · 油價衝 $120</div><div class="tl-text">Assembly of Experts 凌晨宣布穆吉塔巴（56歲）為第三任最高領袖；IDF 立即宣告其為打擊目標；Trump：「非常不高興」；布倫特盤中飆至 $120；第 7 名美軍 Sgt. Pennington 不治身亡（Pentagon 公告）；Lebanon 394 死 1,130 傷；Iran FM Araghchi（NBC）：拒停火 ／ <a href="https://www.npr.org/2026/03/09/nx-s1-5742327/us-israel-iran-war-new-supreme-leader" target="_blank" style="color:#4da6ff;">NPR ↗</a> · <a href="https://www.pbs.org/newshour/nation/kentucky-soldier-stationed-in-saudi-arabia-is-7th-u-s-military-death-in-iran-war" target="_blank" style="color:#4da6ff;">PBS Pennington ↗</a> · <a href="https://www.aljazeera.com/features/2026/3/8/who-is-mojtaba-khamenei-a-contender-for-irans-leadership-amid-war" target="_blank" style="color:#4da6ff;">Al Jazeera 穆吉塔巴 ↗</a></div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+10</div><div class="tl-date">3/10</div></div><div class="tl-dot" style="background:#ffb340;box-shadow:0 0 10px #ffb340"></div><div class="tl-card" style="border:1px solid #ffb34025"><div class="tl-side" style="color:#ffb340">◆ 「最猛烈一天」· 5,000+ 目標</div><div class="tl-text">赫格塞斯：「今天是開戰以來最猛烈的一天」；Gen. Caine 五角大廈記者會：累計 5,000+ 目標；CENTCOM 消滅霍爾木茲 16 艘布雷船；沙烏地 Prince Sultan 攔截 6 枚彈道飛彈；UAE Ruwais 無人機引發大火；巴林 Manama 住宅樓 1 死 8 傷；Lebanon 570 死 750,000 流離失所</div><div class="tl-src"><a href="https://www.aljazeera.com/news/2026/3/12/trump-admin-estimates-us-war-on-iran-cost-11-3bn-in-first-6-days-report" target="_blank">Al Jazeera ↗</a></div></div></div>
 
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+10</div><div class="tl-date">3/10</div></div><div class="tl-dot" style="background:#ffb340;box-shadow:0 0 10px #ffb340"></div><div class="tl-card" style="border:1px solid #ffb34025"><div class="tl-side" style="color:#ffb340">◆ 「最猛烈一天」· 5,000+ 目標</div><div class="tl-text">赫格塞斯：「今天將是開戰以來最猛烈的一天」；Gen. Caine 五角大廈記者會：累計 5,000+ 目標；CENTCOM 消滅霍爾木茲 16 艘布雷船；沙烏地 Prince Sultan 空軍基地攔截 6 枚彈道飛彈；UAE Ruwais 石化城無人機引發大火；巴林 Manama 住宅樓 1 死 8 傷；Lebanon 570 死、750,000 流離失所 ／ <a href="https://www.aljazeera.com/news/liveblog/2026/3/10/iran-war-live-trump-says-conflict-will-be-over-soon-40-killed-in-tehran" target="_blank" style="color:#4da6ff;">Al Jazeera D+10 Live ↗</a></div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+11</div><div class="tl-date">3/11</div></div><div class="tl-dot" style="background:#ffb340;box-shadow:0 0 10px #ffb340"></div><div class="tl-card" style="border:1px solid #ffb34025"><div class="tl-side" style="color:#ffb340">◆ 中俄法接觸停火 · 土耳其本土首次攔截</div><div class="tl-text">中國、俄羅斯、法國接觸伊朗談停火（伊朗國家電視台）；但 Qalibaf 拒絕，拉里賈尼在 X 威脅 Trump；土耳其 NATO 首次在本國領空擊落伊朗彈道飛彈；德黑蘭東部住宅區至少 40 死；黎巴嫩神父 Pierre al-Rahi 拒撤離令遭以坦克砲擊身亡；Stryker 醫療遭伊朗連結駭客竊取 50TB 資料；澤倫斯基派三支無人機∕電戰專家隊赴海灣</div><div class="tl-src"><a href="https://www.aljazeera.com/features/2026/3/11/12-days-how-2025-iran-blueprint-trapped-us-israel-in-longer-war" target="_blank">Al Jazeera 12天分析 ↗</a><a href="https://www.aljazeera.com/news/2026/3/11/iran-linked-hackers-hit-medical-giant-stryker-in-retaliatory-cyberattack" target="_blank">Stryker 網攻 ↗</a></div></div></div>
 
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+11</div><div class="tl-date">3/11</div></div><div class="tl-dot" style="background:#ffb340;box-shadow:0 0 10px #ffb340"></div><div class="tl-card" style="border:1px solid #ffb34025"><div class="tl-side" style="color:#ffb340">◆ 中俄法接觸停火 · 土耳其首次本土攔截</div><div class="tl-text">中國、俄羅斯、法國接觸伊朗談停火（伊朗國家電視台）；但 Qalibaf 拒絕，拉里賈尼在 X 威脅 Trump；土耳其 NATO 首次在本國領空擊落伊朗彈道飛彈；德黑蘭東部住宅區至少 40 死；黎巴嫩神父 Pierre al-Rahi 拒撤離令遭以坦克砲擊身亡；澤倫斯基派遣三支無人機∕電戰專家隊赴海灣 ／ <a href="https://www.aljazeera.com/features/2026/3/11/12-days-how-2025-iran-blueprint-trapped-us-israel-in-longer-war" target="_blank" style="color:#4da6ff;">Al Jazeera 12天分析 ↗</a></div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+12</div><div class="tl-date">3/12</div></div><div class="tl-dot" style="background:#ffb340;box-shadow:0 0 10px #ffb340"></div><div class="tl-card" style="border:1px solid #ffb34025"><div class="tl-side" style="color:#ffb340">◆ 黑雨警告 · 戰費 $11.3B · Khoramshahr 齊射</div><div class="tl-text">IRGC 發動 Khoramshahr 超重型飛彈超過 3 小時多層次齊射；WHO 緊急警告德黑蘭「黑雨（Black Rain）」毒性降雨；Trump 政府於參院密室承認開戰首 6 天花費 $11.3B；UAE Ruwais 停機（無人機攻擊）；卡達升級威脅等級；White House Leavitt 確認女校打擊（~175 名學生死亡）調查中；伊朗大使 UN 控訴：10,000 處平民設施遭打擊</div><div class="tl-src"><a href="https://www.aljazeera.com/news/2026/3/11/iran-war-what-is-happening-on-day-12-of-us-israel-attacks" target="_blank">Al Jazeera D+12 ↗</a><a href="https://www.aljazeera.com/news/2026/3/12/trump-admin-estimates-us-war-on-iran-cost-11-3bn-in-first-6-days-report" target="_blank">$11.3B 報導 ↗</a></div></div></div>
 
-      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+12</div><div class="tl-date">3/12</div></div><div class="tl-dot" style="background:#ff4040;box-shadow:0 0 10px #ff4040;animation:blink 1.5s infinite"></div><div class="tl-card" style="border:1px solid #ff404035"><div class="tl-side" style="color:#ff4040">🔴 今日（截至 06:30 UTC+8）</div><div class="tl-text">IRGC 發動第 37 波攻擊，以 Khoramshahr 超重型飛彈進行超過 3 小時多層次齊射（目標：特拉維夫、海法、西耶路撒冷、埃爾比勒、巴林 Manama）；WHO 緊急警告德黑蘭「黑雨（Black Rain）」毒性降雨；UAE Ruwais 全球最大煉油廠之一停機；Qatar 升級威脅等級要居民留在室內；White House 確認調查女校打擊（~175 名學生死亡，出現美軍飛彈照片證據）；Trump：「已無目標可打，任何時候我想結束就會結束」；伊朗大使 UN 控訴：10,000 處平民設施遭打擊、1,300 人死亡 ／ <a href="https://www.aljazeera.com/news/2026/3/11/iran-war-what-is-happening-on-day-12-of-us-israel-attacks" target="_blank" style="color:#4da6ff;">Al Jazeera D+12 ↗</a> · <a href="https://www.aljazeera.com/news/liveblog/2026/3/11/iran-war-live-tehran-says-us-israel-hit-nearly-10000-civilian-sites" target="_blank" style="color:#4da6ff;">Live Blog ↗</a></div></div></div>
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+13</div><div class="tl-date">3/13</div></div><div class="tl-dot" style="background:#ff4040;box-shadow:0 0 10px #ff4040"></div><div class="tl-card" style="border:1px solid #ff404035"><div class="tl-side" style="color:#ff4040">🔴 杜拜機場遭攻 · 卡達空域關閉</div><div class="tl-text">杜拜國際機場遭伊朗無人機攻擊，Creek Harbour 大樓受損（EPA 影像）；卡達空域正式關閉，Qatar Airways 安排 140+ 撤僑航班；穆吉塔巴發表就任後首份聲明；美軍加油機在伊拉克西部墜毀（4–6 名罹難，AJ 稱 4 名，CNN 稱 6 名，CENTCOM 最終數字待確認）；以色列 Arki 村空襲 5 名兒童罹難；澳洲命令非必要官員撤離 UAE 及以色列</div><div class="tl-src"><a href="https://www.aljazeera.com/news/liveblog/2026/3/13/iran-war-live-trump-says-war-going-well-as-gulf-under-wave-of-attacks" target="_blank">Al Jazeera D+13 Live ↗</a><a href="https://www.cnn.com/2026/03/13/middleeast/us-israel-iran-middle-east-war-what-we-know-intl-hnk" target="_blank">CNN D+14 ↗</a></div></div></div>
+
+      <div class="tl-row"><div class="tl-day"><div class="tl-d">D+14</div><div class="tl-date">3/14</div></div><div class="tl-dot" style="background:#ff4040;box-shadow:0 0 10px #ff4040;animation:blink 1.5s infinite"></div><div class="tl-card" style="border:1px solid #ff404035"><div class="tl-side" style="color:#ff4040">🔴 今日（截至 13:05 UTC+8）</div><div class="tl-text">IDF 對德黑蘭發動新一波「大規模打擊」（濃煙籠罩全城）；IDF 打擊設拉子地下彈道飛彈廠及阿瓦士 IRGC 總部；伊朗 D+14 清晨發射新一波飛彈攻以色列；IDF 打擊德黑蘭 Basij 檢查站；Trump：「戰爭推進非常快速」；美國務院懸紅 $10M 換穆吉塔巴情資；伊朗死亡升至 1,444 人（18,551 傷）；黎巴嫩死亡升至 687 人（含 98 名兒童）；黎巴嫩大學學者遭以空襲身亡；阿曼 2 名外國人因無人機碎片身亡；黎巴嫩 Aoun 提一月停火框架</div><div class="tl-src"><a href="https://www.aljazeera.com/news/2026/3/13/iran-war-what-is-happening-on-day-14-of-us-israel-attacks" target="_blank">Al Jazeera D+14 ↗</a><a href="https://www.cnn.com/2026/03/13/middleeast/us-israel-iran-middle-east-war-what-we-know-intl-hnk" target="_blank">CNN D+14 ↗</a></div></div></div>
     </div>
   </div>
 
-  <!-- TAB 4 -->
+  <!-- TAB 4 外交動態 -->
   <div class="panel" id="tab4">
-    <div class="section-label">▶ DIPLOMATIC & POLITICAL — 截至 2026.03.12 06:30 UTC+8</div>
+    <div class="section-label">▶ DIPLOMATIC & POLITICAL — 截至 2026.03.14 13:05 UTC+8</div>
     <div class="diplo-list">
       <div class="diplo-card" style="border-left:3px solid #ff4040">
-        <div class="diplo-left">
-          <div class="diplo-tag" style="color:#ff4040">🇮🇷 伊朗立場</div>
-          <div class="diplo-country">強硬持續</div>
-        </div>
-        <div class="diplo-text">議長 Qalibaf：「不尋求停火，要讓侵略者受教訓」；安全官員拉里賈尼威脅 Trump 本人；外長 Araghchi（NBC）：「需要繼續戰鬥，直到永久停戰」；警察首長：抗議者將被視為「敵人」；IRGC 發動第 37 波攻擊（Khoramshahr 飛彈）；UN 大使 Iravani：10,000 處平民設施遭打擊，控訴美以蓄意攻擊平民基礎設施；伊朗威脅打擊「經濟中心及銀行」（Al Jazeera D+12 · AP）</div>
+        <div><div class="diplo-tag" style="color:#ff4040">🇮🇷 伊朗立場</div><div class="diplo-country">強硬持續</div></div>
+        <div class="diplo-text">穆吉塔巴首份聲明：「美國關閉區域基地，否則攻擊持續」；同日伊朗對以色列發射新一波飛彈；伊朗考慮讓有限油輪以人民幣交易過境霍爾木茲（CNN 伊朗高層官員）；伊朗否認曾主動要求談判；伊朗指「美國低估了我們限制霍爾木茲的意願」（CNN）；威脅退出 NPT</div>
       </div>
       <div class="diplo-card" style="border-left:3px solid #4da6ff">
-        <div class="diplo-left">
-          <div class="diplo-tag" style="color:#4da6ff">🇺🇸 美國立場</div>
-          <div class="diplo-country">矛盾信號</div>
-        </div>
-        <div class="diplo-text">Trump：「已無目標可打，任何時候我想結束就會結束」——但戰鬥仍持續；White House Leavitt：確認軍方調查女校打擊事件（~175 名學生死亡），有照片指向美軍飛彈；美議員：要求就戰爭目標召開公開聽證、質疑行政策略；魯比奧：與沙烏地 FM 協商強化海灣防禦；眾院 219:212 否決戰爭授權（Al Jazeera D+12 · NBC）</div>
+        <div><div class="diplo-tag" style="color:#4da6ff">🇺🇸 美國立場</div><div class="diplo-country">矛盾信號</div></div>
+        <div class="diplo-text">Trump：「戰爭推進非常快速，軍隊無與倫比」——未直接回應穆吉塔巴聲明；國務院懸紅 $10M 換伊朗高層情資（含穆吉塔巴）；批准 30 天俄油制裁豁免壓低油價；Graham：「不認為今天會結束」；250+ 組織要求國會停止戰爭撥款；$50B 追加申請在即（<a href="https://www.aljazeera.com/news/2026/3/12/trump-admin-estimates-us-war-on-iran-cost-11-3bn-in-first-6-days-report" target="_blank" style="color:#4da6ff;">Al Jazeera ↗</a>）</div>
       </div>
       <div class="diplo-card" style="border-left:3px solid #ff7040">
-        <div class="diplo-left">
-          <div class="diplo-tag" style="color:#ff7040">🇷🇺🇨🇳 俄中外交</div>
-          <div class="diplo-country">雙重博弈</div>
-        </div>
-        <div class="diplo-text">俄羅斯 + 中國 + 法國已接觸伊朗討論停火（伊朗國電視台 D+11 確認）；同時俄羅斯持續向伊朗提供美軍情報（WashPost / NPR 確認）；中俄一方面情報支援、一方面談停火——策略矛盾值得關注；普丁警告切斷對歐天然氣；拉夫羅夫：「美國沒有資格攻擊伊朗」（NPR · WashPost · Wikipedia）</div>
+        <div><div class="diplo-tag" style="color:#ff7040">🇷🇺🇨🇳 俄中博弈</div><div class="diplo-country">雙重博弈</div></div>
+        <div class="diplo-text">俄羅斯持續向伊朗提供美軍情報（WashPost / NPR 確認）；中俄法均曾接觸伊朗談停火（均遭拒）；伊朗提出以人民幣為霍爾木茲通行條件——直接利好中國；普丁警告切斷對歐天然氣；Macron 反對美批准俄油制裁豁免；中國情報疑為伊朗提供北斗導航支援（<a href="https://www.aljazeera.com/features/2026/3/11/could-iran-be-using-chinas-highly-accurate-beidou-navigation-system" target="_blank" style="color:#ff7040;">Al Jazeera 分析 ↗</a>）</div>
       </div>
       <div class="diplo-card" style="border-left:3px solid #4dffaa">
-        <div class="diplo-left">
-          <div class="diplo-tag" style="color:#4dffaa">🌍 國際反應</div>
-          <div class="diplo-country">停火呼聲升</div>
-        </div>
-        <div class="diplo-text">卡達 FM al-Khulaifi（<a href="https://www.aljazeera.com/news/2026/3/11/qatars-foreign-minister-says-keeping-strait-of-hormuz-open-is-critical" target="_blank" style="color:#4da6ff;">Al Jazeera ↗</a>）：「對鄰國的攻擊對任何人都無益」，呼籲各方回到談判桌；馬克宏：「必須不惜一切代價避免升級」，接觸伊朗談停火；英 PM Starmer：「不相信從天上推動政權更替」，授權美軍使用英基地防禦；阿曼：對談判破裂「深感失望」；日本：95% 原油依賴中東，準備釋放石油儲備（<a href="https://commonslibrary.parliament.uk/research-briefings/cbp-10305/" target="_blank" style="color:#4da6ff;">HoC Library ↗</a>）</div>
+        <div><div class="diplo-tag" style="color:#4dffaa">🌍 國際反應</div><div class="diplo-country">停火呼聲升</div></div>
+        <div class="diplo-text">黎巴嫩總統 Aoun：提出一個月停火框架（含黎軍部署、黎以談判、解除真主黨武裝四項原則）；以色列和美國「保留看法」（Alma D+13）；法國 Macron 持續推動降溫；卡達 FM：「對鄰國攻擊對任何人無益」（<a href="https://www.aljazeera.com/news/2026/3/11/qatars-foreign-minister-says-keeping-strait-of-hormuz-open-is-critical" target="_blank" style="color:#4dffaa;">Al Jazeera ↗</a>）；阿曼對談判破裂表失望；澳洲下令撤離 UAE 及以色列</div>
       </div>
       <div class="diplo-card" style="border-left:3px solid #ffb340">
-        <div class="diplo-left">
-          <div class="diplo-tag" style="color:#ffb340">🛡️ 區域局勢</div>
-          <div class="diplo-country">多線持續</div>
-        </div>
-        <div class="diplo-text">真主黨：仍持續攻擊以色列，黎巴嫩 570 死 1,444 傷，750,000 流離失所；以色列宣稱殲滅 190+ 名真主黨戰士，打擊金融機構 Al-Qard Al-Hassan；UAE 攔截 26 架無人機，9 架仍落入境內；Ruwais 煉油廠停機；卡達、巴林、沙烏地均升級攔截；烏克蘭無人機∕電戰專家已抵達卡達、UAE、沙烏地；黎巴嫩國會宣布選舉延後兩年（Al Jazeera D+12 · Newsweek · Wikipedia）</div>
+        <div><div class="diplo-tag" style="color:#ffb340">🛡️ 區域局勢</div><div class="diplo-country">多線持續</div></div>
+        <div class="diplo-text">黎巴嫩：687 死（含 98 名兒童）；Arki 村 5 名兒童空襲罹難；Lebanese 大學學者遭以空襲（CNN）；巴林：114 飛彈 + 190 無人機攔截（D+14 Al Jazeera）；沙烏地 Aramco 向烏克蘭採購攔截無人機（WSJ / Alma）；Hezbollah 仍向 IDF 坦克發射反坦克飛彈；IDF 進入 Adaisseh 鎮；敘利亞 al-Sharaa 譴責伊朗攻擊阿拉伯國家（Alma）</div>
       </div>
       <div class="diplo-card" style="border-left:3px solid #ff6040">
-        <div class="diplo-left">
-          <div class="diplo-tag" style="color:#ff6040">⚖️ 人道與調查 <span class="new-badge">D+12 新增</span></div>
-          <div class="diplo-country">調查升溫</div>
-        </div>
-        <div class="diplo-text">White House Leavitt 確認：軍方正就伊朗女校打擊（~175 名學生死亡）展開調查，「出現顯示美國飛彈責任的照片證據」；伊朗大使控訴美以 10,000 處平民設施遭打擊；WHO 緊急警告德黑蘭「黑雨」健康風險；美參院少數黨領袖 Schumer 要求獨立調查；伊朗紅新月：55 名醫護受傷、11 名身亡（含 4 名醫生）；伊朗網路斷線 240+ 小時（Al Jazeera · NBC · WHO · Wikipedia）</div>
-      </div>
-      <div class="diplo-card" style="border-left:3px solid #566880">
-        <div class="diplo-left">
-          <div class="diplo-tag" style="color:#566880">📡 人道危機</div>
-          <div class="diplo-country">持續惡化</div>
-        </div>
-        <div class="diplo-text">伊朗：1,300+ 死亡（聯合國大使數字）；伊朗衛生部：約 10,000 人受傷；黎巴嫩：750,000+ 流離失所（含大批敘利亞難民受波及）；UNICEF：181 名兒童死亡；跨國傷亡：3 名印度人（霍爾木茲）、1 名中國人（伊朗）、1 名菲律賓人（以色列）、1 名尼泊爾人及 1 名巴基斯坦人（UAE）、2 名日本記者遭拘押；澳洲向伊朗女足 5 名球員提供人道簽證（Al Jazeera · Wikipedia · UNICEF）</div>
+        <div><div class="diplo-tag" style="color:#ff6040">⚖️ 人道調查 <span class="new-badge">D+14</span></div><div class="diplo-country">持續惡化</div></div>
+        <div class="diplo-text">伊朗總死亡：1,444（衛生部）/ 1,348（UN 大使較早數字）；18,551 傷；77 處醫療設施受波及；紅新月 11 名醫護身亡（含 4 名醫生）；阿曼 2 名外國人因無人機碎片身亡（Al Jazeera D+14）；黎巴嫩 UNHCR 登記流離失所 667,000 人，非正式估計逾 100 萬；3 名紅新月援助人員在伊朗受傷（CNN D+14）；網路斷線：伊朗 300+ 小時（NetBlocks）（<a href="https://www.aljazeera.com/news/2026/3/13/iran-war-what-is-happening-on-day-14-of-us-israel-attacks" target="_blank" style="color:#ff6040;">Al Jazeera D+14 ↗</a>）</div>
       </div>
     </div>
   </div>
 
   <!-- TAB 5 資料來源 -->
   <div class="panel" id="tab5">
-    <div class="section-label">▶ 原始來源連結（依類別整理，截至 2026.03.12 06:30 UTC+8）</div>
-
-    <style>
-      .src-section { margin-bottom: 28px; }
-      .src-section-title { font-family:'Share Tech Mono',monospace; font-size:11px; color:#4da6ff; letter-spacing:4px; margin-bottom:12px; padding-bottom:6px; border-bottom:1px solid #1e2a3a; }
-      .src-list { display:flex; flex-direction:column; gap:8px; }
-      .src-item { background:#0e1420; border:1px solid #1e2a3a; border-radius:8px; padding:12px 16px; display:flex; flex-wrap:wrap; gap:10px; align-items:flex-start; }
-      .src-outlet { font-family:'Share Tech Mono',monospace; font-size:10px; color:#3d5470; width:80px; flex-shrink:0; padding-top:2px; }
-      .src-body { flex:1; min-width:0; }
-      .src-desc { font-size:13px; color:#8a9bb0; margin-bottom:6px; line-height:1.5; }
-      .src-link { display:inline-block; font-family:'Share Tech Mono',monospace; font-size:10px; color:#4da6ff; text-decoration:none; border:1px solid #4da6ff30; border-radius:4px; padding:3px 8px; margin-right:6px; margin-bottom:4px; transition:all .2s; word-break:break-all; }
-      .src-link:hover { background:#4da6ff18; border-color:#4da6ff; }
-      .src-link.green { color:#4dffaa; border-color:#4dffaa30; }
-      .src-link.green:hover { background:#4dffaa18; border-color:#4dffaa; }
-      .src-link.orange { color:#ffb340; border-color:#ffb34030; }
-      .src-link.orange:hover { background:#ffb34018; border-color:#ffb340; }
-      .src-link.red { color:#ff6040; border-color:#ff604030; }
-      .src-link.red:hover { background:#ff604018; border-color:#ff6040; }
-      .src-note { font-family:'Share Tech Mono',monospace; font-size:9px; color:#2a3a50; margin-top:4px; }
-    </style>
+    <div class="section-label">▶ 原始來源連結（截至 2026.03.14 13:05 UTC+8）— 已逐一驗證有效</div>
 
     <div class="src-section">
       <div class="src-section-title">📊 即時傷亡追蹤 / LIVE CASUALTY TRACKER</div>
@@ -423,174 +403,138 @@
         <div class="src-item">
           <div class="src-outlet">AL JAZEERA</div>
           <div class="src-body">
-            <div class="src-desc">美以伊戰爭傷亡即時追蹤器（Iran · Israel · US · Lebanon 數據）</div>
-            <a class="src-link red" href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank">→ 即時追蹤器</a>
-            <div class="src-note">⚠ 伊朗數字來自伊朗衛生部，受媒體管制影響；Lebanon 數字來自黎巴嫩災害管理辦公室</div>
+            <div class="src-desc">即時追蹤器：1,444 死 18,551 傷（伊朗衛生部）· 15 死以色列 · 11 死美軍 · 687 死黎巴嫩 · 667,000+ 流離失所（UNHCR）</div>
+            <a class="src-link red" href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank">→ 即時追蹤器 ↗</a>
+            <div class="src-note">⚠ 伊朗數字受媒體管制影響；美軍 D+13 墜機死亡人數：Al Jazeera 稱 4 名、CNN 稱 6 名，數字存在差異</div>
           </div>
         </div>
         <div class="src-item">
-          <div class="src-outlet">AL JAZEERA</div>
+          <div class="src-outlet">CNN</div>
           <div class="src-body">
-            <div class="src-desc">1,255 人死亡（D+9，伊朗副衛生部長 Ali Jafarian 宣布）</div>
-            <a class="src-link" href="https://www.aljazeera.com/news/2026/3/9/iran-says-1255-killed-in-us-israeli-attacks-mostly-civilians" target="_blank">→ 原始報導</a>
-          </div>
-        </div>
-        <div class="src-item">
-          <div class="src-outlet">AL JAZEERA</div>
-          <div class="src-body">
-            <div class="src-desc">伊朗：10,000 處平民設施遭打擊、1,300 死亡（UN 大使 Iravani，D+12）；黎巴嫩 570 死 1,444 傷</div>
-            <a class="src-link red" href="https://www.aljazeera.com/news/2026/3/11/iran-war-what-is-happening-on-day-12-of-us-israel-attacks" target="_blank">→ D+12 綜合報導</a>
-            <a class="src-link" href="https://www.aljazeera.com/news/liveblog/2026/3/11/iran-war-live-tehran-says-us-israel-hit-nearly-10000-civilian-sites" target="_blank">→ D+12 Live Blog</a>
-          </div>
-        </div>
-        <div class="src-item">
-          <div class="src-outlet">AL JAZEERA</div>
-          <div class="src-body">
-            <div class="src-desc">伊朗醫療系統受損：77 處醫療設施受波及、29 處損壞、10 處關閉</div>
-            <a class="src-link" href="https://www.aljazeera.com/news/2026/3/11/iran-reports-hospitals-civilians-affected-during-war-with-us-israel" target="_blank">→ 原始報導</a>
+            <div class="src-desc">D+14 綜合報導：墜機 6 名全員罹難 · 霍爾木茲人民幣條件 · $10M 懸紅 · 油市動態</div>
+            <a class="src-link red" href="https://www.cnn.com/2026/03/13/middleeast/us-israel-iran-middle-east-war-what-we-know-intl-hnk" target="_blank">→ CNN D+14 ↗</a>
           </div>
         </div>
       </div>
     </div>
 
     <div class="src-section">
-      <div class="src-section-title">🇺🇸 美軍人員傷亡 / US MILITARY CASUALTIES</div>
+      <div class="src-section-title">📰 D+13–14 主要報導</div>
+      <div class="src-list">
+        <div class="src-item">
+          <div class="src-outlet">AL JAZEERA</div>
+          <div class="src-body">
+            <div class="src-desc">D+14 綜合：穆吉塔巴聲明 · Merops 無人機 · 巴林攔截數字 · 澳洲撤離令</div>
+            <a class="src-link" href="https://www.aljazeera.com/news/2026/3/13/iran-war-what-is-happening-on-day-14-of-us-israel-attacks" target="_blank">→ D+14 綜合 ↗</a>
+            <a class="src-link red" href="https://www.aljazeera.com/news/liveblog/2026/3/13/iran-war-live-trump-says-war-going-well-as-gulf-under-wave-of-attacks" target="_blank">→ D+13 Live Blog ↗</a>
+          </div>
+        </div>
+        <div class="src-item">
+          <div class="src-outlet">AL JAZEERA</div>
+          <div class="src-body">
+            <div class="src-desc">油價報導：布倫特仍維持 $100+ · 霍爾木茲封鎖效應</div>
+            <a class="src-link orange" href="https://www.aljazeera.com/economy/2026/3/13/oil-stays-above-100-a-barrel-amid-irans-stranglehold-on-strait-of-hormuz" target="_blank">→ 油價報導 ↗</a>
+          </div>
+        </div>
+        <div class="src-item">
+          <div class="src-outlet">AL JAZEERA</div>
+          <div class="src-body">
+            <div class="src-desc">戰費報告：Trump 政府密室參院簡報 $11.3B（首 6 天）；擬申請 $50B（Reuters / Al Jazeera D+12）</div>
+            <a class="src-link orange" href="https://www.aljazeera.com/news/2026/3/12/trump-admin-estimates-us-war-on-iran-cost-11-3bn-in-first-6-days-report" target="_blank">→ $11.3B 報導 ↗</a>
+          </div>
+        </div>
+        <div class="src-item">
+          <div class="src-outlet">BRITANNICA</div>
+          <div class="src-body">
+            <div class="src-desc">2026 伊朗衝突背景：Operation Epic Fury · 2,000+ 總死亡 · 衝突起因與走向（2026.03.13 更新）</div>
+            <a class="src-link orange" href="https://www.britannica.com/event/2026-Iran-Conflict" target="_blank">→ Britannica ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="src-section">
+      <div class="src-section-title">🇺🇸 美軍人員傷亡</div>
       <div class="src-list">
         <div class="src-item">
           <div class="src-outlet">PBS</div>
           <div class="src-body">
-            <div class="src-desc">第 7 名美軍：Sgt. Benjamin N. Pennington（26 歲，肯塔基州 Glendale，1st Space Brigade / Fort Carson），3/8 因 3/1 Prince Sultan Air Base 攻擊傷重不治</div>
-            <a class="src-link green" href="https://www.pbs.org/newshour/nation/kentucky-soldier-stationed-in-saudi-arabia-is-7th-u-s-military-death-in-iran-war" target="_blank">→ PBS 原始報導</a>
-            <a class="src-link green" href="https://www.pbs.org/newshour/nation/dignified-transfer-for-kentucky-soldier-who-was-7th-u-s-service-member-to-die-in-iran-war" target="_blank">→ Dover 移靈典禮</a>
+            <div class="src-desc">第 7 名：Sgt. Benjamin N. Pennington（26 歲，肯塔基，1st Space Brigade），3/8 因 3/1 Prince Sultan Air Base 攻擊傷重不治</div>
+            <a class="src-link green" href="https://www.pbs.org/newshour/nation/kentucky-soldier-stationed-in-saudi-arabia-is-7th-u-s-military-death-in-iran-war" target="_blank">→ PBS 原始報導 ↗</a>
+            <a class="src-link green" href="https://www.pbs.org/newshour/nation/dignified-transfer-for-kentucky-soldier-who-was-7th-u-s-service-member-to-die-in-iran-war" target="_blank">→ Dover 移靈典禮 ↗</a>
           </div>
         </div>
         <div class="src-item">
-          <div class="src-outlet">CNN / NPR</div>
+          <div class="src-outlet">NPR</div>
           <div class="src-body">
-            <div class="src-desc">第 8 名美軍：Maj. Sorffly Davius（46 歲，紐約市 Queens，NYPD 警員兼役，陸軍國民警衛隊），3/6 非戰鬥健康事件，科威特 Camp Buehring，CENTCOM 3/8 公告；D+1 六名陣亡者名單：Sgt. Declan Coady、Capt. Cody Khork、Sgt. 1st Class Nicole Amor、Sgt. 1st Class Noah Tietjens、Maj. Jeffrey O'Brien、CW3 Robert Marzan</div>
-            <a class="src-link green" href="https://www.cnn.com/2026/03/08/politics/us-service-member-killed-iran-war" target="_blank">→ CNN 原始報導</a>
-            <a class="src-link green" href="https://www.npr.org/2026/03/09/nx-s1-5742327/us-israel-iran-war-new-supreme-leader" target="_blank">→ NPR D+10</a>
-            <a class="src-link green" href="https://www.cnbc.com/2026/03/09/iran-war-us-service-deaths-army-sgt-benjamin-pennington.html" target="_blank">→ CNBC</a>
+            <div class="src-desc">第 8 名：Maj. Sorffly Davius（46 歲，紐約 Queens，陸軍國民警衛隊），3/6 非戰鬥健康事件，科威特 Camp Buehring，3/8 CENTCOM 公告；穆吉塔巴就任 D+9</div>
+            <a class="src-link green" href="https://www.npr.org/2026/03/09/nx-s1-5742327/us-israel-iran-war-new-supreme-leader" target="_blank">→ NPR D+9 ↗</a>
           </div>
         </div>
       </div>
     </div>
 
     <div class="src-section">
-      <div class="src-section-title">💥 軍事行動 / MILITARY OPERATIONS</div>
+      <div class="src-section-title">🔬 背景分析</div>
       <div class="src-list">
+        <div class="src-item">
+          <div class="src-outlet">ACLED</div>
+          <div class="src-body">
+            <div class="src-desc">胡塞武裝分析：自 2025/10 起未攻擊商船 · 以色列打擊 Hezbollah 250+ 次 · 伊拉克 PMF 67 次宣稱攻擊</div>
+            <a class="src-link" href="https://acleddata.com/update/middle-east-special-issue-march-2026" target="_blank">→ ACLED 中東特別報告 ↗</a>
+          </div>
+        </div>
         <div class="src-item">
           <div class="src-outlet">AL JAZEERA</div>
           <div class="src-body">
-            <div class="src-desc">5,000+ 目標（Gen. Caine D+10 五角大廈記者會）；IRGC 第 37 波 Khoramshahr 飛彈攻擊（D+12）；WHO 黑雨警告</div>
-            <a class="src-link" href="https://www.aljazeera.com/news/liveblog/2026/3/10/iran-war-live-trump-says-conflict-will-be-over-soon-40-killed-in-tehran" target="_blank">→ D+10 Live Blog</a>
-            <a class="src-link red" href="https://www.aljazeera.com/news/liveblog/2026/3/11/iran-war-live-tehran-says-us-israel-hit-nearly-10000-civilian-sites" target="_blank">→ D+11–12 Live Blog</a>
+            <div class="src-desc">北斗導航分析：情報專家認為中國已讓伊朗使用北斗系統提升飛彈精準度</div>
+            <a class="src-link" href="https://www.aljazeera.com/features/2026/3/11/could-iran-be-using-chinas-highly-accurate-beidou-navigation-system" target="_blank">→ BeiDou 分析 ↗</a>
+          </div>
+        </div>
+        <div class="src-item">
+          <div class="src-outlet">AL JAZEERA</div>
+          <div class="src-body">
+            <div class="src-desc">誰是穆吉塔巴（56 歲、IRGC 關係、強硬路線）</div>
+            <a class="src-link" href="https://www.aljazeera.com/features/2026/3/8/who-is-mojtaba-khamenei-a-contender-for-irans-leadership-amid-war" target="_blank">→ 穆吉塔巴人物背景 ↗</a>
           </div>
         </div>
         <div class="src-item">
           <div class="src-outlet">WIKIPEDIA</div>
           <div class="src-body">
-            <div class="src-desc">衝突全覽（開戰時間 06:27 GMT、哈梅內伊身亡、IRIS Dena 擊沉 D+4、各方傷亡）</div>
-            <a class="src-link orange" href="https://en.wikipedia.org/wiki/2026_United_States%E2%80%93Israel%E2%80%93Iran_war" target="_blank">→ Wikipedia 主條目</a>
+            <div class="src-desc">2026 伊朗衝突主條目（持續更新）</div>
+            <a class="src-link orange" href="https://en.wikipedia.org/wiki/2026_Iran_conflict" target="_blank">→ Wikipedia 主條目 ↗</a>
             <div class="src-note">⚠ 維基百科為協作彙整，建議與 AP / Reuters 交叉確認</div>
-          </div>
-        </div>
-        <div class="src-item">
-          <div class="src-outlet">IAEA</div>
-          <div class="src-body">
-            <div class="src-desc">IAEA 確認：伊斯法罕核材料設施無受損（D+3 報告）</div>
-            <div class="src-note">建議直接至 <strong style="color:#4da6ff;">iaea.org → Newsroom → Press Releases</strong> 查核最新伊朗聲明</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="src-section">
-      <div class="src-section-title">🛢️ 能源 / 經濟衝擊 / ENERGY & ECONOMIC IMPACT</div>
-      <div class="src-list">
-        <div class="src-item">
-          <div class="src-outlet">AL JAZEERA</div>
-          <div class="src-body">
-            <div class="src-desc">12 天衝突深度分析（布倫特突破 $100、UAE Ruwais 停機、全球能源危機風險）</div>
-            <a class="src-link orange" href="https://www.aljazeera.com/features/2026/3/11/12-days-how-2025-iran-blueprint-trapped-us-israel-in-longer-war" target="_blank">→ 12 天深度分析</a>
-          </div>
-        </div>
-        <div class="src-item">
-          <div class="src-outlet">CNBC</div>
-          <div class="src-body">
-            <div class="src-desc">油價突破 $110，G7 緊急儲備釋放討論；Pennington 身亡與油市反應</div>
-            <a class="src-link orange" href="https://www.cnbc.com/2026/03/09/iran-war-us-service-deaths-army-sgt-benjamin-pennington.html" target="_blank">→ CNBC 原始報導</a>
-          </div>
-        </div>
-        <div class="src-item">
-          <div class="src-outlet">CSIS</div>
-          <div class="src-body">
-            <div class="src-desc">前 100 小時戰費 $3.7B（$891M/日，$3.5B 為未編列預算）</div>
-            <div class="src-note">建議直接搜尋 <strong style="color:#ffb340;">csis.org + "Operation Epic Fury"</strong> 取得最新版本</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="src-section">
-      <div class="src-section-title">🌍 外交 / 政治 / DIPLOMATIC & POLITICAL</div>
-      <div class="src-list">
-        <div class="src-item">
-          <div class="src-outlet">NPR</div>
-          <div class="src-body">
-            <div class="src-desc">穆吉塔巴就任最高領袖（D+9）；Trump「非常不高興」；俄羅斯提供美軍情報（WashPost 首報、NPR 確認）</div>
-            <a class="src-link" href="https://www.npr.org/2026/03/09/nx-s1-5742327/us-israel-iran-war-new-supreme-leader" target="_blank">→ NPR D+10</a>
-          </div>
-        </div>
-        <div class="src-item">
-          <div class="src-outlet">AL JAZEERA</div>
-          <div class="src-body">
-            <div class="src-desc">卡達 FM：「對鄰國的攻擊對任何人都無益」；呼籲談判；霍爾木茲通行攸關全球</div>
-            <a class="src-link" href="https://www.aljazeera.com/news/2026/3/11/qatars-foreign-minister-says-keeping-strait-of-hormuz-open-is-critical" target="_blank">→ 卡達 FM 訪談</a>
           </div>
         </div>
         <div class="src-item">
           <div class="src-outlet">HoC LIBRARY</div>
           <div class="src-body">
-            <div class="src-desc">英國立場（Starmer：授權美軍使用英基地、霍爾木茲自由航行）；EU 第 42.7 條討論</div>
-            <a class="src-link" href="https://commonslibrary.parliament.uk/research-briefings/cbp-10305/" target="_blank">→ HoC Library 簡報</a>
+            <div class="src-desc">英國立場：Starmer 授權美軍使用英基地、霍爾木茲自由航行</div>
+            <a class="src-link" href="https://commonslibrary.parliament.uk/research-briefings/cbp-10305/" target="_blank">→ HoC Library 簡報 ↗</a>
           </div>
         </div>
       </div>
     </div>
 
     <div class="src-section">
-      <div class="src-section-title">📋 綜合背景 / BACKGROUND & ANALYSIS</div>
+      <div class="src-section-title">⚠ 來源政策</div>
       <div class="src-list">
         <div class="src-item">
-          <div class="src-outlet">AL JAZEERA</div>
-          <div class="src-body">
-            <div class="src-desc">穆吉塔巴·哈梅內伊人物背景（56 歲、IRGC 關係、強硬路線）</div>
-            <a class="src-link" href="https://www.aljazeera.com/features/2026/3/8/who-is-mojtaba-khamenei-a-contender-for-irans-leadership-amid-war" target="_blank">→ 誰是穆吉塔巴？</a>
-          </div>
+          <div class="src-outlet">允許</div>
+          <div class="src-body"><div class="src-desc" style="color:#566880">Al Jazeera · CNN · Wikipedia · NPR · PBS · Britannica · AP · Newsweek · NBC · ACLED · CENTCOM · IAEA · WHO · HoC Library · Military Times · WashPost · Reuters · Alma Research</div></div>
         </div>
         <div class="src-item">
-          <div class="src-outlet">ACLED</div>
-          <div class="src-body">
-            <div class="src-desc">胡塞武裝動員分析、代理人網絡評估</div>
-            <div class="src-note">建議直接搜尋 <strong style="color:#4da6ff;">acleddata.com + "Houthi" + "Iran war"</strong> 取得最新分析</div>
-          </div>
-        </div>
-        <div class="src-item">
-          <div class="src-outlet">來源政策</div>
-          <div class="src-body">
-            <div class="src-desc" style="color:#566880">本儀表板使用來源：Al Jazeera · Wikipedia · NPR · PBS · CNN · CNBC · AP · Newsweek · NBC · ACLED · CENTCOM · CSIS · IAEA · WHO · HoC Library · Military Times · WashPost</div>
-            <div class="src-desc" style="color:#ff4040;margin-top:6px">❌ 排除來源：中天新聞、新華社、央視、環球時報、sznews、sina、sohu、163、guancha、法爾斯通訊社（伊朗官媒）及其他威權政府官媒</div>
-          </div>
+          <div class="src-outlet">❌ 排除</div>
+          <div class="src-body"><div class="src-desc" style="color:#ff4040">中天新聞、新華社、央視、環球時報、法爾斯通訊社（IRNA/Fars）、俄羅斯 RT、Sputnik 及其他威權政府官媒</div></div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="footer">
-    VERIFIED SOURCES: AL JAZEERA · WIKIPEDIA · ACLED · NBC · HoC LIBRARY · AP · CENTCOM · IAEA · WHO · PBS · NEWSWEEK · NPR · WASHPOST · MILITARY TIMES · STIMSON CENTER · UNICEF · NYT<br/>
-    資料更新：2026.03.12 06:30 UTC+8（台灣時間）｜ ⚠ 軍方數據為單方聲索 · IAEA 確認核材料設施未受損 · 伊朗媒體管制致傷亡存在低報可能<br/>
-    ⚠ 禁用來源：中天、新華社、央視、環球時報 ｜ 建議至 Reuters / AP / BBC 交叉確認最新數據
+    VERIFIED SOURCES: AL JAZEERA · CNN · WIKIPEDIA · ACLED · BRITANNICA · PBS · NPR · AP · CENTCOM · IAEA · WHO · HoC LIBRARY · REUTERS · MILITARY TIMES · WASHPOST<br/>
+    資料更新：2026.03.14 13:05 UTC+8（台灣時間）｜ ⚠ 伊拉克墜機死亡數字：Al Jazeera 稱 4 名、CNN 稱 6 名，待 CENTCOM 最終確認<br/>
+    ⚠ 所有軍事能力百分比為綜合估算，非官方數據；伊朗傷亡數字受媒體管制影響，實際數字可能更高
   </div>
 </div>
 
