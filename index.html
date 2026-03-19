@@ -27,13 +27,13 @@
 /* ── Reset ───────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: var(--sans); background: var(--bg); color: var(--text);
-       min-height: 100vh; padding: 28px 0 56px; font-size: 15px; line-height: 1.6;
+       min-height: 100vh; padding: 24px 0 52px; font-size: 15px; line-height: 1.6;
        -webkit-tap-highlight-color: transparent; }
 a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--edge); }
 a:hover { color: var(--c-il); }
 
 /* ── 通用容器 ─────────────────────────── */
-.wrap  { max-width: 1100px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 60px); }
+.wrap  { max-width: 980px; margin: 0 auto; padding: 0 clamp(12px, 2.5vw, 28px); }
 .card  { background: var(--card); border-radius: 10px; }
 .mono  { font-family: var(--mono); }
 .label { font-family: var(--mono); font-size: 10px; letter-spacing: 3px; color: var(--dim); }
@@ -67,7 +67,7 @@ a:hover { color: var(--c-il); }
               letter-spacing: 4px; margin-bottom: 10px; }
 .flash-item { display: flex; gap: 10px; align-items: flex-start;
               font-size: 14px; color: #ffd0b0; line-height: 1.6; }
-.flash-item + .flash-item { margin-top: 8px; }
+.flash-item + .flash-item { margin-top: 6px; }
 .flash-icon { flex-shrink: 0; }
 
 /* ── 狀態橫條 ─────────────────────────── */
@@ -82,7 +82,7 @@ a:hover { color: var(--c-il); }
 /* ── 目標追蹤 ─────────────────────────── */
 .goal-box   { border: 1px solid var(--edge); border-radius: 12px;
               padding: 18px 20px; margin-bottom: 20px; }
-.goal-grid  { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px,1fr)); gap: 10px; }
+.goal-grid  { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 10px; }
 .goal-item  { background: #0a1020; border-radius: 8px; padding: 12px 14px; border-left: 3px solid; }
 .goal-head  { display: flex; justify-content: space-between; align-items: baseline;
               margin-bottom: 5px; gap: 6px; }
@@ -128,7 +128,7 @@ a:hover { color: var(--c-il); }
 .c-lb  { border-color: #ffb34040; }
 
 /* ── 指標卡片 ─────────────────────────── */
-.metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px,1fr)); gap: 10px; }
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px,1fr)); gap: 10px; }
 .metric-card  { background: var(--card); border: 1px solid var(--edge); border-radius: 10px;
                 padding: 14px 15px; display: flex; align-items: flex-start; gap: 10px; }
 .metric-icon  { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
@@ -156,7 +156,7 @@ details[open] summary::before { transform: rotate(90deg); }
 .bar-fill  { height: 100%; border-radius: 5px; width: 0;
              transition: width 1s cubic-bezier(.4,0,.2,1); }
 .mil-wrap  { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
-.mil-panel { border-radius: 12px; padding: 16px 15px; flex: 1 1 250px; min-width: 0; }
+.mil-panel { border-radius: 12px; padding: 14px 14px; flex: 1 1 220px; min-width: 0; }
 .mil-panel.ally { background: #091510; border: 1px solid #4dffaa30; }
 .mil-panel.iran { background: #150909; border: 1px solid #ff404030; }
 .mil-title { font-size: 13px; font-weight: 700; letter-spacing: 2px; margin-bottom: 14px; }
@@ -203,7 +203,7 @@ details[open] summary::before { transform: rotate(90deg); }
 }
 
 /* ── 霍爾木茲 ─────────────────────────── */
-.hor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px,1fr));
+.hor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px,1fr));
             gap: 10px; margin-bottom: 16px; }
 .hor-card { background: var(--card); border-radius: 10px; padding: 14px 13px; border: 1px solid var(--edge); }
 .hor-lbl  { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
@@ -254,7 +254,7 @@ details[open] summary::before { transform: rotate(90deg); }
 
 /* ── 平板 (≤768px) ─── */
 @media (max-width: 768px) {
-  body { padding: 16px 0 48px; font-size: 14px; }
+  body { padding: 14px 0 40px; font-size: 14px; }
 
   /* 分頁：水平滾動，不換行 */
   /* tabs ≤768px: 仍置中，但允許水平滾動 */
@@ -310,7 +310,7 @@ details[open] summary::before { transform: rotate(90deg); }
 
 /* ── 手機 (≤480px) ─── */
 @media (max-width: 480px) {
-  body { padding: 12px 0 40px; }
+  body { padding: 10px 0 36px; }
 
   /* 頁首縮排 */
   .header-sub { display: none; }  /* 來源列手機省略 */
