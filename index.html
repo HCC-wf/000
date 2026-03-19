@@ -203,10 +203,11 @@ details[open] summary::before { transform: rotate(90deg); }
 }
 
 /* ── 霍爾木茲 ─────────────────────────── */
-.hor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px,1fr));
+.hor-grid { display: grid; grid-template-columns: repeat(4, 1fr);
             gap: 10px; margin-bottom: 16px; }
-.hor-card { background: var(--card); border-radius: 10px; padding: 14px 13px; border: 1px solid var(--edge); }
-.hor-lbl  { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+.hor-card { background: var(--card); border-radius: 10px; padding: 14px 13px; border: 1px solid var(--edge); text-align: center; }
+.hor-card p { text-align: center; }
+.hor-lbl  { font-size: 11px; color: var(--muted); margin-bottom: 6px; text-align: center; }
 .hor-val  { font-family: var(--mono); font-size: 26px; font-weight: 700; margin-bottom: 6px; line-height: 1; }
 .energy-row { background: linear-gradient(135deg,#120f00,#160d00);
               border: 1px solid #ffb34030; border-radius: 10px; padding: 14px 16px; }
