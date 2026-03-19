@@ -27,7 +27,8 @@
 /* ── Reset ───────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: var(--sans); background: var(--bg); color: var(--text);
-       min-height: 100vh; padding: 28px 18px 56px; font-size: 15px; line-height: 1.6; }
+       min-height: 100vh; padding: 28px 18px 56px; font-size: 15px; line-height: 1.6;
+       -webkit-tap-highlight-color: transparent; }
 a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--edge); }
 a:hover { color: var(--c-il); }
 
@@ -45,7 +46,8 @@ a:hover { color: var(--c-il); }
                 background: linear-gradient(100deg, #fff 0%, var(--c-il) 50%, var(--c-us) 100%);
                 -webkit-background-clip: text; -webkit-text-fill-color: transparent;
                 background-clip: text; }
-.header-sub   { font-family: var(--mono); font-size: 10px; color: var(--dim); margin-top: 6px; }
+.header-sub   { font-family: var(--mono); font-size: 10px; color: var(--dim); margin-top: 6px;
+                 word-break: break-all; }
 
 /* ── 時間戳列 ─────────────────────────── */
 .ts-bar { background: #060a10; border: 1px solid var(--edge); border-radius: 8px;
@@ -65,7 +67,7 @@ a:hover { color: var(--c-il); }
               letter-spacing: 4px; margin-bottom: 10px; }
 .flash-item { display: flex; gap: 10px; align-items: flex-start;
               font-size: 14px; color: #ffd0b0; line-height: 1.6; }
-.flash-item + .flash-item { margin-top: 2px; }
+.flash-item + .flash-item { margin-top: 8px; }
 .flash-icon { flex-shrink: 0; }
 
 /* ── 狀態橫條 ─────────────────────────── */
@@ -89,7 +91,8 @@ a:hover { color: var(--c-il); }
 .goal-sum   { font-size: 12px; color: var(--muted); line-height: 1.5; }
 
 /* ── 分頁 ─────────────────────────────── */
-.tabs    { display: flex; gap: 7px; margin-bottom: 20px; flex-wrap: wrap; }
+.tabs    { display: flex; gap: 7px; margin-bottom: 20px; flex-wrap: wrap;
+           scroll-behavior: smooth; }
 .tab-btn { padding: 8px 16px; border-radius: 6px; cursor: pointer;
            font-family: var(--sans); font-size: 14px; font-weight: 600;
            border: 1px solid var(--edge); background: transparent;
@@ -104,7 +107,7 @@ a:hover { color: var(--c-il); }
              border-bottom: 1px solid #0f1a28; }
 
 /* ── 傷亡卡片 ─────────────────────────── */
-.cas-grid { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.cas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px,1fr)); gap: 8px; margin-bottom: 24px; }
 .cas-card { background: var(--card); border-radius: 10px; padding: 14px 10px;
             text-align: center; flex: 1 1 90px; min-width: 84px;
             border: 1px solid var(--edge); }
@@ -131,12 +134,12 @@ a:hover { color: var(--c-il); }
 details { background: var(--card); border: 1px solid var(--edge); border-radius: 8px;
           margin-top: 8px; }
 summary { cursor: pointer; font-family: var(--mono); font-size: 10px;
-          color: var(--dim); padding: 8px 12px; letter-spacing: 2px;
+          color: var(--dim); padding: 10px 12px; letter-spacing: 2px;
           list-style: none; display: flex; align-items: center; gap: 8px;
-          user-select: none; }
+          user-select: none; min-height: 40px; }
 summary::before { content: '▶'; font-size: 9px; transition: transform .2s; }
 details[open] summary::before { transform: rotate(90deg); }
-.detail-body { padding: 0 14px 12px; font-size: 13px; color: var(--muted); line-height: 1.7; }
+.detail-body { padding: 4px 14px 12px; font-size: 13px; color: var(--muted); line-height: 1.7; }
 .detail-body p + p { margin-top: 6px; }
 
 /* ── 進度條 ───────────────────────────── */
@@ -161,7 +164,7 @@ details[open] summary::before { transform: rotate(90deg); }
 .vs-note   { font-family: var(--mono); font-size: 9px; color: var(--dim); margin-top: 8px; text-align: center; }
 
 /* ── 時間軸 ───────────────────────────── */
-.timeline   { position: relative; }
+.timeline   { position: relative; overflow: hidden; }
 .tl-line    { position: absolute; left: 72px; top: 6px; bottom: 6px; width: 2px;
               background: linear-gradient(to bottom,#4da6ff44,#ff404044); border-radius: 2px; }
 .tl-row     { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; position: relative; }
@@ -238,9 +241,127 @@ details[open] summary::before { transform: rotate(90deg); }
              border-left: 3px solid var(--c-warn); border-radius: 7px;
              padding: 9px 12px; font-family: var(--mono); font-size: 10px;
              color: var(--c-warn); line-height: 1.7; margin-bottom: 14px; }
+
+/* ══════════════════════════════════════
+   響應式設計 (RWD)
+   ══════════════════════════════════════ */
+
+/* ── 平板 (≤768px) ─── */
+@media (max-width: 768px) {
+  body { padding: 16px 12px 48px; font-size: 14px; }
+
+  /* 分頁：水平滾動，不換行 */
+  .tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+          padding-bottom: 4px; gap: 6px; }
+  .tabs::-webkit-scrollbar { height: 3px; }
+  .tabs::-webkit-scrollbar-thumb { background: var(--edge); border-radius: 3px; }
+  .tab-btn { padding: 8px 13px; font-size: 13px; white-space: nowrap; flex-shrink: 0; }
+
+  /* 傷亡卡片：3 欄固定 grid */
+  .cas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+  .cas-card { flex: none; min-width: 0; padding: 12px 6px; }
+  .cas-flag { font-size: 16px; }
+  .cas-num  { font-size: clamp(13px, 4vw, 19px); }
+  .cas-name { font-size: 10px; }
+
+  /* 目標追蹤：2 欄 */
+  .goal-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* 指標：2 欄 */
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .metric-icon  { font-size: 19px; }
+  .metric-val   { font-size: 15px; }
+
+  /* 軍事面板：堆疊 */
+  .mil-wrap { flex-direction: column; }
+  .mil-panel { flex: none; width: 100%; }
+
+  /* 時間軸：縮窄日期欄 */
+  .tl-line { left: 52px; }
+  .tl-day  { width: 46px; }
+  .tl-d    { font-size: 10px; }
+  .tl-date { font-size: 8px; }
+  .tl-card { padding: 9px 11px; }
+  .tl-title { font-size: 13px; }
+
+  /* 霍爾木茲：2 欄 */
+  .hor-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* 狀態橫條：堆疊 */
+  .status-bar { flex-direction: column; gap: 6px; }
+  .status-bar > div { width: 100%; }
+  .status-bar > div:last-child { text-align: left; }
+
+  /* 快訊字體縮小 */
+  .flash-item { font-size: 13px; }
+
+  /* 來源頁：隱藏 outlet 欄，簡化 */
+  .src-outlet { display: none; }
+  .src-row { padding: 8px 10px; }
+}
+
+/* ── 手機 (≤480px) ─── */
+@media (max-width: 480px) {
+  body { padding: 12px 10px 40px; }
+
+  /* 頁首縮排 */
+  .header-sub { display: none; }  /* 來源列手機省略 */
+  .ts-bar { gap: 5px; padding: 8px 12px; }
+  .ts-bar span { font-size: 10px; }
+
+  /* 傷亡：2 欄 */
+  .cas-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .cas-card { padding: 11px 8px; }
+  .cas-num  { font-size: clamp(15px, 5vw, 20px); }
+  .cas-name { font-size: 10px; }
+
+  /* 目標追蹤：1 欄 */
+  .goal-grid { grid-template-columns: 1fr; }
+
+  /* 指標：1 欄 */
+  .metrics-grid { grid-template-columns: 1fr; }
+
+  /* 時間軸：進一步縮小 */
+  .tl-line { left: 44px; }
+  .tl-day  { width: 38px; }
+  .tl-d    { font-size: 9px; letter-spacing: 0; }
+  .tl-date { display: none; }
+  .tl-row  { gap: 8px; }
+
+  /* 霍爾木茲：1 欄 */
+  .hor-grid { grid-template-columns: 1fr; }
+  .hor-val  { font-size: 22px; }
+
+  /* Energy 橫排改為 3 欄 grid */
+  .e-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; justify-items: center; }
+
+  /* 快訊縮排 */
+  .flash { padding: 11px 12px; }
+  .flash-item { font-size: 12.5px; gap: 7px; }
+  .flash-tag  { letter-spacing: 2px; }
+
+  /* details 展開按鈕加大 tap 區域 */
+  summary { padding: 10px 12px; font-size: 11px; }
+
+  /* 分頁字體再縮 */
+  .tab-btn { padding: 7px 11px; font-size: 12px; }
+
+  /* 外交卡片已有 breakpoint */
+}
+
+/* ── 觸控裝置：hover 效果改為 active ─── */
+@media (hover: none) {
+  a:hover       { color: var(--dim); }
+  .tab-btn:hover { border-color: var(--edge); background: transparent; color: var(--dim); }
+  .tab-btn.active { border-color: var(--c-il); background: #4da6ff18; color: var(--c-il); }
+  .src-link:hover { background: transparent; border-color: #4da6ff30; }
+  a:active       { color: var(--c-il); }
+  .src-link:active { background: #4da6ff18; }
+}
 .footer { margin-top: 28px; padding-top: 12px; border-top: 1px solid #1a2030;
           font-family: var(--mono); font-size: 10px; color: var(--dim);
-          text-align: center; letter-spacing: 2px; line-height: 2; }
+          text-align: center; letter-spacing: 1px; line-height: 1.9;
+          word-break: break-word; }
 </style>
 </head>
 <body>
