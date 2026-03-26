@@ -3,511 +3,384 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>美以伊戰況儀表板｜D+20</title>
+<title>美以伊戰況儀表板｜D+26</title>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
-/* ── 設計語言變數 ─────────────────────── */
-:root {
-  --bg:      #080c14;
-  --card:    #0e1420;
-  --edge:    #1e2a3a;
-  --dim:     #2a3a50;
-  --muted:   #566880;
-  --text:    #c0d0e8;
-  --mono:    'Share Tech Mono', monospace;
-  --sans:    'Rajdhani', sans-serif;
-
-  --c-us:    #4dffaa;
-  --c-il:    #4da6ff;
-  --c-ir:    #ff4040;
-  --c-warn:  #ffb340;
-  --c-alert: #ff6040;
+/* ── CSS 變數 ─── */
+:root{
+  --bg:#080c14; --card:#0e1420; --edge:#1e2a3a; --dim:#2a3a50;
+  --muted:#566880; --text:#c0d0e8;
+  --mono:'Share Tech Mono',monospace; --sans:'Rajdhani',sans-serif;
+  --c-us:#4dffaa; --c-il:#4da6ff; --c-ir:#ff4040;
+  --c-warn:#ffb340; --c-alert:#ff6040;
 }
+/* ── Reset ─── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);
+     min-height:100vh;padding:24px 0 52px;font-size:15px;line-height:1.6;
+     -webkit-tap-highlight-color:transparent}
+a{color:var(--dim);text-decoration:none;border-bottom:1px solid var(--edge)}
+a:hover{color:var(--c-il)}
+/* ── Layout ─── */
+.wrap{max-width:980px;margin:0 auto;padding:0 clamp(12px,2.5vw,28px)}
+.label{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--dim)}
+/* ── Header ─── */
+.header{text-align:center;margin-bottom:20px}
+.header-tag{font-family:var(--mono);font-size:10px;letter-spacing:6px;color:var(--c-ir);margin-bottom:8px}
+.header-title{font-size:clamp(20px,5vw,32px);font-weight:700;letter-spacing:2px;
+  background:linear-gradient(100deg,#fff 0%,var(--c-il) 50%,var(--c-us) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header-sub{font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:6px;word-break:break-all}
+/* ── Timestamp ─── */
+.ts-bar{background:#060a10;border:1px solid var(--edge);border-radius:8px;
+        padding:9px 16px;margin-bottom:14px;display:flex;flex-wrap:wrap;
+        justify-content:space-between;gap:8px}
+.ts-bar span{font-family:var(--mono);font-size:11px}
+.ts-k{color:var(--dim)} .ts-v{color:var(--c-il)}
+.ts-live{color:var(--c-us);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+/* ── Flash ─── */
+.flash{background:linear-gradient(135deg,#1a0a00,#180800);
+       border:1px solid #ff604040;border-left:4px solid var(--c-alert);
+       border-radius:10px;padding:14px 18px;margin-bottom:14px}
+.flash-tag{font-family:var(--mono);font-size:10px;color:var(--c-alert);letter-spacing:4px;margin-bottom:10px}
+.flash-item{display:flex;gap:10px;align-items:flex-start;
+            font-size:14px;color:#ffd0b0;line-height:1.6}
+.flash-item+.flash-item{margin-top:6px}
+.flash-icon{flex-shrink:0}
+/* ── Status bar ─── */
+.status-bar{background:linear-gradient(135deg,#05120a,#081a0e);
+            border:1px solid #4dffaa30;border-left:4px solid var(--c-us);
+            border-radius:10px;padding:12px 20px;margin-bottom:14px;
+            display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
+.status-bar .lbl{font-family:var(--mono);font-size:10px;letter-spacing:3px;margin-bottom:3px}
+.status-bar .val{font-size:16px;font-weight:700}
+/* ── Goal box ─── */
+.goal-box{border:1px solid var(--edge);border-radius:12px;padding:18px 20px;margin-bottom:20px}
+.goal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.goal-item{background:#0a1020;border-radius:8px;padding:12px 14px;border-left:3px solid}
+.goal-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;gap:6px}
+.goal-name{font-family:var(--mono);font-size:10px;letter-spacing:2px}
+.goal-badge{font-family:var(--mono);font-size:10px;font-weight:700;white-space:nowrap}
+.goal-sum{font-size:12px;color:var(--muted);line-height:1.5}
+/* ── Tabs ─── */
+.tabs{display:flex;gap:7px;margin-bottom:20px;flex-wrap:wrap;
+      justify-content:center;width:100%;scroll-behavior:smooth}
+.tab-btn{padding:8px 16px;border-radius:6px;cursor:pointer;
+         font-family:var(--sans);font-size:14px;font-weight:600;
+         border:1px solid var(--edge);background:transparent;
+         color:var(--dim);transition:all .18s}
+.tab-btn.active{border-color:var(--c-il);background:#4da6ff18;color:var(--c-il)}
+.panel{display:none}
+.panel.active{display:block}
+/* ── Sec label ─── */
+.sec-label{font-family:var(--mono);font-size:10px;color:var(--dim);
+           letter-spacing:4px;margin-bottom:14px;padding-bottom:7px;
+           border-bottom:1px solid #0f1a28;text-align:center;width:100%}
+/* ── Cas grid ─── */
+.cas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(100px,14%,160px),1fr));
+          gap:10px;margin-bottom:24px}
+.cas-card{background:var(--card);border-radius:10px;padding:16px 12px;
+          text-align:center;border:1px solid var(--edge);min-width:0;overflow:hidden}
+.cas-flag{font-size:18px;line-height:1;margin-bottom:6px}
+.cas-num{font-family:var(--mono);font-size:clamp(14px,2vw,21px);font-weight:700;line-height:1.2}
+.cas-name{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.35;word-break:break-word;hyphens:auto}
+.cas-src{font-family:var(--mono);font-size:9px;color:var(--dim);margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.c-ir{border-color:#ff404040} .c-il{border-color:#4da6ff40}
+.c-us{border-color:#4dffaa40} .c-lb{border-color:#ffb34040}
+/* ── Metrics ─── */
+.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.metric-card{background:var(--card);border:1px solid var(--edge);border-radius:10px;
+             padding:14px 15px;display:flex;align-items:flex-start;gap:10px}
+.metric-icon{font-size:22px;flex-shrink:0;margin-top:2px}
+.metric-val{font-family:var(--mono);font-size:17px;font-weight:700;color:#fff}
+.metric-lbl{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.4}
+/* ── Details ─── */
+details{background:var(--card);border:1px solid var(--edge);border-radius:8px;margin-top:8px}
+summary{cursor:pointer;font-family:var(--mono);font-size:10px;color:var(--dim);
+        padding:10px 12px;letter-spacing:2px;list-style:none;display:flex;
+        align-items:center;gap:8px;user-select:none;min-height:40px}
+summary::before{content:'▶';font-size:9px;transition:transform .2s}
+details[open] summary::before{transform:rotate(90deg)}
+.detail-body{padding:4px 14px 12px;font-size:13px;color:var(--muted);line-height:1.7}
+.detail-body p+p{margin-top:6px}
+/* ── Warn note ─── */
+.warn-note{background:#0a1428;border:1px solid #ffb34028;border-left:3px solid var(--c-warn);
+           border-radius:7px;padding:9px 12px;font-family:var(--mono);font-size:10px;
+           color:var(--c-warn);line-height:1.7;margin-bottom:14px;box-sizing:border-box;width:100%}
+/* ── Mil bars ─── */
+.mil-wrap{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.mil-panel{border-radius:12px;padding:14px 14px;flex:1 1 220px;min-width:0}
+.mil-panel.ally{background:#091510;border:1px solid #4dffaa30}
+.mil-panel.iran{background:#150909;border:1px solid #ff404030}
+.mil-title{font-size:13px;font-weight:700;letter-spacing:2px;margin-bottom:14px}
+.bar-wrap{margin-bottom:12px}
+.bar-meta{display:flex;justify-content:space-between;margin-bottom:5px}
+.bar-name{font-size:12px;color:#8a9bb0}
+.bar-pct{font-family:var(--mono);font-size:12px;font-weight:700}
+.bar-track{height:7px;border-radius:5px;background:#1c2235;overflow:hidden}
+.bar-fill{height:100%;border-radius:5px;width:0;transition:width 1s cubic-bezier(.4,0,.2,1)}
+.vs-bar{background:var(--card);border:1px solid var(--edge);border-radius:10px;padding:14px 16px}
+.vs-row{display:flex;align-items:center;gap:10px}
+.vs-lbl{font-size:13px;font-weight:700;white-space:nowrap}
+.vs-track{flex:1;height:18px;background:#1c2235;border-radius:9px;overflow:hidden;display:flex}
+.vs-a{height:100%;background:linear-gradient(90deg,var(--c-us),var(--c-il));border-radius:9px 0 0 9px}
+.vs-i{height:100%;background:linear-gradient(90deg,var(--c-ir),#ff7040)}
+.vs-note{font-family:var(--mono);font-size:9px;color:var(--dim);margin-top:8px;text-align:center}
+/* ── Hormuz ─── */
+.hor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.hor-card{background:var(--card);border-radius:10px;padding:14px 13px;
+          border:1px solid var(--edge);text-align:center}
+.hor-card p{text-align:center}
+.hor-lbl{font-size:11px;color:var(--muted);margin-bottom:6px;text-align:center}
+.hor-val{font-family:var(--mono);font-size:26px;font-weight:700;margin-bottom:6px;line-height:1}
+.energy-row{background:linear-gradient(135deg,#120f00,#160d00);
+            border:1px solid #ffb34030;border-radius:10px;padding:14px 16px}
+.e-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-around;margin-top:10px}
+.e-item{text-align:center;min-width:74px}
+.e-val{font-family:var(--mono);font-size:17px;font-weight:700;line-height:1}
+.e-lbl{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.35}
+/* ── Timeline ─── */
+.timeline{position:relative;overflow:hidden}
+.tl-line{position:absolute;left:72px;top:6px;bottom:6px;width:2px;
+         background:linear-gradient(to bottom,#4da6ff44,#ff404044);border-radius:2px}
+.tl-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;position:relative}
+.tl-day{width:64px;flex-shrink:0;text-align:right;padding-top:1px}
+.tl-d{font-family:var(--mono);font-size:11px;color:var(--c-il);font-weight:700}
+.tl-date{font-family:var(--mono);font-size:9px;color:var(--dim)}
+.tl-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:4px;
+        border:2px solid var(--bg);z-index:1}
+.tl-card{flex:1;min-width:0;border-radius:9px;padding:10px 13px}
+.tl-side{font-family:var(--mono);font-size:10px;letter-spacing:2px;margin-bottom:4px}
+.tl-title{font-size:13.5px;font-weight:600;color:var(--text)}
+.tl-card.ally{background:#091510;border:1px solid #4dffaa20}
+.tl-card.iran{background:#150909;border:1px solid #ff404020}
+.tl-card.neu{background:#0e1420;border:1px solid var(--edge)}
+.tl-card.hot{background:#100806;border:1px solid #ff604030}
+/* ── Diplo ─── */
+.diplo-list{display:flex;flex-direction:column;gap:9px}
+.diplo-card{background:var(--card);border:1px solid var(--edge);border-radius:9px;
+            padding:12px 14px;display:grid;grid-template-columns:110px 1fr;gap:12px}
+.diplo-tag{font-family:var(--mono);font-size:10px;letter-spacing:2px;margin-bottom:3px}
+.diplo-who{font-size:15px;font-weight:700}
+.diplo-body{font-size:13px;color:var(--muted);line-height:1.6;
+            border-left:1px solid var(--edge);padding-left:12px}
+/* ── Sources ─── */
+.src-section+.src-section{margin-top:18px}
+.src-title{font-family:var(--mono);font-size:10px;color:var(--c-il);
+           letter-spacing:4px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px solid var(--edge)}
+.src-row{background:var(--card);border:1px solid var(--edge);border-radius:7px;
+         padding:9px 12px;display:flex;gap:10px;align-items:flex-start;margin-bottom:6px}
+.src-outlet{font-family:var(--mono);font-size:9px;color:var(--dim);
+            width:68px;flex-shrink:0;padding-top:2px}
+.src-info{flex:1;min-width:0}
+.src-desc{font-size:12px;color:#8a9bb0;line-height:1.5;margin-bottom:5px}
+.src-link{display:inline-block;font-family:var(--mono);font-size:10px;color:var(--c-il);
+          border:1px solid #4da6ff30;border-radius:3px;padding:2px 7px;
+          margin-right:5px;margin-bottom:3px;text-decoration:none;transition:all .15s}
+.src-link:hover{background:#4da6ff18;border-color:var(--c-il)}
+.src-link.g{color:var(--c-us);border-color:#4dffaa30}
+.src-link.g:hover{background:#4dffaa18;border-color:var(--c-us)}
+.src-link.o{color:var(--c-warn);border-color:#ffb34030}
+.src-note{font-family:var(--mono);font-size:9px;color:var(--dim);margin-top:3px;line-height:1.5}
+/* ── Policy ─── */
+.policy-box{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.policy-col{border-radius:9px;padding:14px 16px}
+.policy-col.allow{background:#041508;border:1px solid #4dffaa25}
+.policy-col.deny{background:#140508;border:1px solid #ff404025}
+.policy-head{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.policy-icon{font-size:18px;line-height:1;flex-shrink:0}
+.policy-label{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:2px}
+.policy-col.allow .policy-label{color:var(--c-us)}
+.policy-col.deny .policy-label{color:var(--c-ir)}
+.policy-note{font-size:11px;color:var(--muted)}
+.policy-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.tag{font-family:var(--mono);font-size:10px;border-radius:4px;padding:3px 8px;white-space:nowrap;border:1px solid}
+.tag.allow{color:var(--c-us);border-color:#4dffaa30;background:#4dffaa0c}
+.tag.deny{color:#ff6060;border-color:#ff404030;background:#ff40400c}
+.policy-reason{font-size:11px;color:var(--muted);line-height:1.6;border-top:1px solid #ff404020;padding-top:8px}
+/* ── Utils ─── */
+.new-tag{display:inline-block;font-family:var(--mono);font-size:9px;color:var(--c-alert);
+         border:1px solid #ff604050;border-radius:3px;padding:0 4px;margin-left:5px;vertical-align:middle}
+.footer{margin-top:28px;padding-top:12px;border-top:1px solid #1a2030;
+        font-family:var(--mono);font-size:10px;color:var(--dim);
+        text-align:center;letter-spacing:1px;line-height:1.9;word-break:break-word}
 
-/* ── Reset ───────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--sans); background: var(--bg); color: var(--text);
-       min-height: 100vh; padding: 24px 0 52px; font-size: 15px; line-height: 1.6;
-       -webkit-tap-highlight-color: transparent; }
-a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--edge); }
-a:hover { color: var(--c-il); }
-
-/* ── 通用容器 ─────────────────────────── */
-.wrap  { max-width: 980px; margin: 0 auto; padding: 0 clamp(12px, 2.5vw, 28px); }
-.card  { background: var(--card); border-radius: 10px; }
-.mono  { font-family: var(--mono); }
-.label { font-family: var(--mono); font-size: 10px; letter-spacing: 3px; color: var(--dim); }
-
-/* ── 頁首 ─────────────────────────────── */
-.header       { text-align: center; margin-bottom: 20px; }
-.header-tag   { font-family: var(--mono); font-size: 10px; letter-spacing: 6px;
-                color: var(--c-ir); margin-bottom: 8px; }
-.header-title { font-size: clamp(20px,5vw,32px); font-weight: 700; letter-spacing: 2px;
-                background: linear-gradient(100deg, #fff 0%, var(--c-il) 50%, var(--c-us) 100%);
-                -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-                background-clip: text; }
-.header-sub   { font-family: var(--mono); font-size: 10px; color: var(--dim); margin-top: 6px;
-                 word-break: break-all; }
-
-/* ── 時間戳列 ─────────────────────────── */
-.ts-bar { background: #060a10; border: 1px solid var(--edge); border-radius: 8px;
-          padding: 9px 16px; margin-bottom: 14px; display: flex; flex-wrap: wrap;
-          justify-content: space-between; gap: 8px; }
-.ts-bar span { font-family: var(--mono); font-size: 11px; }
-.ts-k { color: var(--dim); }
-.ts-v { color: var(--c-il); }
-.ts-live { color: var(--c-us); animation: blink 1.5s infinite; }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-
-/* ── 快訊橫幅 ─────────────────────────── */
-.flash { background: linear-gradient(135deg,#1a0a00,#180800);
-         border: 1px solid #ff604040; border-left: 4px solid var(--c-alert);
-         border-radius: 10px; padding: 14px 18px; margin-bottom: 14px; }
-.flash-tag  { font-family: var(--mono); font-size: 10px; color: var(--c-alert);
-              letter-spacing: 4px; margin-bottom: 10px; }
-.flash-item { display: flex; gap: 10px; align-items: flex-start;
-              font-size: 14px; color: #ffd0b0; line-height: 1.6; }
-.flash-item + .flash-item { margin-top: 6px; }
-.flash-icon { flex-shrink: 0; }
-
-/* ── 狀態橫條 ─────────────────────────── */
-.status-bar { background: linear-gradient(135deg,#05120a,#081a0e);
-              border: 1px solid #4dffaa30; border-left: 4px solid var(--c-us);
-              border-radius: 10px; padding: 12px 20px; margin-bottom: 14px;
-              display: flex; flex-wrap: wrap; gap: 12px;
-              justify-content: space-between; align-items: center; }
-.status-bar .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: 3px; margin-bottom: 3px; }
-.status-bar .val { font-size: 16px; font-weight: 700; }
-
-/* ── 目標追蹤 ─────────────────────────── */
-.goal-box   { border: 1px solid var(--edge); border-radius: 12px;
-              padding: 18px 20px; margin-bottom: 20px; }
-.goal-grid  { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.goal-item  { background: #0a1020; border-radius: 8px; padding: 12px 14px; border-left: 3px solid; }
-.goal-head  { display: flex; justify-content: space-between; align-items: baseline;
-              margin-bottom: 5px; gap: 6px; }
-.goal-name  { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; }
-.goal-badge { font-family: var(--mono); font-size: 10px; font-weight: 700; white-space: nowrap; }
-.goal-sum   { font-size: 12px; color: var(--muted); line-height: 1.5; }
-
-/* ── 分頁 ─────────────────────────────── */
-.tabs    { display: flex; gap: 7px; margin-bottom: 20px; flex-wrap: wrap;
-           justify-content: center; scroll-behavior: smooth;
-           width: 100%; }
-.tab-btn { padding: 8px 16px; border-radius: 6px; cursor: pointer;
-           font-family: var(--sans); font-size: 14px; font-weight: 600;
-           border: 1px solid var(--edge); background: transparent;
-           color: var(--dim); transition: all .18s; }
-.tab-btn.active { border-color: var(--c-il); background: #4da6ff18; color: var(--c-il); }
-.panel { display: none; }
-.panel.active { display: block; }
-
-/* ── 通用區塊標籤 ──────────────────────── */
-.sec-label { font-family: var(--mono); font-size: 10px; color: var(--dim);
-             letter-spacing: 4px; margin-bottom: 14px; padding-bottom: 7px;
-             border-bottom: 1px solid #0f1a28; text-align: center; width: 100%; }
-
-/* ── 傷亡卡片 ─────────────────────────── */
-.cas-grid { display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(clamp(100px, 14%, 160px), 1fr));
-            gap: 10px; margin-bottom: 24px; }
-.cas-card { background: var(--card); border-radius: 10px; padding: 16px 12px;
-            text-align: center; border: 1px solid var(--edge);
-            min-width: 0; overflow: hidden; }
-.cas-flag { font-size: 18px; line-height: 1; margin-bottom: 6px; }
-.cas-num  { font-family: var(--mono); font-size: clamp(16px, 2.5vw, 24px);
-            font-weight: 700; line-height: 1.2; }
-.cas-name { font-size: 11px; color: var(--muted); margin-top: 5px; line-height: 1.35;
-            word-break: break-word; hyphens: auto; }
-.cas-src  { font-family: var(--mono); font-size: 9px; color: var(--dim); margin-top: 4px;
-            overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-/* 邊框色彩變體 */
-.c-ir  { border-color: #ff404040; }
-.c-il  { border-color: #4da6ff40; }
-.c-us  { border-color: #4dffaa40; }
-.c-lb  { border-color: #ffb34040; }
-
-/* ── 指標卡片 ─────────────────────────── */
-.metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.metric-card  { background: var(--card); border: 1px solid var(--edge); border-radius: 10px;
-                padding: 14px 15px; display: flex; align-items: flex-start; gap: 10px; }
-.metric-icon  { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
-.metric-val   { font-family: var(--mono); font-size: 17px; font-weight: 700; color: #fff; }
-.metric-lbl   { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
-
-/* ── 可展開區塊 ────────────────────────── */
-details { background: var(--card); border: 1px solid var(--edge); border-radius: 8px;
-          margin-top: 8px; }
-summary { cursor: pointer; font-family: var(--mono); font-size: 10px;
-          color: var(--dim); padding: 10px 12px; letter-spacing: 2px;
-          list-style: none; display: flex; align-items: center; gap: 8px;
-          user-select: none; min-height: 40px; }
-summary::before { content: '▶'; font-size: 9px; transition: transform .2s; }
-details[open] summary::before { transform: rotate(90deg); }
-.detail-body { padding: 4px 14px 12px; font-size: 13px; color: var(--muted); line-height: 1.7; }
-.detail-body p + p { margin-top: 6px; }
-
-/* ── 進度條 ───────────────────────────── */
-.bar-wrap  { margin-bottom: 12px; }
-.bar-meta  { display: flex; justify-content: space-between; margin-bottom: 5px; }
-.bar-name  { font-size: 12px; color: #8a9bb0; }
-.bar-pct   { font-family: var(--mono); font-size: 12px; font-weight: 700; }
-.bar-track { height: 7px; border-radius: 5px; background: #1c2235; overflow: hidden; }
-.bar-fill  { height: 100%; border-radius: 5px; width: 0;
-             transition: width 1s cubic-bezier(.4,0,.2,1); }
-.mil-wrap  { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
-.mil-panel { border-radius: 12px; padding: 14px 14px; flex: 1 1 220px; min-width: 0; }
-.mil-panel.ally { background: #091510; border: 1px solid #4dffaa30; }
-.mil-panel.iran { background: #150909; border: 1px solid #ff404030; }
-.mil-title { font-size: 13px; font-weight: 700; letter-spacing: 2px; margin-bottom: 14px; }
-.vs-bar    { background: var(--card); border: 1px solid var(--edge); border-radius: 10px; padding: 14px 16px; }
-.vs-row    { display: flex; align-items: center; gap: 10px; }
-.vs-lbl    { font-size: 13px; font-weight: 700; white-space: nowrap; }
-.vs-track  { flex: 1; height: 18px; background: #1c2235; border-radius: 9px; overflow: hidden; display: flex; }
-.vs-a      { height: 100%; background: linear-gradient(90deg,var(--c-us),var(--c-il)); border-radius: 9px 0 0 9px; }
-.vs-i      { height: 100%; background: linear-gradient(90deg,var(--c-ir),#ff7040); }
-.vs-note   { font-family: var(--mono); font-size: 9px; color: var(--dim); margin-top: 8px; text-align: center; }
-
-/* ── 時間軸 ───────────────────────────── */
-.timeline   { position: relative; overflow: hidden; }
-.tl-line    { position: absolute; left: 72px; top: 6px; bottom: 6px; width: 2px;
-              background: linear-gradient(to bottom,#4da6ff44,#ff404044); border-radius: 2px; }
-.tl-row     { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; position: relative; }
-.tl-day     { width: 64px; flex-shrink: 0; text-align: right; padding-top: 1px; }
-.tl-d       { font-family: var(--mono); font-size: 11px; color: var(--c-il); font-weight: 700; }
-.tl-date    { font-family: var(--mono); font-size: 9px; color: var(--dim); }
-.tl-dot     { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; margin-top: 4px;
-              border: 2px solid var(--bg); z-index: 1; }
-.tl-card    { flex: 1; min-width: 0; border-radius: 9px; padding: 10px 13px; }
-.tl-side    { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; margin-bottom: 4px; }
-.tl-title   { font-size: 13.5px; font-weight: 600; color: var(--text); }
-/* tl-card variants */
-.tl-card.ally { background:#091510; border:1px solid #4dffaa20; }
-.tl-card.iran { background:#150909; border:1px solid #ff404020; }
-.tl-card.neu  { background:#0e1420; border:1px solid var(--edge); }
-.tl-card.hot  { background:#100806; border:1px solid #ff604030; }
-
-/* ── 外交卡片 ─────────────────────────── */
-.diplo-list { display: flex; flex-direction: column; gap: 9px; }
-.diplo-card { background: var(--card); border: 1px solid var(--edge); border-radius: 9px;
-              padding: 12px 14px; display: grid; grid-template-columns: 110px 1fr; gap: 12px; }
-.diplo-head { }
-.diplo-tag  { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; margin-bottom: 3px; }
-.diplo-who  { font-size: 15px; font-weight: 700; }
-.diplo-body { font-size: 13px; color: var(--muted); line-height: 1.6;
-              border-left: 1px solid var(--edge); padding-left: 12px; }
-@media (max-width:560px) {
-  .diplo-card { grid-template-columns: 1fr; }
-  .diplo-body { border-left: none; border-top: 1px solid var(--edge);
-                padding-left: 0; padding-top: 8px; }
+/* ══ RWD ══ */
+@media(max-width:768px){
+  body{padding:14px 0 40px;font-size:14px}
+  .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;
+        justify-content:safe center;padding-bottom:4px;gap:6px}
+  .tabs::-webkit-scrollbar{height:3px}
+  .tabs::-webkit-scrollbar-thumb{background:var(--edge);border-radius:3px}
+  .tab-btn{padding:8px 13px;font-size:13px;white-space:nowrap;flex-shrink:0}
+  .cas-grid{grid-template-columns:repeat(3,1fr);gap:7px}
+  .cas-card{padding:12px 6px}
+  .cas-flag{font-size:16px}
+  .cas-num{font-size:clamp(13px,4vw,19px)}
+  .cas-name{font-size:10px}
+  .goal-grid{grid-template-columns:repeat(2,1fr)}
+  .metrics-grid{grid-template-columns:repeat(2,1fr)}
+  .metric-icon{font-size:19px}
+  .metric-val{font-size:15px}
+  .mil-wrap{flex-direction:column}
+  .mil-panel{flex:none;width:100%}
+  .tl-line{left:52px}
+  .tl-day{width:46px}
+  .tl-d{font-size:10px}
+  .tl-date{font-size:8px}
+  .tl-card{padding:9px 11px}
+  .tl-title{font-size:13px}
+  .hor-grid{grid-template-columns:repeat(2,1fr)}
+  .status-bar{flex-direction:column;gap:6px}
+  .status-bar>div{width:100%}
+  .status-bar>div:last-child{text-align:left}
+  .flash-item{font-size:13px}
+  .src-outlet{display:none}
+  .src-row{padding:8px 10px}
+  .policy-box{grid-template-columns:1fr}
+  .diplo-card{grid-template-columns:1fr}
+  .diplo-body{border-left:none;border-top:1px solid var(--edge);padding-left:0;padding-top:8px}
 }
-
-/* ── 霍爾木茲 ─────────────────────────── */
-.hor-grid { display: grid; grid-template-columns: repeat(4, 1fr);
-            gap: 10px; margin-bottom: 16px; }
-.hor-card { background: var(--card); border-radius: 10px; padding: 14px 13px; border: 1px solid var(--edge); text-align: center; }
-.hor-card p { text-align: center; }
-.hor-lbl  { font-size: 11px; color: var(--muted); margin-bottom: 6px; text-align: center; }
-.hor-val  { font-family: var(--mono); font-size: 26px; font-weight: 700; margin-bottom: 6px; line-height: 1; }
-.energy-row { background: linear-gradient(135deg,#120f00,#160d00);
-              border: 1px solid #ffb34030; border-radius: 10px; padding: 14px 16px; }
-.e-grid   { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-around; margin-top: 10px; }
-.e-item   { text-align: center; min-width: 74px; }
-.e-val    { font-family: var(--mono); font-size: 17px; font-weight: 700; line-height: 1; }
-.e-lbl    { font-size: 11px; color: var(--muted); margin-top: 5px; line-height: 1.35; }
-
-/* ── 來源頁 ───────────────────────────── */
-.src-section + .src-section { margin-top: 18px; }
-.src-title  { font-family: var(--mono); font-size: 10px; color: var(--c-il);
-              letter-spacing: 4px; padding-bottom: 6px; margin-bottom: 8px;
-              border-bottom: 1px solid var(--edge); }
-.src-row    { background: var(--card); border: 1px solid var(--edge); border-radius: 7px;
-              padding: 9px 12px; display: flex; gap: 10px; align-items: flex-start;
-              margin-bottom: 6px; }
-.src-outlet { font-family: var(--mono); font-size: 9px; color: var(--dim);
-              width: 68px; flex-shrink: 0; padding-top: 2px; }
-.src-info   { flex: 1; min-width: 0; }
-.src-desc   { font-size: 12px; color: #8a9bb0; line-height: 1.5; margin-bottom: 5px; }
-.src-link   { display: inline-block; font-family: var(--mono); font-size: 10px;
-              color: var(--c-il); border: 1px solid #4da6ff30; border-radius: 3px;
-              padding: 2px 7px; margin-right: 5px; margin-bottom: 3px;
-              text-decoration: none; transition: all .15s; }
-.src-link:hover { background: #4da6ff18; border-color: var(--c-il); }
-.src-link.g { color: var(--c-us); border-color: #4dffaa30; }
-.src-link.g:hover { background: #4dffaa18; border-color: var(--c-us); }
-.src-link.o { color: var(--c-warn); border-color: #ffb34030; }
-.src-note   { font-family: var(--mono); font-size: 9px; color: var(--dim);
-              margin-top: 3px; line-height: 1.5; }
-
-/* ── 小工具 ───────────────────────────── */
-.new-tag { display: inline-block; font-family: var(--mono); font-size: 9px;
-           color: var(--c-alert); border: 1px solid #ff604050; border-radius: 3px;
-           padding: 0 4px; margin-left: 5px; vertical-align: middle; }
-.warn-note { background: #0a1428; border: 1px solid #ffb34028;
-             border-left: 3px solid var(--c-warn); border-radius: 7px;
-             padding: 9px 12px; font-family: var(--mono); font-size: 10px;
-             color: var(--c-warn); line-height: 1.7; margin-bottom: 14px;
-             box-sizing: border-box; width: 100%; }
-
-/* ══════════════════════════════════════
-   響應式設計 (RWD)
-   ══════════════════════════════════════ */
-
-/* ── 平板 (≤768px) ─── */
-@media (max-width: 768px) {
-  body { padding: 14px 0 40px; font-size: 14px; }
-
-  /* 分頁：水平滾動，不換行 */
-  /* tabs ≤768px: 仍置中，但允許水平滾動 */
-  .tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
-          justify-content: safe center; padding-bottom: 4px; gap: 6px; }
-  .tabs::-webkit-scrollbar { height: 3px; }
-  .tabs::-webkit-scrollbar-thumb { background: var(--edge); border-radius: 3px; }
-  .tab-btn { padding: 8px 13px; font-size: 13px; white-space: nowrap; flex-shrink: 0; }
-
-  /* 傷亡卡片：3 欄 */
-  .cas-grid { grid-template-columns: repeat(3, 1fr); gap: 7px; }
-  .cas-card { min-width: 0; }
-  .cas-card { padding: 12px 6px; }
-  .cas-flag { font-size: 16px; }
-  .cas-num  { font-size: clamp(13px, 4vw, 19px); }
-  .cas-name { font-size: 10px; }
-
-  /* 目標追蹤：2 欄 */
-  .goal-grid { grid-template-columns: repeat(2, 1fr); }
-
-  /* 指標：2 欄 */
-  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
-  .metric-icon  { font-size: 19px; }
-  .metric-val   { font-size: 15px; }
-
-  /* 軍事面板：堆疊 */
-  .mil-wrap { flex-direction: column; }
-  .mil-panel { flex: none; width: 100%; }
-
-  /* 時間軸：縮窄日期欄 */
-  .tl-line { left: 52px; }
-  .tl-day  { width: 46px; }
-  .tl-d    { font-size: 10px; }
-  .tl-date { font-size: 8px; }
-  .tl-card { padding: 9px 11px; }
-  .tl-title { font-size: 13px; }
-
-  /* 霍爾木茲：2 欄 */
-  .hor-grid { grid-template-columns: repeat(2, 1fr); }
-
-  /* 狀態橫條：堆疊 */
-  .status-bar { flex-direction: column; gap: 6px; }
-  .status-bar > div { width: 100%; }
-  .status-bar > div:last-child { text-align: left; }
-
-  /* 快訊字體縮小 */
-  .flash-item { font-size: 13px; }
-
-  /* 來源頁：隱藏 outlet 欄，簡化 */
-  .src-outlet { display: none; }
-  .src-row { padding: 8px 10px; }
+@media(max-width:480px){
+  body{padding:10px 0 36px}
+  .header-sub{display:none}
+  .ts-bar{gap:5px;padding:8px 12px}
+  .ts-bar span{font-size:10px}
+  .cas-grid{grid-template-columns:repeat(2,1fr);gap:6px}
+  .cas-card{padding:11px 8px}
+  .cas-num{font-size:clamp(15px,5vw,20px)}
+  .goal-grid{grid-template-columns:1fr}
+  .metrics-grid{grid-template-columns:1fr}
+  .tl-line{left:44px}
+  .tl-day{width:38px}
+  .tl-d{font-size:9px;letter-spacing:0}
+  .tl-date{display:none}
+  .tl-row{gap:8px}
+  .hor-grid{grid-template-columns:1fr}
+  .hor-val{font-size:22px}
+  .e-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;justify-items:center}
+  .flash{padding:11px 12px}
+  .flash-item{font-size:12.5px;gap:7px}
+  .flash-tag{letter-spacing:2px}
 }
-
-/* ── 手機 (≤480px) ─── */
-@media (max-width: 480px) {
-  body { padding: 10px 0 36px; }
-
-  /* 頁首縮排 */
-  .header-sub { display: none; }  /* 來源列手機省略 */
-  .ts-bar { gap: 5px; padding: 8px 12px; }
-  .ts-bar span { font-size: 10px; }
-
-  /* 傷亡：2 欄 */
-  .cas-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
-  .cas-card { overflow: hidden; }
-  .cas-card { padding: 11px 8px; }
-  .cas-num  { font-size: clamp(15px, 5vw, 20px); }
-  .cas-name { font-size: 10px; }
-
-  /* 目標追蹤：1 欄 */
-  .goal-grid { grid-template-columns: 1fr; }
-
-  /* 指標：1 欄 */
-  .metrics-grid { grid-template-columns: 1fr; }
-
-  /* 時間軸：進一步縮小 */
-  .tl-line { left: 44px; }
-  .tl-day  { width: 38px; }
-  .tl-d    { font-size: 9px; letter-spacing: 0; }
-  .tl-date { display: none; }
-  .tl-row  { gap: 8px; }
-
-  /* 霍爾木茲：1 欄 */
-  .hor-grid { grid-template-columns: 1fr; }
-  .hor-val  { font-size: 22px; }
-
-  /* Energy 橫排改為 3 欄 grid */
-  .e-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; justify-items: center; }
-
-  /* 快訊縮排 */
-  .flash { padding: 11px 12px; }
-  .flash-item { font-size: 12.5px; gap: 7px; }
-  .flash-tag  { letter-spacing: 2px; }
-
-  /* details 展開按鈕加大 tap 區域 */
-  summary { padding: 10px 12px; font-size: 11px; }
-
-  /* 分頁字體再縮 */
-  .tab-btn { padding: 7px 11px; font-size: 12px; }
-
-  /* 外交卡片已有 breakpoint */
-}
-
-/* ── 觸控裝置：hover 效果改為 active ─── */
-@media (hover: none) {
-  a:hover       { color: var(--dim); }
-  .tab-btn:hover { border-color: var(--edge); background: transparent; color: var(--dim); }
-  .tab-btn.active { border-color: var(--c-il); background: #4da6ff18; color: var(--c-il); }
-  .src-link:hover { background: transparent; border-color: #4da6ff30; }
-  a:active       { color: var(--c-il); }
-  .src-link:active { background: #4da6ff18; }
-}
-.footer { margin-top: 28px; padding-top: 12px; border-top: 1px solid #1a2030;
-          font-family: var(--mono); font-size: 10px; color: var(--dim);
-          text-align: center; letter-spacing: 1px; line-height: 1.9;
-          word-break: break-word; }
-
-/* ── 來源政策 ─────────────────────────── */
-.policy-box  { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.policy-col  { border-radius: 9px; padding: 14px 16px; }
-.policy-col.allow { background: #041508; border: 1px solid #4dffaa25; }
-.policy-col.deny  { background: #140508; border: 1px solid #ff404025; }
-.policy-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
-.policy-icon { font-size: 18px; line-height: 1; flex-shrink: 0; }
-.policy-label { font-family: var(--mono); font-size: 12px; font-weight: 700;
-                letter-spacing: 2px; }
-.policy-col.allow .policy-label { color: var(--c-us); }
-.policy-col.deny  .policy-label { color: var(--c-ir); }
-.policy-note { font-size: 11px; color: var(--muted); }
-.policy-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-.tag { font-family: var(--mono); font-size: 10px; border-radius: 4px;
-       padding: 3px 8px; white-space: nowrap; border: 1px solid; }
-.tag.allow { color: var(--c-us); border-color: #4dffaa30; background: #4dffaa0c; }
-.tag.deny  { color: #ff6060; border-color: #ff404030; background: #ff40400c; }
-.policy-reason { font-size: 11px; color: var(--muted); line-height: 1.6;
-                 border-top: 1px solid #ff404020; padding-top: 8px; }
-@media (max-width: 600px) {
-  .policy-box { grid-template-columns: 1fr; }
+@media(hover:none){
+  a:hover{color:var(--dim)}
+  .tab-btn:hover{border-color:var(--edge);background:transparent;color:var(--dim)}
+  .tab-btn.active{border-color:var(--c-il);background:#4da6ff18;color:var(--c-il)}
+  .src-link:hover{background:transparent;border-color:#4da6ff30}
+  a:active{color:var(--c-il)}
+  .src-link:active{background:#4da6ff18}
 }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<!-- ── 頁首 ── -->
+<!-- HEADER -->
 <header class="header">
   <div class="header-tag">⚠ SITUATION REPORT — MULTI-SOURCE VERIFIED</div>
   <h1 class="header-title">美以伊戰爭即時戰況儀表板</h1>
-  <p class="header-sub">Operation Epic Fury (US) · Operation Roaring Lion (IL) · <a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank">Al Jazeera</a> · <a href="https://www.cnn.com/2026/03/19/middleeast/us-israel-iran-middle-east-war-day-20-what-we-know-intl-hnk" target="_blank">CNN</a> · <a href="https://www.axios.com/2026/03/19/200-billion-iran-war-hegseth-penntagon" target="_blank">ABC</a> · <a href="https://www.washingtonpost.com/politics/2026/03/19/iran-war-us-pentagon/62762704-2395-11f1-954a-6300919c9854_story.html" target="_blank">Euronews</a> · CENTCOM · Amnesty</p>
+  <p class="header-sub">Operation Epic Fury (US) · Operation Roaring Lion (IL) ·
+    <a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank">Al Jazeera</a> ·
+    <a href="https://www.cnn.com/2026/03/24/middleeast/us-israel-iran-middle-east-war-day-26-what-we-know-intl-hnk" target="_blank">CNN</a> ·
+    <a href="https://www.aljazeera.com/news/2026/3/25/us-israel-war-on-iran-whats-happening-on-day-26-of-attacks" target="_blank">AJ D+26</a> ·
+    <a href="https://en.wikipedia.org/wiki/2026_Iran_conflict" target="_blank">Wikipedia</a> ·
+    <a href="https://acleddata.com/update/middle-east-special-issue-march-2026" target="_blank">ACLED</a> ·
+    <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-10521/" target="_blank">HoC Library</a> · CENTCOM · Amnesty</p>
 </header>
 
-<!-- ── 時間戳 ── -->
+<!-- TIMESTAMP -->
 <div class="ts-bar">
-  <span><span class="ts-k">資料截至</span><span class="ts-v"> 2026.03.20 01:05 UTC+8</span></span>
-  <span><span class="ts-k">衝突天數</span><span class="ts-v"> D+20（2026.03.20）</span></span>
+  <span><span class="ts-k">資料截至</span><span class="ts-v"> 2026.03.26 15:15 UTC+8（台灣時間）</span></span>
+  <span><span class="ts-k">衝突天數</span><span class="ts-v"> D+26（2026.03.26）</span></span>
   <span><span class="ts-k">開戰</span><span class="ts-v"> 2026.02.28 06:27 GMT</span></span>
   <span><span class="ts-live">● 持續升級中</span></span>
 </div>
 
-<!-- ── 快訊 ── -->
+<!-- FLASH -->
 <div class="flash">
-  <div class="flash-tag">🔴 D+18–D+20 重大發展（南帕爾斯大升級）</div>
+  <div class="flash-tag">🔴 D+24–D+26 重大發展 · <a href="https://www.aljazeera.com/news/liveblog/2026/3/26/iran-war-live-us-demands-tehran-accept-defeat-israel-pounds-lebanon" target="_blank" style="color:var(--c-alert)">AJ D+26 Live ↗</a></div>
 
   <div class="flash-item">
-    <span class="flash-icon">🗡️</span>
-    <div><strong>拉里賈尼遭 IDF 暗殺（D+17）</strong>——伊朗最高國家安全委員會秘書長、巴斯基司令同日罹難；穆吉塔巴自就任後未公開露面。
-    <a href="https://abcnews.com/International/live-updates/iran-live-updates/?id=131108492" target="_blank">ABC ↗</a>
+    <span class="flash-icon">🕊️</span>
+    <div>美國「接受失敗」vs 伊朗「五點反方案」——<strong>D+26：美警告「接受失敗或被打得更重」</strong>；伊朗拒絕美 15 點方案，稱「極端強硬」；伊朗國家電視台提出五點條件（含保障核主權、全面解除制裁）；FM Araghchi：訊息有透過中介傳遞，但不等於談判。
+    <a href="https://www.aljazeera.com/news/liveblog/2026/3/26/iran-war-live-us-demands-tehran-accept-defeat-israel-pounds-lebanon" target="_blank">AJ ↗</a>
     <details><summary>展開細節</summary><div class="detail-body">
-      <p>IDF 宣布以精準空襲擊殺 Ali Larijani，同時殺死巴斯基（Basij）司令 Gholamreza Soleimani（與 Qasem Soleimani 為不同人）。此為哈梅內伊身亡以來伊朗領導層遭受最重大打擊。Netanyahu 聲明：「讓伊朗人民有機會推翻政權」。以國防部長 Katz：「拉里賈尼已加入哈梅內伊等人」。伊朗截至本版截止時間尚未正式確認。</p>
+      <p>伊朗五點條件（國家電視台 D+26）：①保障核主權；②全面解除制裁；③美以軍隊撤離中東；④美以支付戰爭賠款；⑤提供不再攻擊的國際保證。美方稱條件「不現實」。Trump 說伊朗「太害怕說出想談」，而以色列官員告訴 CNN：協議「目前不顯而易見」。Iran 軍方 Zolfaghari 嘲諷：美國「只是在自己跟自己談判」。</p>
     </div></details></div>
   </div>
 
   <div class="flash-item">
-    <span class="flash-icon">🕍</span>
-    <div><strong>耶路撒冷三大聖地遭飛彈碎片波及（D+17）</strong>——碎片落至聖墓教堂、西牆及阿克薩清真寺範圍；無人員傷亡。
-    <a href="https://www.euronews.com/2026/03/17/uae-briefly-closes-airspace-after-reporting-new-wave-of-attacks-as-iran-war-rolls-into-its" target="_blank">Euronews ↗</a>
+    <span class="flash-icon">💣</span>
+    <div><strong>Bushehr 核電站遭飛射物擊中地面（D+25）</strong>——伊朗原子能組織聲稱為「美以再次攻擊」；IAEA 確認未偵測到放射性外洩；為衝突以來最接近核設施的攻擊。
+    <a href="https://www.cnn.com/2026/03/24/middleeast/us-israel-iran-middle-east-war-day-26-what-we-know-intl-hnk" target="_blank">CNN ↗</a>
     <details><summary>展開細節</summary><div class="detail-body">
-      <p>伊朗飛彈遭以鐵穹攔截後，碎片落入耶路撒冷舊城，擊中希臘正教牧首座（距聖墓教堂數公尺），另有碎片落至西牆廣場及阿克薩清真寺範圍。為本次衝突以來最敏感宗教事件。三方均呼籲立即停火以保護聖地。</p>
+      <p>伊朗原子能組織說：「飛射物落在 Bushehr 核電站地面（grounds），非建築物本體。」IAEA 說尚未偵測到放射性物質異常釋放，正持續監測。Bushehr 核電站是伊朗唯一商業核反應爐。美方未評論。中俄均表示「高度關切」。</p>
     </div></details></div>
   </div>
 
   <div class="flash-item">
-    <span class="flash-icon">🔬</span>
-    <div><strong>Amnesty International 確認（D+16）：</strong>Minab 女校為美軍 Tomahawk 飛彈目標判斷失誤，至少 170 死（逾 160 名女生）。
-    <a href="https://www.aljazeera.com/news/2026/3/16/us-responsible-for-deadly-attack-on-iranian-school-amnesty-international" target="_blank">AJ ↗</a>
+    <span class="flash-icon">☠️</span>
+    <div>伊朗官方首次更新死亡數字（超 2 週後）：<strong>IRNA 引述官員：1,750+ 人死亡</strong>（CNN D+26）；290 名美軍受傷（CENTCOM，D+25 截止）；黎巴嫩 1,072 死 2,966 傷（AJ D+26）。
+    <a href="https://www.cnn.com/2026/03/24/middleeast/us-israel-iran-middle-east-war-day-26-what-we-know-intl-hnk" target="_blank">CNN ↗</a></div>
+  </div>
+
+  <div class="flash-item">
+    <span class="flash-icon">🚢</span>
+    <div>霍爾木茲有限開放——伊朗宣布非敵對國家船隻向伊朗當局「協調後」可通行；但要<strong>收取過路費</strong>，且通行條件隨時可能改變（CNN 引述油輪船長）；Lebanon 以色列 IDF 地面入侵威脅升高。
+    <a href="https://www.cnn.com/2026/03/25/world/live-news/iran-war-us-israel-trump-03-25-26" target="_blank">CNN ↗</a>
     <details><summary>展開細節</summary><div class="detail-body">
-      <p>此為首個獨立調查機構正式公開確認美方責任。Amnesty 表示，學校距離最近的 IRGC 設施約 60 公尺，但打擊時校內有學生，符合攻擊平民設施的戰爭罪定義。伊朗 FM 表示已向國際法院提出訴訟意向。</p>
+      <p>油輪船長 Baktavatsalam（在霍爾木茲滯留 3 週後獲放行）：「一方說開放，但通行條件取決於各方，涉及的各方太多。」伊朗 FM 再次確認，對美以關聯船隻的禁令維持不變。科威特機場燃油罐 D+25 遭無人機擊中起火（衛星影像確認）。</p>
     </div></details></div>
   </div>
 
   <div class="flash-item">
-    <span class="flash-icon">🏛️</span>
-    <div><strong>反恐中心主任 Joe Kent 公開辭職</strong>——開戰以來最高層級美國官員辭職；FM Araghchi（CBS）：「從未尋求停火，準備防禦到底」。
-    <a href="https://abcnews.com/International/live-updates/iran-live-updates/?id=131108492" target="_blank">ABC ↗</a>
-    <details><summary>展開細節</summary><div class="detail-body">
-      <p>Joe Kent 辭呈：「伊朗對美國不構成迫切威脅，我無法以良知支持這場戰爭，也無法要求我的部屬為此犧牲。」同日，伊朗 FM Araghchi 在 CBS 採訪中強調：「我們從未要求談判，從未尋求停火，伊朗準備防禦到底。」此與 Trump 聲稱「伊朗想談，但條件不夠好」形成矛盾。IRGC 發言人補充：「武器庫大致完好，目前使用的是十年前的舊飛彈；新式武器尚未動用。」</p>
-    </div></details></div>
-  </div>
-
-  <div class="flash-item">
-    <span class="flash-icon">👶</span>
-    <div>Arak 市住宅遭打擊：<strong>3 天大嬰兒、2 歲姊姊、母親、外婆同日罹難</strong>；北德黑蘭薩阿達巴德宮殿複合區大爆炸（D+17）。<a href="https://www.aljazeera.com/news/2026/3/17/iran-war-what-is-happening-on-day-18-of-us-israel-attacks" target="_blank">AJ ↗</a></div>
+    <span class="flash-icon">🇱🇧</span>
+    <div>以色列威脅地面入侵黎巴嫩 Litani 河以南；已下令貝魯特南郊大規模撤離；黎巴嫩 <strong>1,072 死、2,966 傷、逾 100 萬流離失所</strong>（全國 1/5）；UN 秘書長 Guterres：「黎巴嫩不能成為下一個加薩」。
+    <a href="https://www.aljazeera.com/news/2026/3/25/us-israel-war-on-iran-whats-happening-on-day-26-of-attacks" target="_blank">AJ ↗</a></div>
   </div>
 </div>
 
-<!-- ── 狀態橫條 ── -->
+<!-- STATUS BAR -->
 <div class="status-bar">
   <div><div class="lbl" style="color:var(--c-us)">目前態勢</div><div class="val" style="color:var(--c-us)">✅ 美以聯軍 — 軍事壓倒性優勢</div></div>
-  <div style="text-align:right"><div class="lbl" style="color:var(--c-ir)">D+20 最新</div><div class="val" style="color:var(--c-ir)">🔴 南帕爾斯遭打擊 · 能源危機全面升級</div></div>
+  <div style="text-align:right"><div class="lbl" style="color:var(--c-ir)">D+26 關鍵</div><div class="val" style="color:var(--c-ir)">🔴 伊朗拒 15 點方案 · 提出五點反條件</div></div>
 </div>
 
-<!-- ── 目標追蹤 ── -->
+<!-- GOAL BOX -->
 <div class="goal-box">
-  <div class="label" style="margin-bottom:14px">▶ 美國戰略目標追蹤（CENTCOM · IDF · 白宮，截至 D+20）</div>
+  <div class="label" style="margin-bottom:14px">▶ 美國戰略目標追蹤（CENTCOM · IDF · 白宮，截至 D+26）</div>
   <div class="goal-grid">
-
     <div class="goal-item" style="border-color:var(--c-us)">
       <div class="goal-head"><span class="goal-name" style="color:var(--c-us)">消滅伊朗海軍</span><span class="goal-badge" style="color:var(--c-us)">✅</span></div>
-      <p class="goal-sum">7,000+ CENTCOM 目標（含裡海海軍基礎設施 D+18）；霍爾木茲仍封閉。</p>
+      <p class="goal-sum">海軍幾近瓦解；霍爾木茲有限開放（需向伊朗協調）；Iran 仍向船隻收取過路費；Bushehr 核電站地面遭擊（IAEA：無外洩）。</p>
     </div>
-
     <div class="goal-item" style="border-color:var(--c-us)">
       <div class="goal-head"><span class="goal-name" style="color:var(--c-us)">制空 / 防空</span><span class="goal-badge" style="color:var(--c-us)">✅</span></div>
-      <p class="goal-sum">IDF：200 個目標單日（D+18）；CENTCOM 7,000+；20+ 種武器系統；Hegseth：「無法給出時間表」。</p>
-      <details><summary>展開</summary><div class="detail-body">CENTCOM 已使用 20+ 種武器系統（Tomahawk · PrSM 首用 · LUCAS 無人機）；IDF 更深入伊朗領空（Caine：「penetrating deeper」）；伊朗仍發射飛彈，IRGC 稱新式武器保留。CBS ↗</div></details>
+      <p class="goal-sum">IDF 摧毀大多數彈道飛彈發射器；但伊朗 D+24–26 仍每日對以色列、海灣發射飛彈，IRGC 稱「新型武器尚未動用」。</p>
+      <details><summary>展開</summary><div class="detail-body">IDF 聲稱：200 個防空系統、大多數彈道飛彈發射器已摧毀。但 D+24 一枚含 220 磅炸藥彈頭的飛彈穿透以色列防空，NPR 記者確認特拉維夫現場彈坑；伊朗仍能每天發射多波飛彈。</div></details>
     </div>
-
     <div class="goal-item" style="border-color:var(--c-warn)">
       <div class="goal-head"><span class="goal-name" style="color:var(--c-warn)">飛彈與核武</span><span class="goal-badge" style="color:var(--c-warn)">⚡</span></div>
-      <p class="goal-sum">以色列打擊南帕爾斯天然氣田（D+18，全球最大）——重大升級；Trump 稱「不知情」但消息人士否認；伊朗仍保留新型武器。</p>
+      <p class="goal-sum">Bushehr 核電站地面 D+25 遭擊（IAEA 無放射外洩）；IRGC 稱「460kg 高濃縮鈾 / 新型武器保留」；IDF：仍有數千個目標未打擊。</p>
     </div>
-
     <div class="goal-item" style="border-color:var(--c-ir)">
       <div class="goal-head"><span class="goal-name" style="color:var(--c-ir)">代理人網絡</span><span class="goal-badge" style="color:var(--c-ir)">❌</span></div>
-      <p class="goal-sum">黎巴嫩：850+ 死（100+ 兒童）；IDF 地面作戰持續；PMF 伊拉克；胡塞：ACLED 仍克制。</p>
+      <p class="goal-sum">黎巴嫩：1,072 死；以色列威脅地面入侵 Litani 河以南；Lebanon 逐伊朗大使、禁 Hezbollah 軍事行動；ACLED：Hezbollah 仍有 25,000 枚飛彈。</p>
     </div>
-
     <div class="goal-item" style="border-color:var(--c-ir)">
       <div class="goal-head"><span class="goal-name" style="color:var(--c-ir)">政權更替</span><span class="goal-badge" style="color:var(--c-warn)">⚡</span></div>
-      <p class="goal-sum">D+17 拉里賈尼遭暗殺；D+19 伊朗處決 3 人（含 19 歲國家摔角手 Saleh Mohammadi），以「反神」罪名；穆吉塔巴仍未公開露面。</p>
-      <details><summary>展開</summary><div class="detail-body">穆吉塔巴自 D+9 就任後從未公開露面。CBS：美國情報顯示哈梅內伊生前認為穆吉塔巴「資質不足」。以外長不排除繼續暗殺行動。</div></details>
+      <p class="goal-sum">情報部長 Khatib D+23 遭殺；Zolghadr（IRGC 忠貞派）接任安全委員會秘書，顯示穆吉塔巴鞏固權力；穆吉塔巴仍未公開露面。</p>
     </div>
-
     <div class="goal-item" style="border-color:var(--muted)">
       <div class="goal-head"><span class="goal-name" style="color:var(--muted)">終戰條件</span><span class="goal-badge" style="color:var(--muted)">❓</span></div>
-      <p class="goal-sum">五角大廈申請 $200B 追加預算（AP / WashPost D+19）；Hegseth：「無法給出時間表」；伊朗 FM 否認談判；雙方能源設施互打升溫。</p>
+      <p class="goal-sum">美 15 點方案 vs 伊朗五點反條件；Iran 軍方：「美國在跟自己談判」；以色列擔心 Trump 宣布單月停火；House Armed Services Committee 抨擊政府說不清楚戰爭目標。</p>
     </div>
-
   </div>
 </div>
 
-<!-- ── 分頁 ── -->
+<!-- TABS -->
 <div class="tabs">
   <button class="tab-btn active" onclick="switchTab(0)">總覽</button>
   <button class="tab-btn" onclick="switchTab(1)">軍事能力</button>
@@ -519,77 +392,76 @@ details[open] summary::before { transform: rotate(90deg); }
 
 <!-- ═══ TAB 0 總覽 ═══ -->
 <div class="panel active" id="tab0">
-
   <div class="warn-note">
-    ⚠ 伊朗官方傷亡超 7 天未更新（最後：1,444 死 / 18,551 傷）。下方同時列出 HRANA 獨立統計。<br>
-    ⚠ 美軍：CNN / AJ 確認 13 名服役人員死亡（7 名敵火 + 6 名 D+13 伊拉克墜機）；不含 Davius 非戰鬥事件。
+    ⚠ 伊朗官方超 2 週未更新後，D+26 IRNA 引述官員：1,750+ 人死亡（CNN D+26）。本版傷亡卡採此最新數字。<br>
+    ⚠ 美軍：290 人受傷（CENTCOM D+25）；13 名服役人員死亡（CNN）；1 名非戰鬥事件（Davius）另計。
   </div>
 
-  <div class="sec-label">▶ CASUALTIES — <a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank">AJ 追蹤器</a> · CNN D+20 · AP · HRANA，截至 2026.03.20 01:05 UTC+8</div>
+  <div class="sec-label">▶ CASUALTIES — <a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank">AJ 追蹤器</a> · CNN D+26 · IRNA · Wikipedia D+26</div>
   <div class="cas-grid">
     <div class="cas-card c-ir">
       <div class="cas-flag">🇮🇷</div>
-      <div class="cas-num" style="color:var(--c-ir)" data-target="1444">0</div>
-      <div class="cas-name">伊朗（官方）<br>18,551 傷</div>
-      <div class="cas-src"><a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank">AJ ↗</a></div>
+      <div class="cas-num" style="color:var(--c-ir)" data-target="1750">0</div>
+      <div class="cas-name">伊朗死亡<br><span style="font-size:10px">IRNA D+26首次更新</span></div>
+      <div class="cas-src"><a href="https://www.cnn.com/2026/03/24/middleeast/us-israel-iran-middle-east-war-day-26-what-we-know-intl-hnk" target="_blank" style="color:var(--dim)">IRNA / CNN D+26 ↗</a></div>
     </div>
     <div class="cas-card c-ir">
-      <div class="cas-flag">📊</div>
-      <div class="cas-num" style="color:#ff6040" data-target="2452">0</div>
-      <div class="cas-name">HRANA 統計<br>+613 待分類</div>
-      <div class="cas-src"><a href="https://www.cnn.com/world/live-news/iran-war-us-israel-trump-03-16-26" target="_blank">CNN ↗</a></div>
+      <div class="cas-flag">🏠</div>
+      <div class="cas-num" style="color:var(--c-alert)" data-target="82000">0</div>
+      <div class="cas-name">民用建築受損<br><span style="font-size:10px">Red Crescent 統計</span></div>
+      <div class="cas-src"><a href="https://en.wikipedia.org/wiki/2026_Iran_conflict" target="_blank" style="color:var(--dim)">Wikipedia D+26 ↗</a></div>
     </div>
     <div class="cas-card c-il">
       <div class="cas-flag">🇮🇱</div>
-      <div class="cas-num" style="color:var(--c-il)" data-target="18">0</div>
-      <div class="cas-name">以色列<br>3,138+ 傷</div>
-      <div class="cas-src"><a href="https://www.cnn.com/world/live-news/iran-war-us-israel-trump-03-17-26" target="_blank">CNN ↗</a></div>
+      <div class="cas-num" style="color:var(--c-il)" data-target="15">0</div>
+      <div class="cas-name">以色列死亡<br><span style="font-size:10px">另 3,138+ 傷</span></div>
+      <div class="cas-src"><a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank" style="color:var(--dim)">AJ 追蹤器 ↗</a></div>
     </div>
     <div class="cas-card c-us">
       <div class="cas-flag">🇺🇸</div>
       <div class="cas-num" style="color:var(--c-us)" data-target="13">0</div>
-      <div class="cas-name">美軍<br>（13 戰鬥）</div>
-      <div class="cas-src"><a href="https://www.cnn.com/world/live-news/iran-war-us-israel-trump-03-17-26" target="_blank">CNN ↗</a></div>
+      <div class="cas-name">美軍死亡<br><span style="font-size:10px">另 290 人受傷</span></div>
+      <div class="cas-src"><a href="https://www.cnn.com/2026/03/24/middleeast/us-israel-iran-middle-east-war-day-26-what-we-know-intl-hnk" target="_blank" style="color:var(--dim)">CENTCOM / CNN ↗</a></div>
     </div>
     <div class="cas-card c-lb">
       <div class="cas-flag">🇱🇧</div>
-      <div class="cas-num" style="color:var(--c-warn)" data-target="850">0</div>
-      <div class="cas-name">黎巴嫩<br>100+ 名兒童</div>
-      <div class="cas-src"><a href="https://www.cnn.com/world/live-news/iran-war-us-israel-trump-03-16-26" target="_blank">CNN ↗</a></div>
+      <div class="cas-num" style="color:var(--c-warn)" data-target="1072">0</div>
+      <div class="cas-name">黎巴嫩死亡<br><span style="font-size:10px">另 2,966 傷</span></div>
+      <div class="cas-src"><a href="https://www.aljazeera.com/news/2026/3/25/us-israel-war-on-iran-whats-happening-on-day-26-of-attacks" target="_blank" style="color:var(--dim)">Lebanon 衛生部 / AJ ↗</a></div>
     </div>
     <div class="cas-card c-lb">
       <div class="cas-flag">🌍</div>
       <div class="cas-num" style="color:var(--c-warn)" data-target="1000000">0</div>
-      <div class="cas-name">黎巴嫩流離<br>逾百萬（Britannica）</div>
-      <div class="cas-src"><a href="https://www.aljazeera.com/news/2026/3/17/iran-war-what-is-happening-on-day-18-of-us-israel-attacks" target="_blank">AJ ↗</a></div>
+      <div class="cas-name">黎巴嫩流離<br><span style="font-size:10px">佔全國 1/5</span></div>
+      <div class="cas-src"><a href="https://en.wikipedia.org/wiki/2026_Lebanon_war" target="_blank" style="color:var(--dim)">Wikipedia 黎巴嫩戰爭 ↗</a></div>
     </div>
   </div>
 
-  <div class="sec-label">▶ KEY METRICS</div>
+  <div class="sec-label">▶ KEY METRICS — CNN · AJ · CENTCOM · ACLED · HoC Library（D+26）</div>
   <div class="metrics-grid">
     <div class="metric-card">
-      <span class="metric-icon">🎯</span>
-      <div><div class="metric-val">7,000+</div><div class="metric-lbl">CENTCOM 累計打擊目標（20+ 種武器系統）<br><a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank">AJ 追蹤器 D+20 ↗</a></div></div>
+      <span class="metric-icon">🕊️</span>
+      <div><div class="metric-val">談判僵局</div><div class="metric-lbl">美 15 點 vs 伊朗五點反條件；Iran 軍方：「美國在跟自己談判」；以色列擔心 Trump 宣布單月停火<br><a href="https://www.aljazeera.com/news/liveblog/2026/3/26/iran-war-live-us-demands-tehran-accept-defeat-israel-pounds-lebanon" target="_blank" style="color:var(--dim);font-size:10px">AJ D+26 ↗</a></div></div>
     </div>
     <div class="metric-card">
-      <span class="metric-icon">🚀</span>
-      <div><div class="metric-val">$115/桶</div><div class="metric-lbl">Brent 原油（南帕爾斯遭打擊後）；盤中觸及 $119<br><a href="https://www.cnn.com/2026/03/19/middleeast/us-israel-iran-middle-east-war-day-20-what-we-know-intl-hnk" target="_blank">CNN D+20 ↗</a></div></div>
+      <span class="metric-icon">💣</span>
+      <div><div class="metric-val">Bushehr</div><div class="metric-lbl">核電站地面 D+25 遭擊；IAEA：無放射外洩；為衝突最接近核設施事件<br><a href="https://www.cnn.com/2026/03/24/middleeast/us-israel-iran-middle-east-war-day-26-what-we-know-intl-hnk" target="_blank" style="color:var(--dim);font-size:10px">CNN D+26 ↗</a></div></div>
     </div>
     <div class="metric-card">
-      <span class="metric-icon">📈</span>
-      <div><div class="metric-val">$200B</div><div class="metric-lbl">五角大廈申請追加預算（AP / WashPost D+19）；Hegseth：「數字可能變動」<br><a href="https://www.axios.com/2026/03/19/200-billion-iran-war-hegseth-penntagon" target="_blank">Axios D+19 ↗</a></div></div>
+      <span class="metric-icon">🪖</span>
+      <div><div class="metric-val">290 傷</div><div class="metric-lbl">美軍受傷人數（CENTCOM D+25）；82nd Airborne ~1,000 人正部署；以色列 40 萬後備役上限<br><a href="https://www.cnn.com/2026/03/24/middleeast/us-israel-iran-middle-east-war-day-26-what-we-know-intl-hnk" target="_blank" style="color:var(--dim);font-size:10px">CNN / CENTCOM ↗</a></div></div>
+    </div>
+    <div class="metric-card">
+      <span class="metric-icon">🚢</span>
+      <div><div class="metric-val">有限開放</div><div class="metric-lbl">霍爾木茲：非敵對國協調後可通行，需付費；美以關聯船隻仍禁；油輪船長：「條件隨時可變」<br><a href="https://www.cnn.com/2026/03/25/world/live-news/iran-war-us-israel-trump-03-25-26" target="_blank" style="color:var(--dim);font-size:10px">CNN D+26 ↗</a></div></div>
     </div>
     <div class="metric-card">
       <span class="metric-icon">💰</span>
-      <div><div class="metric-val">$11.3B</div><div class="metric-lbl">開戰首 6 天花費（Trump 政府密室簡報）；擬申請 $50B<br><a href="https://www.aljazeera.com/news/2026/3/12/trump-admin-estimates-us-war-on-iran-cost-11-3bn-in-first-6-days-report" target="_blank">AJ D+12 ↗</a></div></div>
+      <div><div class="metric-val">$11.3B</div><div class="metric-lbl">開戰首 6 天花費（Trump 政府密室簡報）；$200B 追加申請已提出<br><a href="https://www.aljazeera.com/news/2026/3/12/trump-admin-estimates-us-war-on-iran-cost-11-3bn-in-first-6-days-report" target="_blank" style="color:var(--dim);font-size:10px">AJ D+12 ↗</a></div></div>
     </div>
     <div class="metric-card">
-      <span class="metric-icon">🌐</span>
-      <div><div class="metric-val">21 天</div><div class="metric-lbl">伊朗網路中斷（NetBlocks）；Starlink ~5 萬終端突破封鎖<br><a href="https://www.cnn.com/2026/03/19/middleeast/us-israel-iran-middle-east-war-day-20-what-we-know-intl-hnk" target="_blank">CNN D+20 ↗</a></div></div>
-    </div>
-    <div class="metric-card">
-      <span class="metric-icon">✈️</span>
-      <div><div class="metric-val">停飛持續</div><div class="metric-lbl">ECB 凍結利率（能源衝擊不確定性）；日本 PM Takaichi 訪Trump商霍爾木茲；Lufthansa 延至 4/9</div></div>
+      <span class="metric-icon">🇱🇧</span>
+      <div><div class="metric-val">入侵威脅</div><div class="metric-lbl">以色列威脅地面入侵 Litani 河以南；UN Guterres：「黎巴嫩不能成為下一個加薩」；Lebanon 已逐出伊朗大使<br><a href="https://www.aljazeera.com/news/2026/3/25/us-israel-war-on-iran-whats-happening-on-day-26-of-attacks" target="_blank" style="color:var(--dim);font-size:10px">AJ D+26 ↗</a></div></div>
     </div>
   </div>
 </div>
@@ -599,29 +471,29 @@ details[open] summary::before { transform: rotate(90deg); }
   <div class="mil-wrap">
     <div class="mil-panel ally">
       <div class="mil-title" style="color:var(--c-us)">🇺🇸 🇮🇱 美以聯軍</div>
-      <div class="bar-wrap"><div class="bar-meta"><span class="bar-name">伊朗防空摧毀（IDF 官方）</span><span class="bar-pct" style="color:var(--c-us)">85%</span></div><div class="bar-track"><div class="bar-fill" style="background:var(--c-us)" data-val="85"></div></div></div>
-      <div class="bar-wrap"><div class="bar-meta"><span class="bar-name">飛彈發射器摧毀（IDF 官方）</span><span class="bar-pct" style="color:var(--c-us)">70%</span></div><div class="bar-track"><div class="bar-fill" style="background:var(--c-us)" data-val="70"></div></div></div>
+      <div class="bar-wrap"><div class="bar-meta"><span class="bar-name">伊朗防空摧毀（IDF 官方：~200 系統）</span><span class="bar-pct" style="color:var(--c-us)">85%</span></div><div class="bar-track"><div class="bar-fill" style="background:var(--c-us)" data-val="85"></div></div></div>
+      <div class="bar-wrap"><div class="bar-meta"><span class="bar-name">飛彈發射器摧毀（IDF：大多數已毀）</span><span class="bar-pct" style="color:var(--c-us)">70%</span></div><div class="bar-track"><div class="bar-fill" style="background:var(--c-us)" data-val="70"></div></div></div>
       <div class="bar-wrap"><div class="bar-meta"><span class="bar-name">海軍摧毀（90+ 艘受損擊沉）</span><span class="bar-pct" style="color:var(--c-us)">95%</span></div><div class="bar-track"><div class="bar-fill" style="background:var(--c-us)" data-val="95"></div></div></div>
-      <div class="bar-wrap"><div class="bar-meta"><span class="bar-name">目標完成度（仍有數千未打擊）</span><span class="bar-pct" style="color:var(--c-warn)">60%</span></div><div class="bar-track"><div class="bar-fill" style="background:var(--c-warn)" data-val="60"></div></div></div>
-      <p class="mono" style="font-size:10px;color:var(--dim);margin-top:10px">⚠ 85%/70% 為 IDF 官方數據；60% 為估算</p>
+      <div class="bar-wrap"><div class="bar-meta"><span class="bar-name">整體目標完成度（仍有數千未打）</span><span class="bar-pct" style="color:var(--c-warn)">60%</span></div><div class="bar-track"><div class="bar-fill" style="background:var(--c-warn)" data-val="60"></div></div></div>
+      <p style="font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:10px">⚠ 85%/70% 為 IDF 官方數據；60% 為估算</p>
     </div>
     <div class="mil-panel iran">
       <div class="mil-title" style="color:var(--c-ir)">🇮🇷 伊朗（含 🇱🇧 真主黨）</div>
-      <div class="bar-wrap"><div class="bar-meta"><span class="bar-name">防空殘存</span><span class="bar-pct" style="color:var(--c-ir)">15%</span></div><div class="bar-track"><div class="bar-fill" style="background:var(--c-ir)" data-val="15"></div></div></div>
-      <div class="bar-wrap"><div class="bar-meta"><span class="bar-name">飛彈發射器殘存</span><span class="bar-pct" style="color:var(--c-ir)">30%</span></div><div class="bar-track"><div class="bar-fill" style="background:var(--c-ir)" data-val="30"></div></div></div>
-      <div class="bar-wrap"><div class="bar-meta"><span class="bar-name">飛彈能力（目前使用舊式）</span><span class="bar-pct" style="color:var(--c-warn)">20%</span></div><div class="bar-track"><div class="bar-fill" style="background:var(--c-warn)" data-val="20"></div></div></div>
+      <div class="bar-wrap"><div class="bar-meta"><span class="bar-name">防空殘存（IDF 聲稱已毀 85%）</span><span class="bar-pct" style="color:var(--c-ir)">15%</span></div><div class="bar-track"><div class="bar-fill" style="background:var(--c-ir)" data-val="15"></div></div></div>
+      <div class="bar-wrap"><div class="bar-meta"><span class="bar-name">飛彈發射器殘存（IDF 稱已毀 70%）</span><span class="bar-pct" style="color:var(--c-ir)">30%</span></div><div class="bar-track"><div class="bar-fill" style="background:var(--c-ir)" data-val="30"></div></div></div>
+      <div class="bar-wrap"><div class="bar-meta"><span class="bar-name">飛彈能力（目前使用舊式；新型保留）</span><span class="bar-pct" style="color:var(--c-warn)">20%</span></div><div class="bar-track"><div class="bar-fill" style="background:var(--c-warn)" data-val="20"></div></div></div>
       <div class="bar-wrap"><div class="bar-meta"><span class="bar-name">海軍殘存</span><span class="bar-pct" style="color:var(--c-ir)">3%</span></div><div class="bar-track"><div class="bar-fill" style="background:var(--c-ir)" data-val="3"></div></div></div>
-      <p class="mono" style="font-size:10px;color:var(--dim);margin-top:10px">⚠ IRGC：「新式飛彈尚未動用」</p>
+      <p style="font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:10px">⚠ IRGC 稱新式飛彈保留；460kg 高濃縮鈾未報告核設施損壞</p>
     </div>
   </div>
   <div class="vs-bar">
-    <div class="sec-label">▶ 整體態勢（估算）</div>
+    <div class="sec-label">▶ 整體態勢（IDF 數據 + 綜合估算）</div>
     <div class="vs-row">
       <span class="vs-lbl" style="color:var(--c-us)">美以 88%</span>
       <div class="vs-track"><div class="vs-a" style="width:88%"></div><div class="vs-i" style="width:12%"></div></div>
       <span class="vs-lbl" style="color:var(--c-ir)">12% 伊朗</span>
     </div>
-    <p class="vs-note">IDF 85% 防空 · 70% 飛彈發射器 · IRGC 稱新式武器保留 · IAEA 核設施無受損 · 胡塞自 2025/10 未攻商船（<a href="https://acleddata.com/update/middle-east-special-issue-march-2026" target="_blank">ACLED ↗</a>）</p>
+    <p class="vs-note">⚠ IDF 官方：85% 防空 · 70% 飛彈發射器 · 但 D+24 飛彈仍穿透特拉維夫防空 · Bushehr 核電站地面遭擊 · 胡塞自 2025/10 未攻商船（<a href="https://acleddata.com/update/middle-east-special-issue-march-2026" target="_blank">ACLED ↗</a>）</p>
   </div>
 </div>
 
@@ -630,32 +502,32 @@ details[open] summary::before { transform: rotate(90deg); }
   <div class="hor-grid">
     <div class="hor-card" style="border-color:#ff404040">
       <div class="hor-lbl">霍爾木茲通行</div>
-      <div class="hor-val" style="color:var(--c-ir)">封閉中</div>
-      <p style="font-size:12px;color:var(--dim)">對美以關聯船隻全面禁止；EU 決議不擴大海軍行動；澳、日確認不派艦。</p>
+      <div class="hor-val" style="color:var(--c-ir)">有限開放</div>
+      <p style="font-size:12px;color:var(--dim)">非敵對國協調後可通行，需付費；美以關聯船隻仍禁；油輪船長：「條件隨時可變」；伊朗仍收取「過路費」。<a href="https://www.cnn.com/2026/03/25/world/live-news/iran-war-us-israel-trump-03-25-26" target="_blank">CNN ↗</a></p>
     </div>
     <div class="hor-card" style="border-color:#ff404040">
-      <div class="hor-lbl">開戰油價漲幅</div>
-      <div class="hor-val" style="color:var(--c-ir)">$115</div>
-      <p style="font-size:12px;color:var(--dim)">Brent 原油；盤中觸及 $119（Britannica）；南帕爾斯遭打擊後伊朗報復海灣能源設施；沙烏地 Riyadh 2 座煉油廠受損；卡達 Ras Laffan 嚴重受損。<a href="https://www.cnn.com/2026/03/19/middleeast/us-israel-iran-middle-east-war-day-20-what-we-know-intl-hnk" target="_blank">CNN D+20 ↗</a></p>
+      <div class="hor-lbl">油價震盪</div>
+      <div class="hor-val" style="color:var(--c-warn)">震盪中</div>
+      <p style="font-size:12px;color:var(--dim)">談判消息 → 油價跌；伊朗否認 → 油價漲；Busher 核電站事件 → 又漲；AP：「股市在 Iran 戰爭中不斷 yo-yo」。<a href="https://www.britannica.com/event/2026-Iran-Conflict" target="_blank">Britannica ↗</a></p>
     </div>
     <div class="hor-card" style="border-color:#ffb34040">
-      <div class="hor-lbl">UAE / 卡達空域</div>
-      <div class="hor-val" style="color:var(--c-warn)">能源互打</div>
-      <p style="font-size:12px;color:var(--dim)">D+18 以色列打擊南帕爾斯（全球最大天然氣田）；D+19 伊朗報復：沙烏地 Riyadh 2 煉油廠 + 卡達 Ras Laffan 嚴重受損；UAE D+19 攔截 7 飛彈 + 15 無人機。<a href="https://www.cbsnews.com/live-updates/iran-war-israel-strike-south-pars-gas-field-trump-threat-oil-gas-prices/" target="_blank">CBS ↗</a></p>
+      <div class="hor-lbl">Kuwait 機場</div>
+      <div class="hor-val" style="color:var(--c-warn)">油罐起火</div>
+      <p style="font-size:12px;color:var(--dim)">D+25 無人機擊中科威特國際機場燃油罐，引發火災（衛星影像確認）；一夜 7 次警報；機場部分航班影響。<a href="https://www.aljazeera.com/news/liveblog/2026/3/26/iran-war-live-us-demands-tehran-accept-defeat-israel-pounds-lebanon" target="_blank">AJ ↗</a></p>
     </div>
     <div class="hor-card" style="border-color:#4dffaa40">
       <div class="hor-lbl">胡塞武裝</div>
       <div class="hor-val" style="color:var(--c-us)">克制</div>
-      <p style="font-size:12px;color:var(--dim)">自 2025/10 未攻擊商船（ACLED）；「戰略保留」模式。<a href="https://acleddata.com/update/middle-east-special-issue-march-2026" target="_blank">ACLED ↗</a></p>
+      <p style="font-size:12px;color:var(--dim)">ACLED 確認：自 2025/10 未攻擊商船；領袖隱避；維持「戰略保留」模式。<a href="https://acleddata.com/update/middle-east-special-issue-march-2026" target="_blank">ACLED ↗</a></p>
     </div>
   </div>
   <div class="energy-row">
-    <div class="label">▶ 能源 / 市場</div>
+    <div class="label">▶ 能源 / 市場（CNN · AP · Britannica D+26）</div>
     <div class="e-grid">
-      <div class="e-item"><div class="e-val" style="color:var(--c-ir)">+40%</div><div class="e-lbl">開戰油價<br>漲幅</div></div>
-      <div class="e-item"><div class="e-val" style="color:var(--c-ir)">$3.79</div><div class="e-lbl">美均價<br>（$/加侖）</div></div>
-      <div class="e-item"><div class="e-val" style="color:var(--c-warn)">$200B</div><div class="e-lbl">五角大廈<br>追加申請</div></div>
-      <div class="e-item"><div class="e-val" style="color:var(--c-warn)">豁免</div><div class="e-lbl">美 30 天<br>俄油豁免</div></div>
+      <div class="e-item"><div class="e-val" style="color:var(--c-warn)">震盪</div><div class="e-lbl">油市<br>談判消息</div></div>
+      <div class="e-item"><div class="e-val" style="color:var(--c-ir)">有限</div><div class="e-lbl">霍爾木茲<br>需付費</div></div>
+      <div class="e-item"><div class="e-val" style="color:var(--c-warn)">釋放</div><div class="e-lbl">IEA 緊急<br>石油儲備</div></div>
+      <div class="e-item"><div class="e-val" style="color:var(--c-ir)">8%</div><div class="e-lbl">USPS 燃油<br>附加費首徵</div></div>
       <div class="e-item"><div class="e-val" style="color:var(--c-ir)">繞道</div><div class="e-lbl">Maersk<br>好望角</div></div>
     </div>
   </div>
@@ -671,8 +543,8 @@ details[open] summary::before { transform: rotate(90deg); }
       <div class="tl-dot" style="background:var(--c-us)"></div>
       <div class="tl-card ally">
         <div class="tl-side" style="color:var(--c-us)">▲ 美以聯合行動 06:27 GMT</div>
-        <div class="tl-title">「史詩狂怒」+「咆哮之獅」展開；哈梅內伊身亡；Minab 女校 168 名學童罹難。</div>
-        <details><summary>展開細節</summary><div class="detail-body">哈梅內伊及其女兒、女婿、孫子同日罹難；沙姆哈尼等高層身亡；打擊涵蓋德黑蘭、伊斯法罕、庫姆、卡拉吉、克爾曼沙赫；Grand Bazaar 及 Golestan Palace 受損；伊朗宣布 40 天國喪。<a href="https://en.wikipedia.org/wiki/2026_Iran_conflict" target="_blank">Wikipedia ↗</a> <a href="https://www.britannica.com/event/2026-Iran-Conflict" target="_blank">Britannica ↗</a></div></details>
+        <div class="tl-title">「史詩狂怒」+「咆哮之獅」展開；哈梅內伊身亡；Minab 女校 168 名學童罹難；伊朗 40 天國喪。</div>
+        <details><summary>展開細節</summary><div class="detail-body">哈梅內伊及其女兒、女婿、孫子同日罹難；沙姆哈尼、國防部長 Nasirzadeh、IRGC 司令 Pakpour 身亡；打擊涵蓋德黑蘭、伊斯法罕、庫姆、卡拉吉；Grand Bazaar 及 Golestan Palace 受損。Oman FM 此前聲稱伊朗已就核問題達成「突破」；攻擊使談判中斷。<a href="https://en.wikipedia.org/wiki/2026_Iran_conflict" target="_blank">Wikipedia ↗</a> <a href="https://www.britannica.com/event/2026-Iran-Conflict" target="_blank">Britannica ↗</a></div></details>
       </div>
     </div>
 
@@ -681,112 +553,86 @@ details[open] summary::before { transform: rotate(90deg); }
       <div class="tl-dot" style="background:var(--c-ir)"></div>
       <div class="tl-card iran">
         <div class="tl-side" style="color:var(--c-ir)">▼ 「真實承諾四」全面反擊</div>
-        <div class="tl-title">攻擊 27 個美軍基地；Beit Shemesh 9 死；科威特 6 名美軍陣亡；霍爾木茲關閉。</div>
-        <details><summary>展開細節</summary><div class="detail-body">卡達 Al Udeid 遭 2 枚彈道飛彈；約旦攔截 119 枚；Amazon AWS UAE 碎片引發火災；103rd Sustainment Command 美軍在科威特 Shuaiba 港遭無人機直擊。<a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank">AJ 追蹤器 ↗</a></div></details>
+        <div class="tl-title">攻擊 27 個美軍基地；以色列 Beit Shemesh 9 死；科威特 6 名美軍陣亡；霍爾木茲實質關閉；Hezbollah 加入。</div>
+        <details><summary>展開細節</summary><div class="detail-body">卡達 Al Udeid 遭 2 枚彈道飛彈；約旦攔截 119 枚；Amazon AWS UAE 碎片引發火災；103rd Sustainment Command 6 名後備役在科威特 Shuaiba 港陣亡；IRGC 發動 500+ 枚飛彈 + 2,000 架無人機（D+5 前）。<a href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank">AJ 追蹤器 ↗</a></div></details>
       </div>
     </div>
 
     <div class="tl-row">
-      <div class="tl-day"><div class="tl-d">D+2–3</div><div class="tl-date">3/2–3</div></div>
-      <div class="tl-dot" style="background:var(--c-ir)"></div>
-      <div class="tl-card iran">
-        <div class="tl-side" style="color:var(--c-ir)">▼ 真主黨參戰 · B-2 穿地彈首用</div>
-        <div class="tl-title">真主黨正式參戰；科威特友軍誤擊；哈梅內伊之妻不治；IAEA 確認核設施無受損。</div>
-        <details><summary>展開細節</summary><div class="detail-body">科威特 F/A-18 誤擊 3 架美軍 F-15E（6 名飛行員彈射生還）；美 B-2 首次投放穿地炸彈；IDF 炸毀 IRIB 電視台及 Assembly of Experts；IDF 91st Division 進入黎巴嫩南部；卡達逮捕 10 名 IRGC 間諜。<a href="https://en.wikipedia.org/wiki/2026_Iran_war" target="_blank">Wikipedia ↗</a></div></details>
-      </div>
-    </div>
-
-    <div class="tl-row">
-      <div class="tl-day"><div class="tl-d">D+4</div><div class="tl-date">3/4</div></div>
-      <div class="tl-dot" style="background:var(--c-us)"></div>
-      <div class="tl-card ally">
-        <div class="tl-side" style="color:var(--c-us)">▲ IRIS Dena 擊沉 · 參院否決授權</div>
-        <div class="tl-title">USS Charlotte 魚雷擊沉 IRIS Dena（87 死）——二戰以來美潛艦首次擊沉敵艦；參院 47:53 否決授權。</div>
-        <details><summary>展開細節</summary><div class="detail-body">32 人由斯里蘭卡海軍救起；IRIS Bushehr 在 Trincomalee 接受監管；卡達 F-15 射下 2 架伊朗 Su-24；CSIS：前 100 小時戰費 $3.7B。<a href="https://en.wikipedia.org/wiki/2026_Iran_conflict" target="_blank">Wikipedia 時間軸 ↗</a></div></details>
-      </div>
-    </div>
-
-    <div class="tl-row">
-      <div class="tl-day"><div class="tl-d">D+5–6</div><div class="tl-date">3/5–6</div></div>
+      <div class="tl-day"><div class="tl-d">D+2–4</div><div class="tl-date">3/2–4</div></div>
       <div class="tl-dot" style="background:var(--c-warn)"></div>
       <div class="tl-card neu">
-        <div class="tl-side" style="color:var(--c-warn)">◆ EU 第 42.7 條 · 俄情報確認 · 眾院否決</div>
-        <div class="tl-title">EU 六國向賽普勒斯部署；B-52/B-1B 抵英 Fairford；眾院 219:212 否決戰爭授權；俄羅斯向伊朗提供美軍情報（WashPost 確認）。</div>
+        <div class="tl-side" style="color:var(--c-warn)">◆ B-2 穿地彈 · IRIS Dena 擊沉 · 參院否決</div>
+        <div class="tl-title">美 B-2 首用穿地彈；USS Charlotte 擊沉 IRIS Dena（87 死）——二戰以來美潛艦首次擊沉敵艦；參院 47:53 否決戰爭授權；IAEA 確認核設施無受損。</div>
+        <details><summary>展開細節</summary><div class="detail-body">科威特 F/A-18 誤擊美軍 F-15E（D+2）；IDF 炸 IRIB 電視台；IDF 91st Division 進入黎巴嫩南部；IRIS Bushehr 在斯里蘭卡受監管；卡達 F-15 射下 2 架伊朗 Su-24（D+4）；CSIS：前 100 小時戰費 $3.7B。<a href="https://en.wikipedia.org/wiki/2026_Iran_conflict" target="_blank">Wikipedia ↗</a></div></details>
       </div>
     </div>
 
     <div class="tl-row">
-      <div class="tl-day"><div class="tl-d">D+7–9</div><div class="tl-date">3/7–9</div></div>
+      <div class="tl-day"><div class="tl-d">D+5–8</div><div class="tl-date">3/5–8</div></div>
+      <div class="tl-dot" style="background:var(--c-warn)"></div>
+      <div class="tl-card neu">
+        <div class="tl-side" style="color:var(--c-warn)">◆ 俄情報確認 · 眾院否決 · 第 7–8 名美軍身亡</div>
+        <div class="tl-title">眾院 219:212 否決戰爭授權；WashPost/NPR 確認俄羅斯向伊朗提供美軍情報；Pennington（第 7 名）3/8 不治；Davius（第 8 名）3/6 非戰鬥事件。</div>
+        <details><summary>展開細節</summary><div class="detail-body">Sgt. Benjamin Pennington（26 歲，肯塔基，1st Space Brigade）因 3/1 Prince Sultan 攻擊傷重不治。EU 第 42.7 條首度討論；六國向賽普勒斯部署；B-52/B-1B 抵英 Fairford 及德 Ramstein；Maersk 繞道好望角。<a href="https://www.pbs.org/newshour/nation/kentucky-soldier-stationed-in-saudi-arabia-is-7th-u-s-military-death-in-iran-war" target="_blank">PBS ↗</a> <a href="https://www.npr.org/2026/03/09/nx-s1-5742327/us-israel-iran-war-new-supreme-leader" target="_blank">NPR ↗</a></div></details>
+      </div>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-day"><div class="tl-d">D+9–12</div><div class="tl-date">3/9–12</div></div>
       <div class="tl-dot" style="background:#ff6040"></div>
       <div class="tl-card hot">
-        <div class="tl-side" style="color:var(--c-alert)">🟠 無條件投降令 · 穆吉塔巴就任 · 油價 $120</div>
-        <div class="tl-title">Trump 要求 MIGA；Pennington（第 7 名美軍）3/8 不治；穆吉塔巴 D+9 就任；油價衝 $120。</div>
-        <details><summary>展開細節</summary><div class="detail-body">Sgt. Benjamin Pennington（26 歲，肯塔基，1st Space Brigade）因 3/1 Prince Sultan 攻擊傷重不治。Maj. Sorffly Davius（46 歲，紐約，國民警衛隊）3/6 非戰鬥健康事件。Assembly of Experts 凌晨宣布穆吉塔巴為第三任最高領袖。<a href="https://www.npr.org/2026/03/09/nx-s1-5742327/us-israel-iran-war-new-supreme-leader" target="_blank">NPR ↗</a> <a href="https://www.pbs.org/newshour/nation/kentucky-soldier-stationed-in-saudi-arabia-is-7th-u-s-military-death-in-iran-war" target="_blank">PBS ↗</a></div></details>
+        <div class="tl-side" style="color:var(--c-alert)">🟠 穆吉塔巴就任 · 黑雨 · 戰費 $11.3B</div>
+        <div class="tl-title">穆吉塔巴 D+9 就任第三任最高領袖；布倫特飆至 $120；WHO 德黑蘭「黑雨」警告；Trump 政府密室確認首 6 天花費 $11.3B。</div>
+        <details><summary>展開細節</summary><div class="detail-body">CENTCOM：5,000+ 目標（D+10）；UAE Ruwais 大火；巴林、沙烏地多次攔截；土耳其 NATO 首次在本國領空擊落伊朗飛彈；Stryker 醫療被伊朗連結駭客竊 50TB；布倫特 $120 後略回落至 $100+。<a href="https://www.aljazeera.com/news/2026/3/12/trump-admin-estimates-us-war-on-iran-cost-11-3bn-in-first-6-days-report" target="_blank">AJ $11.3B ↗</a></div></details>
       </div>
     </div>
 
     <div class="tl-row">
-      <div class="tl-day"><div class="tl-d">D+10–12</div><div class="tl-date">3/10–12</div></div>
-      <div class="tl-dot" style="background:var(--c-warn)"></div>
-      <div class="tl-card neu">
-        <div class="tl-side" style="color:var(--c-warn)">◆ 5,000+ 目標 · 黑雨警告 · 戰費 $11.3B</div>
-        <div class="tl-title">Gen. Caine：5,000+ 目標；WHO「黑雨」健康警告；土耳其首次本土攔截；Trump 政府密室承認首 6 天花費 $11.3B。</div>
-        <details><summary>展開細節</summary><div class="detail-body">CENTCOM 消滅霍爾木茲 16 艘布雷船；UAE Ruwais 大火；Stryker 醫療遭伊朗連結駭客竊取 50TB（D+11）；中俄法接觸伊朗談停火均遭拒；土耳其 NATO 首次在本國領空擊落伊朗飛彈。<a href="https://www.aljazeera.com/news/2026/3/12/trump-admin-estimates-us-war-on-iran-cost-11-3bn-in-first-6-days-report" target="_blank">AJ $11.3B ↗</a></div></details>
-      </div>
-    </div>
-
-    <div class="tl-row">
-      <div class="tl-day"><div class="tl-d">D+13</div><div class="tl-date">3/13</div></div>
+      <div class="tl-day"><div class="tl-d">D+13–16</div><div class="tl-date">3/13–16</div></div>
       <div class="tl-dot" style="background:var(--c-ir)"></div>
       <div class="tl-card iran">
-        <div class="tl-side" style="color:var(--c-ir)">🔴 杜拜機場遭攻 · 加油機墜毀 · 卡達空域關閉</div>
-        <div class="tl-title">杜拜機場遭無人機攻擊；美軍加油機伊拉克西部墜毀（6 名全員罹難）；穆吉塔巴發表首份聲明；美懸紅 $10M。</div>
-        <details><summary>展開細節</summary><div class="detail-body">卡達空域正式關閉；以色列 Arki 村空襲 5 名兒童罹難；澳洲命令非必要官員撤離 UAE 及以色列；Kata'ib Hezbollah 安全司令 Abu Ali al-Askari 遭巴格達空襲身亡。<a href="https://www.aljazeera.com/news/liveblog/2026/3/13/iran-war-live-trump-says-war-going-well-as-gulf-under-wave-of-attacks" target="_blank">AJ D+13 ↗</a></div></details>
+        <div class="tl-side" style="color:var(--c-ir)">🔴 杜拜機場 · Amnesty 女校 · 加油機墜毀</div>
+        <div class="tl-title">D+13：杜拜機場遭攻；卡達空域關閉；美軍加油機伊拉克西部墜毀（6 死）。D+16：Amnesty 確認 Minab 女校美軍 Tomahawk 責任（170+ 死，160+ 名女生）。</div>
+        <details><summary>展開細節</summary><div class="detail-body">以色列 Arki 村空襲 5 名兒童罹難；穆吉塔巴發表首份聲明；美懸紅 $10M；D+14 伊斯法罕工廠 15 死；伊朗考慮以人民幣為霍爾木茲開放條件（CNN）；D+15 什拉茲 20 次爆炸；D+15 IDF Defrin：「至少再打三週」。<a href="https://www.aljazeera.com/news/2026/3/16/us-responsible-for-deadly-attack-on-iranian-school-amnesty-international" target="_blank">Amnesty ↗</a></div></details>
       </div>
     </div>
 
     <div class="tl-row">
-      <div class="tl-day"><div class="tl-d">D+14–16</div><div class="tl-date">3/14–16</div></div>
+      <div class="tl-day"><div class="tl-d">D+17–20</div><div class="tl-date">3/17–20</div></div>
       <div class="tl-dot" style="background:var(--c-warn)"></div>
       <div class="tl-card neu">
-        <div class="tl-side" style="color:var(--c-warn)">◆ Amnesty 女校確認 · IDF 計畫 3 週</div>
-        <div class="tl-title">D+16：Amnesty 確認 Minab 女校至少 170 死（逾 160 名女生）；IDF Defrin：「至少再打三週」；Hegseth：已打擊 15,000 目標。</div>
-        <details><summary>展開細節</summary><div class="detail-body">D+14：伊斯法罕工廠 15 死；伊朗考慮以人民幣為霍爾木茲開放條件（CNN）。D+15：什拉茲 20 次爆炸；德黑蘭省長：10,000 棟住宅受損；伊朗太空研究中心嚴重受損。D+16：伊朗 18 人疑涉 Iran International 遭逮捕；杜拜機場附近油罐起火；Trump：「伊朗使用 AI 散布假訊息」。<a href="https://www.aljazeera.com/news/2026/3/16/us-responsible-for-deadly-attack-on-iranian-school-amnesty-international" target="_blank">Amnesty ↗</a> <a href="https://www.aljazeera.com/news/2026/3/16/iran-war-what-is-happening-on-day-17-of-us-israel-attacks" target="_blank">AJ D+16 ↗</a></div></details>
+        <div class="tl-side" style="color:var(--c-warn)">◆ 拉里賈尼遭暗殺 · 南帕爾斯大升級 · $200B</div>
+        <div class="tl-title">D+17：IDF 暗殺拉里賈尼＋巴斯基司令；耶路撒冷聖地遭碎片。D+18：以色列打擊南帕爾斯天然氣田（全球最大）。D+19：Brent $115–$119；五角大廈申請 $200B 追加預算；伊朗報復沙烏地 Riyadh + 卡達 Ras Laffan。</div>
+        <details><summary>展開細節</summary><div class="detail-body">Joe Kent（反恐中心主任）D+17 公開辭職；FM Araghchi（CBS）：「從未尋求停火，準備防禦到底」；IRGC 稱「武器庫完好，新型武器保留」；Arak 市 3 天嬰兒及家人罹難；伊朗情報部長 Khatib D+23 遭擊殺；Zolghadr 接任安全委員會秘書。<a href="https://en.wikipedia.org/wiki/2026_Iran_conflict" target="_blank">Wikipedia ↗</a></div></details>
       </div>
     </div>
 
     <div class="tl-row">
-      <div class="tl-day"><div class="tl-d">D+17</div><div class="tl-date">3/17</div></div>
+      <div class="tl-day"><div class="tl-d">D+21–25</div><div class="tl-date">3/21–25</div></div>
       <div class="tl-dot" style="background:var(--c-warn)"></div>
-      <div class="tl-card hot">
-        <div class="tl-side" style="color:var(--c-alert)">◆ D+17 事件（22:15 UTC+8）</div>
-        <div class="tl-title">IDF 暗殺拉里賈尼；耶路撒冷聖地碎片事件；Arak 嬰兒罹難；Joe Kent 辭職；FM 否認談判；IRGC：新武器保留。</div>
-        <details><summary>展開細節</summary><div class="detail-body">IDF 同時殺死巴斯基司令 Gholamreza Soleimani；北德黑蘭薩阿達巴德宮殿複合區大爆炸；伊朗 D+17 持續對以色列及海灣國家發射飛彈；EU 外長決議不擴大霍爾木茲海軍行動；澳、日確認不派艦；Trump 推遲訪中一個月；伊朗網路中斷第 18 天（NetBlocks）；Starlink 約 5 萬終端用於突破封鎖（FreedomHouse）。<a href="https://www.aljazeera.com/news/2026/3/17/iran-war-what-is-happening-on-day-18-of-us-israel-attacks" target="_blank">AJ D+17 ↗</a> <a href="https://www.cnn.com/world/live-news/iran-war-us-israel-trump-03-17-26" target="_blank">CNN ↗</a> <a href="https://abcnews.com/International/live-updates/iran-live-updates/?id=131108492" target="_blank">ABC ↗</a> <a href="https://www.euronews.com/2026/03/17/uae-briefly-closes-airspace-after-reporting-new-wave-of-attacks-as-iran-war-rolls-into-its" target="_blank">Euronews ↗</a></div></details>
+      <div class="tl-card neu">
+        <div class="tl-side" style="color:var(--c-warn)">◆ 停火試探 · 飛彈穿透特拉維夫 · Bushehr</div>
+        <div class="tl-title">Trump 延長霍爾木茲期限 5 天；稱「Iran means business」；D+24 伊朗飛彈穿透特拉維夫防空（NPR 現場確認）；D+25 Bushehr 核電站地面遭擊（IAEA：無外洩）；IRNA 首次更新死亡：1,750+ 死。</div>
+        <details><summary>展開細節</summary><div class="detail-body">巴基斯坦、埃及、土耳其傳遞訊息（NPR D+25 確認）；伊朗拒 Witkoff/Kushner，要求改由 Vance 接觸（CNN）；科威特機場燃油罐遭擊起火；Hezbollah 已對以色列發射 3,500 枚飛彈及無人機（D+26 計）；Lebanon 逐出伊朗大使、禁 Hezbollah 軍事行動；Lebanon 外長：「IRGC 在管理軍事行動」。<a href="https://www.aljazeera.com/news/2026/3/24/us-israel-war-on-iran-whats-happening-on-day-25-of-attacks" target="_blank">AJ D+25 ↗</a> <a href="https://www.npr.org/2026/03/24/nx-s1-5759317/israel-iran-war" target="_blank">NPR ↗</a></div></details>
       </div>
     </div>
 
     <div class="tl-row">
-      <div class="tl-day"><div class="tl-d">D+18–19</div><div class="tl-date">3/18–19</div></div>
-      <div class="tl-dot" style="background:var(--c-ir)"></div>
-      <div class="tl-card hot">
-        <div class="tl-side" style="color:var(--c-alert)">🔴 南帕爾斯大升級 · 五角大廈 $200B</div>
-        <div class="tl-title">D+18：以色列打擊南帕爾斯天然氣田（全球最大）；D+19：Brent $115–$119；五角大廈申請 $200B；伊朗報復：沙烏地 Riyadh + 卡達 Ras Laffan 受損；19 歲摔角手 Mohammadi 遭處決。</div>
-        <details><summary>展開細節</summary><div class="detail-body">
-          <p>D+18：IDF 打擊南帕爾斯（全球最大天然氣田，伊朗 / 卡達共享）——首次打擊能源生產設施。Trump 稱「不知情」，但 CNN 消息人士稱「美方協調並知悉」。IDF 裡海海軍基礎設施打擊為「開戰以來最重大之一」。USS Gerald R. Ford 抵克里特島維修（已出海 268 天）。</p>
-          <p>D+19：伊朗報復沙烏地 Riyadh 2 座煉油廠 + 卡達 Ras Laffan 嚴重受損；UAE 攔截 7 飛彈 + 15 無人機；Brent 觸及 $119/桶；WashPost/AP 確認五角大廈申請 $200B；ECB 凍結利率；日本 PM Takaichi 訪 Trump；西岸 Hebron 理髮店碎片 4 死；伊朗處決 19 歲摔角手 Saleh Mohammadi（HENGAW：強迫認罪）。</p>
-        </div></details>
-      </div>
-    </div>
-
-    <div class="tl-row">
-      <div class="tl-day"><div class="tl-d">D+20</div><div class="tl-date">3/20</div></div>
+      <div class="tl-day"><div class="tl-d">D+26</div><div class="tl-date">3/26</div></div>
       <div class="tl-dot" style="background:var(--c-ir);box-shadow:0 0 10px var(--c-ir);animation:blink 1.5s infinite"></div>
       <div class="tl-card hot">
-        <div class="tl-side" style="color:var(--c-alert)">🔴 今日（截至 01:05 UTC+8）</div>
-        <div class="tl-title">Hegseth：「最大規模打擊包即將到來」、「無法給出時間表」；能源危機全面升溫；Brent $115/桶；美國國債突破 $39 兆。</div>
+        <div class="tl-side" style="color:var(--c-alert)">🔴 今日（截至 15:15 UTC+8）</div>
+        <div class="tl-title">美警告「接受失敗或被打得更重」；伊朗拒美 15 點方案，提出五點反條件；Iran 軍方：「美國在跟自己談判」；以色列威脅地面入侵 Lebanon；Lebanon 1,072 死；以色列 IDF 再轟 Beirut 南郊。</div>
         <details><summary>展開細節</summary><div class="detail-body">
-          <p>五角大廈記者會（CBS / AP D+19）：Hegseth 確認申請更多資金（$200B「數字可能變動」）；Gen. Caine：正「penetrating deeper into Iranian airspace」、已投入 5,000 磅穿地炸彈打擊地下武器庫。Trump 橢圓辦公室：「不會把軍隊送任何地方」；對 $200B vs「快結束」矛盾：「為超出伊朗之外的理由申請」。美國國債突破 $39 兆（AP D+19）。</p>
+          <p>伊朗五點反條件（國家電視台）：保障核主權、全面解除制裁、美以軍隊撤中東、支付戰爭賠款、提供不再攻擊保證。以色列官員告訴 CNN：協議「不顯而易見」。Israel FM Saar 呼籲 UN 安理會將 Hezbollah 列為恐怖組織。House Armed Services Committee 成員對政府說不清楚戰爭目標表示「不滿」（CNN）。USPS 首次對包裹徵收 8% 燃油附加費。Trump 稱伊朗「太害怕說出想談」。</p>
         </div></details>
+        <div style="margin-top:6px;font-size:11px;font-family:var(--mono);color:var(--dim)">
+          <a href="https://www.aljazeera.com/news/liveblog/2026/3/26/iran-war-live-us-demands-tehran-accept-defeat-israel-pounds-lebanon" target="_blank">AJ D+26 Live ↗</a>
+          <a href="https://www.aljazeera.com/news/2026/3/25/us-israel-war-on-iran-whats-happening-on-day-26-of-attacks" target="_blank" style="margin-left:8px">AJ D+26 綜合 ↗</a>
+          <a href="https://www.cnn.com/2026/03/25/world/live-news/iran-war-us-israel-trump-03-25-26" target="_blank" style="margin-left:8px">CNN D+26 ↗</a>
+          <a href="https://www.britannica.com/event/2026-Iran-Conflict" target="_blank" style="margin-left:8px">Britannica ↗</a>
+        </div>
       </div>
     </div>
 
@@ -795,135 +641,138 @@ details[open] summary::before { transform: rotate(90deg); }
 
 <!-- ═══ TAB 4 外交動態 ═══ -->
 <div class="panel" id="tab4">
-  <div class="sec-label">▶ DIPLOMATIC & POLITICAL — 截至 2026.03.17 22:15 UTC+8</div>
+  <div class="sec-label">▶ DIPLOMATIC & POLITICAL — 截至 2026.03.26 15:15 UTC+8</div>
   <div class="diplo-list">
 
     <div class="diplo-card" style="border-left:3px solid var(--c-ir)">
-      <div class="diplo-head"><div class="diplo-tag" style="color:var(--c-ir)">🇮🇷 伊朗</div><div class="diplo-who">戰到底</div></div>
-      <div class="diplo-body">FM Araghchi（CBS）：「從未尋求停火，從未要求談判，準備防禦到底。」IRGC：「武器庫完好，使用舊彈藥；新型武器保留。」逮捕 18 名疑似 Iran International 人員；網路中斷 18 天。
-      <details><summary>展開</summary><div class="detail-body">伊朗持續對以色列中部及 Tel Aviv 方向發射飛彈（D+17）；伊朗尚未正式確認拉里賈尼遭殺。伊朗 FM 表示已向國際法院提出 Amnesty 確認女校事件訴訟意向。<a href="https://www.aljazeera.com/news/2026/3/16/iran-war-what-is-happening-on-day-17-of-us-israel-attacks" target="_blank">AJ D+16 ↗</a></div></details>
+      <div><div class="diplo-tag" style="color:var(--c-ir)">🇮🇷 伊朗</div><div class="diplo-who">拒談 / 五點</div></div>
+      <div class="diplo-body">伊朗拒絕美 15 點方案，稱「極端強硬」；提出五點反條件；伊朗軍方：「美國只是在跟自己談判」；FM Araghchi 確認有透過中介傳訊但否認談判；伊朗仍每日對以色列發射飛彈；Bushehr 核電站 D+25 遭擊（IAEA 無外洩）。
+      <details><summary>展開</summary><div class="detail-body">Iran 五點：①核主權；②解除制裁；③美以軍隊撤中東；④戰爭賠款；⑤不再攻擊國際保證。伊朗表示這些是「最低條件」。<a href="https://www.aljazeera.com/news/liveblog/2026/3/26/iran-war-live-us-demands-tehran-accept-defeat-israel-pounds-lebanon" target="_blank">AJ D+26 ↗</a></div></details>
       </div>
     </div>
 
     <div class="diplo-card" style="border-left:3px solid var(--c-il)">
-      <div class="diplo-head"><div class="diplo-tag" style="color:var(--c-il)">🇺🇸 美國</div><div class="diplo-who">內部裂痕</div></div>
-      <div class="diplo-body">Trump：「伊朗想談，但條件不夠好。」Joe Kent（反恐中心主任）公開辭職。250+ 組織要求停止戰爭撥款。Trump 推遲訪中一個月。
-      <details><summary>展開</summary><div class="detail-body">Trump 批評盟友未協助保衛霍爾木茲；指英國「不熱心」。IDF Defrin：「至少再打三週，不按時間表」。擬向國會申請 $50B 追加預算。<a href="https://abcnews.com/International/live-updates/iran-live-updates/?id=131108492" target="_blank">ABC ↗</a></div></details>
+      <div><div class="diplo-tag" style="color:var(--c-il)">🇺🇸 美國</div><div class="diplo-who">壓迫式談判</div></div>
+      <div class="diplo-body">「接受失敗或被打得更重」；Trump 稱「伊朗太害怕說出想談」；House Armed Services Committee 對戰爭目標與時間表說明不滿（CNN）；82nd Airborne 仍在部署中；以色列擔心 Trump 宣布單月停火，繞過以方。
+      <details><summary>展開</summary><div class="detail-body">Trump 說 Hegseth 是「對停火最失望的人」；美方回應伊朗五點條件說「不現實」。USPS 首徵 8% 燃油附加費顯示國內經濟衝擊已顯現。<a href="https://www.cnn.com/2026/03/25/world/live-news/iran-war-us-israel-trump-03-25-26" target="_blank">CNN D+26 ↗</a></div></details>
       </div>
     </div>
 
     <div class="diplo-card" style="border-left:3px solid #ff7040">
-      <div class="diplo-head"><div class="diplo-tag" style="color:#ff7040">🇷🇺🇨🇳</div><div class="diplo-who">雙重博弈</div></div>
-      <div class="diplo-body">俄羅斯持續向伊朗提供美軍情報；被點名派艦中國未確認；拉里賈尼遭殺後俄譴責以色列。分析：中國藉北斗系統提升伊朗飛彈精準度。
-      <details><summary>展開</summary><div class="detail-body">俄方情報由 WashPost / NPR 確認（D+6）。Trump 推遲習近平會面。伊朗提出以人民幣結算石油貿易為霍爾木茲開放條件——直接利好中國。<a href="https://www.aljazeera.com/features/2026/3/11/could-iran-be-using-chinas-highly-accurate-beidou-navigation-system" target="_blank">AJ 北斗 ↗</a></div></details>
+      <div><div class="diplo-tag" style="color:#ff7040">🌐 中介渠道</div><div class="diplo-who">多方傳訊</div></div>
+      <div class="diplo-body">巴基斯坦：PM Sharif 公開表態主辦談判；埃及、土耳其也在傳遞訊息（NPR D+25 確認）；FM Araghchi 確認有透過「友好國家」傳訊；俄羅斯持續向伊朗提供美軍情報（WashPost/NPR）。
+      <details><summary>展開</summary><div class="detail-body">中國被 Trump 早前點名派艦保衛霍爾木茲——至今未確認；中國北斗導航疑支援伊朗飛彈精準度（AJ 分析）。<a href="https://www.aljazeera.com/economy/2026/3/25/us-iran-mediation-what-are-each-sides-demands-and-is-a-deal-possible" target="_blank">AJ 談判分析 ↗</a></div></details>
       </div>
     </div>
 
     <div class="diplo-card" style="border-left:3px solid var(--c-us)">
-      <div class="diplo-head"><div class="diplo-tag" style="color:var(--c-us)">🌍 國際</div><div class="diplo-who">停火框架</div></div>
-      <div class="diplo-body">EU 外長決議不擴大霍爾木茲海軍行動；澳、日確認不派艦；黎巴嫩 Aoun 一月停火框架懸而未決；印度 CBSE 取消中東 7 國 3/16–4/10 高中考試。
-      <details><summary>展開</summary><div class="detail-body">法國 Macron 持續推動降溫；卡達 FM：「對鄰國攻擊對任何人無益」。<a href="https://www.aljazeera.com/news/2026/3/11/qatars-foreign-minister-says-keeping-strait-of-hormuz-open-is-critical" target="_blank">AJ ↗</a> 英國：「與盟友協調中」，無詳情。</div></details>
+      <div><div class="diplo-tag" style="color:var(--c-us)">🌍 國際反應</div><div class="diplo-who">停火呼聲升</div></div>
+      <div class="diplo-body">UN 秘書長 Guterres：「黎巴嫩不能成為下一個加薩」；英國 Starmer 部署短程防空系統赴海灣；IEA「重大、重大威脅」全球經濟；法、加、德、義、英聯合聲明對黎巴嫩局勢「極度憂慮」；菲律賓能源緊急狀態。
+      <details><summary>展開</summary><div class="detail-body">法加德義英五國聯合聲明：「對黎巴嫩的暴力『極度憂慮』，呼籲立即降溫」，同時譴責 Hezbollah「決定加入伊朗對抗以色列」，呼籲避免以色列地面入侵。<a href="https://en.wikipedia.org/wiki/2026_Lebanon_war" target="_blank">Wikipedia 黎巴嫩戰爭 ↗</a></div></details>
       </div>
     </div>
 
     <div class="diplo-card" style="border-left:3px solid var(--c-warn)">
-      <div class="diplo-head"><div class="diplo-tag" style="color:var(--c-warn)">🛡️ 區域</div><div class="diplo-who">全面升溫</div></div>
-      <div class="diplo-body">黎巴嫩 850+ 死（100+ 兒童）；IDF 地面作戰持續；D+19 伊朗導彈碎片落西岸 Hebron 理髮店殺 4 人（CBS）；UAE D+19 攔截 7 飛彈 + 15 無人機；胡塞仍克制（ACLED）。<a href="https://www.cbsnews.com/live-updates/iran-war-israel-strike-south-pars-gas-field-trump-threat-oil-gas-prices/" target="_blank">CBS ↗</a></div>
+      <div><div class="diplo-tag" style="color:var(--c-warn)">🇱🇧 黎巴嫩</div><div class="diplo-who">地面入侵前夕</div></div>
+      <div class="diplo-body">以色列 IDF 下令貝魯特南郊大規模撤離；Lebanon 警告地面入侵迫近（Litani 河以南）；Lebanon 官員：「IRGC 在管理 Hezbollah 軍事行動、持有假護照非法入境」；France/Canada/Germany/Italy/UK 聯合反對地面入侵；Hezbollah 對以色列 D+26 已發射 3,500 枚飛彈及無人機（AJ D+26）。<a href="https://www.aljazeera.com/news/2026/3/25/us-israel-war-on-iran-whats-happening-on-day-26-of-attacks" target="_blank">AJ ↗</a></div>
     </div>
 
     <div class="diplo-card" style="border-left:3px solid var(--c-alert)">
-      <div class="diplo-head"><div class="diplo-tag" style="color:var(--c-alert)">⚖️ 人道<span class="new-tag">D+20</span></div><div class="diplo-who">國際調查</div></div>
-      <div class="diplo-body">Amnesty 確認 Minab 女校美方責任；CARE International：黎巴嫩 69,900 名孕婦高風險；紅新月 11 名醫護身亡；伊朗 FM：200+ 名兒童死亡。
-      <details><summary>展開</summary><div class="detail-body">伊朗 FM 聲稱向國際法院提出訴訟意向。Trump 政府對批評性媒體發出威脅（AJ D+14）。Starlink 約 5 萬終端用於突破伊朗網路封鎖（FreedomHouse）。<a href="https://www.aljazeera.com/news/2026/3/16/us-responsible-for-deadly-attack-on-iranian-school-amnesty-international" target="_blank">Amnesty ↗</a></div></details>
-      </div>
+      <div><div class="diplo-tag" style="color:var(--c-alert)">⚖️ 人道 <span class="new-tag">D+26</span></div><div class="diplo-who">持續惡化</div></div>
+      <div class="diplo-body">伊朗 IRNA：1,750+ 死（D+26 首次更新）；Red Crescent：82,000+ 民用建築受損；約 20,000 名海員滯留（CNN D+26）；黎巴嫩：1,072 死、100 萬+ 流離失所；Amnesty 確認女校美方責任（D+16）；West Bank D+25：10 名平民遭殺（含 2 名兒童）。<a href="https://www.cnn.com/2026/03/24/middleeast/us-israel-iran-middle-east-war-day-26-what-we-know-intl-hnk" target="_blank">CNN ↗</a></div>
     </div>
 
   </div>
-</div>
+</div><!-- /#tab4 -->
 
 <!-- ═══ TAB 5 資料來源 ═══ -->
 <div class="panel" id="tab5">
   <div class="sec-label">▶ 原始來源連結（全部已驗證有效）</div>
 
   <div class="src-section">
-    <div class="src-title">📰 D+15–17 主要報導</div>
+    <div class="src-title">📰 D+24–26 主要報導</div>
     <div class="src-row">
       <div class="src-outlet">AL JAZEERA</div>
       <div class="src-info">
-        <div class="src-desc">D+17：拉里賈尼遭暗殺 · Arak 嬰兒 · 耶路撒冷聖地 · IRGC 新武器保留</div>
-        <a class="src-link" href="https://www.aljazeera.com/news/2026/3/17/iran-war-what-is-happening-on-day-18-of-us-israel-attacks" target="_blank">→ AJ D+17 ↗</a>
-        <a class="src-link" href="https://www.aljazeera.com/news/liveblog/2026/3/17/iran-war-live-trump-scolds-allies-for-not-joining-strait-of-hormuz-mission" target="_blank">→ 即時 Live ↗</a>
-        <a class="src-link" href="https://www.aljazeera.com/news/2026/3/16/iran-war-what-is-happening-on-day-17-of-us-israel-attacks" target="_blank">→ AJ D+16 ↗</a>
-        <a class="src-link" href="https://www.aljazeera.com/news/2026/3/16/us-responsible-for-deadly-attack-on-iranian-school-amnesty-international" target="_blank">→ Amnesty 女校 ↗</a>
+        <div class="src-desc">D+26 Live：美「接受失敗」警告 · 伊朗拒 15 點提五點 · Lebanon 1,072 死 · IDF 地面入侵威脅</div>
+        <a class="src-link red" href="https://www.aljazeera.com/news/liveblog/2026/3/26/iran-war-live-us-demands-tehran-accept-defeat-israel-pounds-lebanon" target="_blank">→ AJ D+26 Live ↗</a>
+        <a class="src-link" href="https://www.aljazeera.com/news/2026/3/25/us-israel-war-on-iran-whats-happening-on-day-26-of-attacks" target="_blank">→ AJ D+26 綜合 ↗</a>
+        <a class="src-link" href="https://www.aljazeera.com/economy/2026/3/25/us-iran-mediation-what-are-each-sides-demands-and-is-a-deal-possible" target="_blank">→ 談判各方立場 ↗</a>
+        <a class="src-link" href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank">→ 傷亡追蹤器 ↗</a>
       </div>
     </div>
     <div class="src-row">
       <div class="src-outlet">CNN</div>
       <div class="src-info">
-        <div class="src-desc">D+20：南帕爾斯 · 能源危機 · $200B · Brent $115 · 沙烏地 / 卡達能源設施受損</div>
-        <a class="src-link" href="https://www.cnn.com/world/live-news/iran-war-us-israel-trump-03-17-26" target="_blank">→ CNN D+20 ↗</a>
-        <a class="src-link" href="https://www.cbsnews.com/live-updates/iran-war-israel-strike-south-pars-gas-field-trump-threat-oil-gas-prices/" target="_blank">→ CBS 南帕爾斯 Live ↗</a>
-        <a class="src-link" href="https://www.cbsnews.com/news/hegseth-caine-iran-war-update-briefing-2026-03-19/" target="_blank">→ CBS Hegseth D+19 ↗</a>
-      </div>
-    </div>
-    <div class="src-row">
-      <div class="src-outlet">ABC NEWS</div>
-      <div class="src-info">
-        <div class="src-desc">D+19：五角大廈 $200B · 日本 PM Takaichi 訪 Trump · ECB 凍結利率 · 西岸碎片 4 死</div>
-        <a class="src-link" href="https://abcnews.com/International/live-updates/iran-live-updates/?id=131108492" target="_blank">→ Axios D+19 ↗</a>
-      </div>
-    </div>
-    <div class="src-row">
-      <div class="src-outlet">EURONEWS</div>
-      <div class="src-info">
-        <div class="src-desc">D+19：AP 確認 $200B · CBS Hegseth briefing · AP Brent $119 · WashPost $200B 首報</div>
-        <a class="src-link" href="https://www.euronews.com/2026/03/17/uae-briefly-closes-airspace-after-reporting-new-wave-of-attacks-as-iran-war-rolls-into-its" target="_blank">→ WashPost D+19 ↗</a>
+        <div class="src-desc">D+26：1,750+ 死（IRNA）· 290 美軍傷 · 20,000 海員滯留 · Bushehr 核電站 · 以色列擔心 Trump 單月停火</div>
+        <a class="src-link red" href="https://www.cnn.com/2026/03/24/middleeast/us-israel-iran-middle-east-war-day-26-what-we-know-intl-hnk" target="_blank">→ CNN D+26 ↗</a>
+        <a class="src-link" href="https://www.cnn.com/2026/03/25/world/live-news/iran-war-us-israel-trump-03-25-26" target="_blank">→ CNN D+26 Live ↗</a>
       </div>
     </div>
     <div class="src-row">
       <div class="src-outlet">WIKIPEDIA</div>
       <div class="src-info">
-        <div class="src-desc">2026 伊朗戰爭主條目 + 時間軸（持續更新）</div>
-        <a class="src-link o" href="https://en.wikipedia.org/wiki/2026_Iran_war" target="_blank">→ 主條目 ↗</a>
-        <a class="src-link o" href="https://en.wikipedia.org/wiki/Timeline_of_the_2026_Iran_war" target="_blank">→ 時間軸 ↗</a>
+        <div class="src-desc">2026 伊朗衝突主條目（最新更新）· 2026 黎巴嫩戰爭（1,000+ 死 · 100 萬流離失所）</div>
+        <a class="src-link o" href="https://en.wikipedia.org/wiki/2026_Iran_conflict" target="_blank">→ 2026 伊朗衝突 ↗</a>
+        <a class="src-link o" href="https://en.wikipedia.org/wiki/2026_Lebanon_war" target="_blank">→ 2026 黎巴嫩戰爭 ↗</a>
         <div class="src-note">⚠ 協作彙整，建議與 AP / Reuters 交叉確認</div>
       </div>
     </div>
-  </div>
-
-  <div class="src-section">
-    <div class="src-title">📊 傷亡 · 戰費 · 分析</div>
     <div class="src-row">
-      <div class="src-outlet">AL JAZEERA</div>
+      <div class="src-outlet">BRITANNICA</div>
       <div class="src-info">
-        <div class="src-desc">即時傷亡追蹤器（官方 1,444 死 18,551 傷；7 天未更新）</div>
-        <a class="src-link" href="https://www.aljazeera.com/news/2026/3/1/us-israel-attacks-on-iran-death-toll-and-injuries-live-tracker" target="_blank">→ AJ 追蹤器 ↗</a>
-        <a class="src-link" href="https://www.aljazeera.com/news/2026/3/12/trump-admin-estimates-us-war-on-iran-cost-11-3bn-in-first-6-days-report" target="_blank">→ $11.3B 報告 ↗</a>
-        <a class="src-link" href="https://www.aljazeera.com/features/2026/3/11/could-iran-be-using-chinas-highly-accurate-beidou-navigation-system" target="_blank">→ 北斗分析 ↗</a>
-        <a class="src-link" href="https://www.aljazeera.com/features/2026/3/8/who-is-mojtaba-khamenei-a-contender-for-irans-leadership-amid-war" target="_blank">→ 穆吉塔巴背景 ↗</a>
-      </div>
-    </div>
-    <div class="src-row">
-      <div class="src-outlet">PBS / NPR</div>
-      <div class="src-info">
-        <div class="src-desc">Sgt. Pennington（第 7 名美軍）不治報導；穆吉塔巴就任 D+9</div>
-        <a class="src-link g" href="https://www.pbs.org/newshour/nation/kentucky-soldier-stationed-in-saudi-arabia-is-7th-u-s-military-death-in-iran-war" target="_blank">→ PBS ↗</a>
-        <a class="src-link g" href="https://www.pbs.org/newshour/nation/dignified-transfer-for-kentucky-soldier-who-was-7th-u-s-service-member-to-die-in-iran-war" target="_blank">→ PBS Dover ↗</a>
-        <a class="src-link g" href="https://www.npr.org/2026/03/09/nx-s1-5742327/us-israel-iran-war-new-supreme-leader" target="_blank">→ NPR D+9 ↗</a>
-      </div>
-    </div>
-    <div class="src-row">
-      <div class="src-outlet">ACLED</div>
-      <div class="src-info">
-        <div class="src-desc">中東特別報告：胡塞自 2025/10 起未攻商船；伊拉克 PMF 動態</div>
-        <a class="src-link" href="https://acleddata.com/update/middle-east-special-issue-march-2026" target="_blank">→ ACLED 特別報告 ↗</a>
+        <div class="src-desc">2026 伊朗戰爭（最後更新 D+25/26）：談判 · 伊朗拒方案 · 能源衝擊 · 海員滯留</div>
+        <a class="src-link o" href="https://www.britannica.com/event/2026-Iran-Conflict" target="_blank">→ Britannica ↗</a>
       </div>
     </div>
     <div class="src-row">
       <div class="src-outlet">HoC LIBRARY</div>
       <div class="src-info">
-        <div class="src-desc">英國立場：Starmer 授權美軍使用英基地；英國不確認加入艦隊呼籲</div>
-        <a class="src-link" href="https://commonslibrary.parliament.uk/research-briefings/cbp-10305/" target="_blank">→ HoC Library ↗</a>
+        <div class="src-desc">英國立場完整簡報（cbp-10521，最新版）：英國防衛性部署、UK 基地授權、霍爾木茲立場</div>
+        <a class="src-link" href="https://commonslibrary.parliament.uk/research-briefings/cbp-10521/" target="_blank">→ HoC Library 簡報 ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="src-section">
+    <div class="src-title">📊 背景 · 傷亡 · 分析</div>
+    <div class="src-row">
+      <div class="src-outlet">NPR</div>
+      <div class="src-info">
+        <div class="src-desc">D+25 幕後渠道確認（巴基斯坦/埃及/土耳其）· D+24 特拉維夫飛彈現場確認 · 穆吉塔巴就任 D+9</div>
+        <a class="src-link g" href="https://www.npr.org/2026/03/24/nx-s1-5759317/israel-iran-war" target="_blank">→ NPR D+25 ↗</a>
+        <a class="src-link g" href="https://www.npr.org/2026/03/09/nx-s1-5742327/us-israel-iran-war-new-supreme-leader" target="_blank">→ NPR D+9 ↗</a>
+      </div>
+    </div>
+    <div class="src-row">
+      <div class="src-outlet">PBS</div>
+      <div class="src-info">
+        <div class="src-desc">第 7 名美軍 Sgt. Benjamin Pennington（26 歲，肯塔基，1st Space Brigade）不治</div>
+        <a class="src-link g" href="https://www.pbs.org/newshour/nation/kentucky-soldier-stationed-in-saudi-arabia-is-7th-u-s-military-death-in-iran-war" target="_blank">→ PBS ↗</a>
+        <a class="src-link g" href="https://www.pbs.org/newshour/nation/dignified-transfer-for-kentucky-soldier-who-was-7th-u-s-service-member-to-die-in-iran-war" target="_blank">→ PBS Dover ↗</a>
+      </div>
+    </div>
+    <div class="src-row">
+      <div class="src-outlet">ACLED</div>
+      <div class="src-info">
+        <div class="src-desc">中東特別報告：胡塞自 2025/10 未攻商船 · 以黎 250+ 次打擊 · 26/31 省份遭打擊 · Hezbollah 25,000 枚飛彈</div>
+        <a class="src-link" href="https://acleddata.com/update/middle-east-special-issue-march-2026" target="_blank">→ ACLED 特別報告 ↗</a>
+      </div>
+    </div>
+    <div class="src-row">
+      <div class="src-outlet">AMNESTY</div>
+      <div class="src-info">
+        <div class="src-desc">D+16：Minab 女校遭美軍 Tomahawk 打擊，至少 170 死（逾 160 名女生）——首個獨立機構確認美方責任</div>
+        <a class="src-link" href="https://www.aljazeera.com/news/2026/3/16/us-responsible-for-deadly-attack-on-iranian-school-amnesty-international" target="_blank">→ AJ 報導 Amnesty D+16 ↗</a>
+      </div>
+    </div>
+    <div class="src-row">
+      <div class="src-outlet">AL JAZEERA</div>
+      <div class="src-info">
+        <div class="src-desc">戰費 $11.3B（首 6 天，Trump 政府密室簡報）· 北斗導航分析 · 穆吉塔巴背景</div>
+        <a class="src-link" href="https://www.aljazeera.com/news/2026/3/12/trump-admin-estimates-us-war-on-iran-cost-11-3bn-in-first-6-days-report" target="_blank">→ $11.3B ↗</a>
+        <a class="src-link" href="https://www.aljazeera.com/features/2026/3/11/could-iran-be-using-chinas-highly-accurate-beidou-navigation-system" target="_blank">→ 北斗 ↗</a>
+        <a class="src-link" href="https://www.aljazeera.com/features/2026/3/8/who-is-mojtaba-khamenei-a-contender-for-irans-leadership-amid-war" target="_blank">→ 穆吉塔巴 ↗</a>
       </div>
     </div>
   </div>
@@ -938,7 +787,7 @@ details[open] summary::before { transform: rotate(90deg); }
           <span class="policy-note">獨立媒體、學術機構、國際組織</span>
         </div>
         <div class="policy-tags">
-          <span class="tag allow">Al Jazeera</span><span class="tag allow">CNN</span><span class="tag allow">CBS News</span><span class="tag allow">AP</span><span class="tag allow">Reuters</span><span class="tag allow">WashPost</span><span class="tag allow">Axios</span><span class="tag allow">NPR</span><span class="tag allow">PBS</span><span class="tag allow">NBC</span><span class="tag allow">Newsweek</span><span class="tag allow">Britannica</span><span class="tag allow">Wikipedia</span><span class="tag allow">CENTCOM</span><span class="tag allow">IAEA</span><span class="tag allow">WHO</span><span class="tag allow">ACLED</span><span class="tag allow">HoC Library</span><span class="tag allow">Amnesty Int'l</span>
+          <span class="tag allow">Al Jazeera</span><span class="tag allow">CNN</span><span class="tag allow">CBS News</span><span class="tag allow">NPR</span><span class="tag allow">PBS</span><span class="tag allow">AP</span><span class="tag allow">Reuters</span><span class="tag allow">Wikipedia</span><span class="tag allow">Britannica</span><span class="tag allow">ACLED</span><span class="tag allow">CENTCOM</span><span class="tag allow">IAEA</span><span class="tag allow">WHO</span><span class="tag allow">HoC Library</span><span class="tag allow">Amnesty Int'l</span><span class="tag allow">Newsweek</span><span class="tag allow">NBC</span>
         </div>
       </div>
       <div class="policy-col deny">
@@ -948,53 +797,44 @@ details[open] summary::before { transform: rotate(90deg); }
           <span class="policy-note">威權政府官媒、黨政喉舌</span>
         </div>
         <div class="policy-tags">
-          <span class="tag deny">中天新聞</span><span class="tag deny">新華社</span><span class="tag deny">央視 CCTV</span><span class="tag deny">環球時報</span><span class="tag deny">法爾斯通訊社 Fars</span><span class="tag deny">IRNA 伊朗官媒</span><span class="tag deny">Press TV</span><span class="tag deny">RT</span><span class="tag deny">Sputnik</span>
+          <span class="tag deny">中天新聞</span><span class="tag deny">新華社</span><span class="tag deny">央視 CCTV</span><span class="tag deny">環球時報</span><span class="tag deny">法爾斯通訊社 Fars</span><span class="tag deny">IRNA（引用除外）</span><span class="tag deny">Press TV</span><span class="tag deny">RT</span><span class="tag deny">Sputnik</span>
         </div>
-        <p class="policy-reason">以上媒體受威權政府直接控制，報導立場不獨立，數據可靠性存疑，不作為本儀表板資料依據。</p>
+        <p class="policy-reason">以上媒體受威權政府直接控制，報導立場不獨立，數據可靠性存疑，不作為本儀表板資料依據。IRNA 僅在被其他可信媒體引述時採用（如 CNN D+26 引述 IRNA 死亡人數）。</p>
       </div>
     </div>
   </div>
-</div>
+</div><!-- /#tab5 -->
 
 <footer class="footer">
-  VERIFIED SOURCES: AL JAZEERA · CNN · ABC NEWS · EURONEWS · WIKIPEDIA · ACLED · PBS · NPR · CENTCOM · IAEA · HoC LIBRARY · AMNESTY INTERNATIONAL<br>
-  資料更新：2026.03.17 22:15 UTC+8 ｜ ⚠ 伊朗官方傷亡持續未更新（1,444 死）｜ $200B 申請尚未送達國會
+  VERIFIED SOURCES: AL JAZEERA · CNN · NPR · PBS · AP · WIKIPEDIA · BRITANNICA · ACLED · CENTCOM · IAEA · HoC LIBRARY · AMNESTY INTERNATIONAL<br>
+  資料更新：2026.03.26 15:15 UTC+8（台灣時間）｜ D+26｜戰爭仍在進行中<br>
+  ⚠ 伊朗死亡 1,750+ 為 IRNA D+26 首次更新（CNN 引述）；停火談判：美 15 點 vs 伊朗五點反條件，雙方立場距離仍大
 </footer>
 
-</div><!-- .wrap -->
+</div><!-- /.wrap -->
 
 <script>
-/* ── 分頁切換 ── */
-function switchTab(i) {
-  document.querySelectorAll('.tab-btn').forEach((b,j) => b.classList.toggle('active', i===j));
-  document.querySelectorAll('.panel').forEach((p,j) => p.classList.toggle('active', i===j));
+function switchTab(i){
+  document.querySelectorAll('.tab-btn').forEach((b,j)=>b.classList.toggle('active',i===j));
+  document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('active',i===j));
   animateBars();
 }
-
-/* ── 數字滾動 ── */
-function countUp(el) {
-  const target = parseInt(el.dataset.target);
-  const dur = 1400;
-  const start = performance.now();
-  const tick = now => {
-    const p = Math.min((now - start) / dur, 1);
-    const v = Math.floor(p * target);
-    el.textContent = v >= 10000 ? v.toLocaleString() : v;
-    if (p < 1) requestAnimationFrame(tick);
+function countUp(el){
+  const t=parseInt(el.dataset.target),dur=1400,s=performance.now();
+  const f=n=>{
+    const p=Math.min((n-s)/dur,1),v=Math.floor(p*t);
+    el.textContent=v>=10000?v.toLocaleString():v;
+    if(p<1)requestAnimationFrame(f);
   };
-  requestAnimationFrame(tick);
+  requestAnimationFrame(f);
 }
-
-/* ── 進度條 ── */
-function animateBars() {
-  document.querySelectorAll('.bar-fill[data-val]').forEach((el, i) => {
-    el.style.width = '0';
-    setTimeout(() => { el.style.width = el.dataset.val + '%'; }, i * 70 + 40);
+function animateBars(){
+  document.querySelectorAll('.bar-fill[data-val]').forEach((el,i)=>{
+    el.style.width='0';
+    setTimeout(()=>{el.style.width=el.dataset.val+'%'},i*75+40);
   });
 }
-
-/* ── 初始化 ── */
-window.addEventListener('load', () => {
+window.addEventListener('load',()=>{
   document.querySelectorAll('.cas-num[data-target]').forEach(countUp);
   animateBars();
 });
